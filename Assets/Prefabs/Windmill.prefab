@@ -959,7 +959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6583528055809195611}
   m_Layer: 0
-  m_Name: Windmill
+  m_Name: windmill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
