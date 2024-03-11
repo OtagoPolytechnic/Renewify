@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1731,8 +1731,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b2c162d001f5d49a62650b9a3970b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modalPrefab: {fileID: 3426460776774789344, guid: 3096ba22ab641fd46b2203a96baef2c4,
+  modalPrefab: {fileID: 1370255663746869699, guid: 62c6874e73eae044ea88c9b4fb8ba43d,
     type: 3}
+  canvas: {fileID: 339420633}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

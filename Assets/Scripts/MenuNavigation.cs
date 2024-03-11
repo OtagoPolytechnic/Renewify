@@ -6,19 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuNavigation : MonoBehaviour
 {
-
     public void OpenScene(string levelName) //eg: "Level 1"
     {
-         SceneManager.LoadScene(levelName);
+        SceneManager.LoadScene(levelName);
     }
-    
 
     public void QuitGame() //This function will be called when the quit button is clicked and quit the game
     {
-        MenuManager.instance.DisplayDialog("Quit Game?", "Are you sure you want to quit?");
-        // if (confirmQuit == true)
-        // {
-        //     Application.Quit();
-        // }
+        MenuManager.instance.DisplayDialog(
+            "Quit Game?",
+            "Are you sure you want to quit?",
+            () => Application.Quit() //This is the action that will be invoked when the accept button is clicked
+        );
     }
 }
