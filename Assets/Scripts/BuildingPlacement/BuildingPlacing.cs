@@ -35,14 +35,17 @@ public class BuildingPlacing : MonoBehaviour
         //Get X, Y, and Size from the GridCreator script
         int playerX = 2;
         int playerY = 2;
-        int gridSize = 5;
-        index = playerX * gridSize + playerY;
-        List<GameObject> tiles = new List<GameObject>();
-        //Check if the space is empty
-        if (tiles[index].empty == true)
+        int gridSize = 10;
+        float tileSize = 10.0f;
+        //Calculation from Liam's script
+        float xPos = (x * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
+        float yPos = (y * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
+        //Check if the space is empty. Figure out how to track this?
+        bool empty = true;
+        if (empty)
         {
             //Set space to full
-            tiles[index].empty = false;
+            empty = false;
             //Place the building
         }
         {
