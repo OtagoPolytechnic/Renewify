@@ -24,7 +24,7 @@ public class BuildingPlacing : MonoBehaviour
         placeBuilding();
     }
 
-    selectBuilding()
+    private void selectBuilding()
     {
         //Get the building that was clicked on
         //Set the building to the selected building
