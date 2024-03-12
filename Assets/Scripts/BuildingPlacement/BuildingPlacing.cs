@@ -38,8 +38,8 @@ public class BuildingPlacing : MonoBehaviour
         int gridSize = 10;
         float tileSize = 10.0f;
         //Calculation from Liam's script
-        float xPos = (x * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
-        float yPos = (y * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
+        float xPos = (playerX * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
+        float yPos = (playerY * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
         //Check if the space is empty. Figure out how to track this?
         bool empty = true;
         if (empty)
