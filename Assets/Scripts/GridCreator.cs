@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GridCreator : MonoBehaviour
 {
-    public int gridSize = 5; //width and height of grid (5x5, 9x9, etc)
-    public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
+    
     public GameObject tilePrefab; 
 
     public Material defaultMaterial;
@@ -13,8 +12,7 @@ public class GridCreator : MonoBehaviour
 
 
     private List<GameObject> tiles = new List<GameObject>();
-    public int playerX;
-    public int playerY;
+    
 
     void Start()
     {
@@ -28,14 +26,11 @@ public class GridCreator : MonoBehaviour
 
     void GenerateGrid()
     {
-        for(int x = 0; x < gridSize; x++)
+        for(int x = 0; x < Grid.Instance.gridSize; x++)
         {
-            for(int y = 0; y < gridSize; y++)
+            for(int y = 0; y < Grid.Instance.gridSize; y++)
             {
-                float xPos = (x * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
-                float yPos = (y * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
-
-                Vector3 tilePosition = new Vector3(xPos, 1, yPos);
+                Vector3 tilePosition = Grid.CalculatePos(x,y);
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
                 tile.name = "Tile_" + x + "_" + y;
 
