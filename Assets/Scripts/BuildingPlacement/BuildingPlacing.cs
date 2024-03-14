@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class BuildingPlacing : MonoBehaviour
 {
+    public List<GameObject> buildings;
     private void OnMouseDown()
     {
         //If the cursor is over one of the building selection panels
@@ -25,26 +26,24 @@ public class BuildingPlacing : MonoBehaviour
     /// Places a building where the user clicks    
     /// </summary>
     /// <param name="building"></param>
-    private void placeBuilding(Buildings building) //TODO: Add enum variable input for building type
+    private void placeBuilding() //TODO: Add enum variable input for building type
     {
         //Temp variables declared until merged with grid branch.
         //TODO: Change commented out variables to the real ones and delete temp variables.
         //int playerX = MouseManager.Instance.playerX;
-        int playerX = 2;
         //int playerZ = MouseManager.Instance.playerZ;
-        int playerZ = 2;
         //Get this from the grid script list for the player x and y
         //Use the ENUM for building types
-        if (true) //TODO: Check if the tile is empty
+        //if (GridManager.IsTileEmpty(MouseManager.gridPosition))
         {
-            //GridManager.CalculatePos(playerX, playerZ);
-            //Set tile to the building
-            //tile = building;
+            //Pass through the building I want to be placed
+            //GridManager.tileStates[MouseManager.gridPosition] == 
             //Place the building
+            //Get the prefab with the same name as the building variable
+            //GameObject temp = Instantiate(buildings[0], GridManager.CalculatePos(playerX, playerZ), Quaternion.identity);
         }
         {
             //Show a message saying that the space is full
         }
-        //Calculates the center of the grid space
     }
 }
