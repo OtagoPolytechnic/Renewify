@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1311920498076946175}
   - component: {fileID: 1230348590801838146}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: ModalTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.40392157}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 869592337837941936}
   - component: {fileID: 4963348746008440638}
   m_Layer: 5
-  m_Name: Image
+  m_Name: tick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 7989290694401892079}
   - component: {fileID: 7922038453488384793}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: cross
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 8448379190218868133}
   - component: {fileID: 5262744958952351090}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: ModalSubtext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
