@@ -10,6 +10,7 @@ public class MouseManager : MonoBehaviour
     public static MouseManager Instance;
     public int playerX;
     public int playerZ; 
+    public static int gridPosition;
 
     void Awake()
     {
@@ -41,8 +42,10 @@ public class MouseManager : MonoBehaviour
                 playerX = int.Parse(tileNameParts[1]);
                 playerZ = int.Parse(tileNameParts[2]);
 
+                
+                gridPosition = playerX * GridManager.Instance.gridSize + playerZ;    
                 SetTileAtPlayerPosition();
-
+                //Debug.Log(GridManager.IsTileEmpty(MouseManager.gridPosition));
 
             }
         }
