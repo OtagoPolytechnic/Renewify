@@ -1,21 +1,12 @@
+/// <summary>
+/// 
+/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingPlacing : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnMouseDown()
     {
         //If the cursor is over one of the building selection panels
@@ -30,26 +21,30 @@ public class BuildingPlacing : MonoBehaviour
         //Set the building to the selected building
     }
 
-    private void placeBuilding()
+    /// <summary>
+    /// Places a building where the user clicks    
+    /// </summary>
+    /// <param name="building"></param>
+    private void placeBuilding(Buildings building) //TODO: Add enum variable input for building type
     {
-        //Get X, Y, and Size from the GridCreator script
+        //Temp variables declared until merged with grid branch.
+        //TODO: Change commented out variables to the real ones and delete temp variables.
+        //int playerX = MouseManager.Instance.playerX;
         int playerX = 2;
-        int playerY = 2;
-        int gridSize = 10;
-        float tileSize = 10.0f;
-        //Calculation from Liam's script
-        float xPos = (playerX * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
-        float yPos = (playerY * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
-        //Check if the space is empty. Figure out how to track this?
-        bool empty = true;
-        if (empty)
+        //int playerZ = MouseManager.Instance.playerZ;
+        int playerZ = 2;
+        //Get this from the grid script list for the player x and y
+        //Use the ENUM for building types
+        if (true) //TODO: Check if the tile is empty
         {
-            //Set space to full
-            empty = false;
+            //GridManager.CalculatePos(playerX, playerZ);
+            //Set tile to the building
+            //tile = building;
             //Place the building
         }
         {
             //Show a message saying that the space is full
         }
+        //Calculates the center of the grid space
     }
 }
