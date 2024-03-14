@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class GridManager : MonoBehaviour
 {
-    public static Grid Instance;
+    public static GridManager Instance;
     public int gridSize = 5; //width and height of grid (5x5, 9x9, etc)
     public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
-    public int playerX;
-    public int playerY;
     void Awake()
     {
         if(Instance == null)

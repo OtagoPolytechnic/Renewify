@@ -10,6 +10,8 @@ public class GridCreator : MonoBehaviour
     public Material defaultMaterial;
     public Material highlightedMaterial;
 
+    public int playerX;
+    public int playerY; 
 
     private List<GameObject> tiles = new List<GameObject>();
     
@@ -26,11 +28,11 @@ public class GridCreator : MonoBehaviour
 
     void GenerateGrid()
     {
-        for(int x = 0; x < Grid.Instance.gridSize; x++)
+        for(int x = 0; x < GridManager.Instance.gridSize; x++)
         {
-            for(int y = 0; y < Grid.Instance.gridSize; y++)
+            for(int y = 0; y < GridManager.Instance.gridSize; y++)
             {
-                Vector3 tilePosition = Grid.CalculatePos(x,y);
+                Vector3 tilePosition = GridManager.CalculatePos(x,y);
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
                 tile.name = "Tile_" + x + "_" + y;
 
@@ -74,9 +76,9 @@ public class GridCreator : MonoBehaviour
         }
 
         //Checks if player's x,y grid position is within bounds
-        if (playerX >= 0 && playerX < gridSize && playerY >= 0 && playerY < gridSize)
+        if (playerX >= 0 && playerX < GridManager.Instance.gridSize && playerY >= 0 && playerY < GridManager.Instance.gridSize)
         {
-            int index = playerX * gridSize + playerY;
+            int index = playerX * GridManager.Instance.gridSize + playerY;
 
             //Change tile material to highlighted
             tiles[index].GetComponent<Renderer>().material = highlightedMaterial;
