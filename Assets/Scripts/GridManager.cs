@@ -15,17 +15,17 @@ public class GridManager : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    private Vector3 onCalculatePos(float x, float y)
+    private Vector3 onCalculatePos(float x, float z)
     {
         Vector3 position;
         float xPos = (x * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
-        float yPos = (y * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
-        return position = new Vector3(xPos, 1, yPos);
+        float zPos = (z * tileSize) - (gridSize / 2 * tileSize) + (tileSize / 2);
+        return position = new Vector3(xPos, 1, zPos);
     }
 
     // Update is called once per frame
-    public static Vector3 CalculatePos(float x, float y)
+    public static Vector3 CalculatePos(float x, float z)
     {
-        return Instance.onCalculatePos(x, y);
+        return Instance.onCalculatePos(x, z);
     }
 }
