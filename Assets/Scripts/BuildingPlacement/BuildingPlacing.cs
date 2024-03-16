@@ -1,5 +1,5 @@
 /// <summary>
-/// 
+/// This script is used to place buildings on the grid
 /// </summary>
 using System.Collections;
 using System.Collections.Generic;
@@ -7,13 +7,16 @@ using UnityEngine;
 
 public class BuildingPlacing : MonoBehaviour
 {
-    public List<GameObject> buildings;
+    public GameObject Windmill;
+    public GameObject SolarPanelField;
+    //Enum building variable
+    //public static BuildingType selectedBuilding = NONE;
     private void OnMouseDown()
     {
-        //If the cursor is over one of the building selection panels
-        selectBuilding();
-        //If there is a building selected and the mouse is over a grid space
-        placeBuilding();
+        //if(selectedBuilding != NONE && mouse is over a grid space)
+        //{
+            //placeBuilding();
+        //}
     }
 
     private void selectBuilding()
@@ -25,7 +28,7 @@ public class BuildingPlacing : MonoBehaviour
     /// <summary>
     /// Places a building where the user clicks    
     /// </summary>
-    /// <param name="building"></param>
+    /// <param name="building">Building currently selected</param>
     private void placeBuilding() //TODO: Add enum variable input for building type
     {
         //Temp variables declared until merged with grid branch.
@@ -40,7 +43,8 @@ public class BuildingPlacing : MonoBehaviour
             //GridManager.tileStates[MouseManager.gridPosition] == 
             //Place the building
             //Get the prefab with the same name as the building variable
-            //GameObject temp = Instantiate(buildings[0], GridManager.CalculatePos(playerX, playerZ), Quaternion.identity);
+            //GameObject temp = Instantiate(building, GridManager.CalculatePos(playerX, playerZ), Quaternion.identity);
+            //selectBuilding = NONE;
         }
         {
             //Show a message saying that the space is full
