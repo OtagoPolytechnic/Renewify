@@ -11,18 +11,23 @@ public class BuildingPlacing : MonoBehaviour
     public GameObject SolarPanelField;
     //Enum building variable
     //public static BuildingType selectedBuilding = NONE;
-    private void OnMouseDown()
+    //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
+    void Update()
+    {
+        //If the user clicks the mouse
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnMouseDown();
+        }
+    }
+
+    public void OnMouseDown()
     {
         //if(selectedBuilding != NONE && mouse is over a grid space)
         //{
-            //placeBuilding();
+            Debug.Log("Placing building");
+            placeBuilding();
         //}
-    }
-
-    private void selectBuilding()
-    {
-        //Get the building that was clicked on
-        //Set the building to the selected building
     }
 
     /// <summary>
@@ -38,16 +43,16 @@ public class BuildingPlacing : MonoBehaviour
         //Get this from the grid script list for the player x and y
         //Use the ENUM for building types
         //if (GridManager.IsTileEmpty(MouseManager.gridPosition))
-        {
+        //{
             //Pass through the building I want to be placed
             //GridManager.tileStates[MouseManager.gridPosition] == 
             //Place the building
             //Get the prefab with the same name as the building variable
             //GameObject temp = Instantiate(building, GridManager.CalculatePos(playerX, playerZ), Quaternion.identity);
             //selectBuilding = NONE;
-        }
-        {
+        //}
+        //{
             //Show a message saying that the space is full
-        }
+        //}
     }
 }
