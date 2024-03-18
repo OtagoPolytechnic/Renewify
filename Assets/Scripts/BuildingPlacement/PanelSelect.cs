@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PanelSelect : MonoBehaviour
 {
-    public TileTypes panelBuilding = TileTypes.Windmills;
+    public TileTypes panelBuilding;
     //This is set on spawn to the type of building this panel is for
     public GameObject WindmillPrefab;
     public GameObject SolarPanelPrefab;
@@ -29,7 +29,6 @@ public class PanelSelect : MonoBehaviour
     {
         //Disable the selected text
         transform.GetChild(1).gameObject.SetActive(false);
-        panelBuilding = TileTypes.Windmills;
         //This will show an image of the selected item on the panel eventually
         switch (panelBuilding)
         {
@@ -39,7 +38,7 @@ public class PanelSelect : MonoBehaviour
                 break;
             case TileTypes.SolarPanels:
                 //Set child's text to Windmill as a placeholder
-                transform.GetChild(0).GetComponent<TMPro.TextMeshPro>().text = "Solar Panels";
+                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Solar Panels";
                 break;
             default:
                 Debug.Log("No valid building type selected");
