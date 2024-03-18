@@ -12,6 +12,8 @@ public class MouseManager : MonoBehaviour
     public int playerZ; 
     public static int gridPosition;
 
+    public static bool isHovering = false; 
+
     void Awake()
     {
         if(Instance == null)
@@ -36,6 +38,7 @@ public class MouseManager : MonoBehaviour
             //All grid planes are given the "Tile" tag, checks if the player is hovering over one
             if (hoveredTile.CompareTag("Tile"))
             {
+                isHovering = true;
                 //The tile gameobject names are automatically set   
                 //grabs only the x and z position from the name
                 string[] tileNameParts = hoveredTile.name.Split('_');
@@ -47,6 +50,12 @@ public class MouseManager : MonoBehaviour
                 SetTileAtPlayerPosition();
                 //Debug.Log(GridManager.IsTileEmpty(MouseManager.gridPosition));
 
+            }else{
+                isHovering = false;
+                foreach (GameObject tile in GridCreator.tiles)
+                {
+                    tile.GetComponent<Renderer>().material = GridCreator.Instance.defaultMaterial;
+                }
             }
         }
     }
