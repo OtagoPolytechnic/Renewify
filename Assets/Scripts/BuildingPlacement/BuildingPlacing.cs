@@ -66,5 +66,7 @@ public class BuildingPlacing : MonoBehaviour
     private void spawnBuilding(GameObject building, int playerX, int playerZ)
     {
         GameObject temp = Instantiate(building, GridManager.CalculatePos(playerX, playerZ), Quaternion.identity);
+        //Rotate temp by 180 degrees as the model is facing the wrong way no matter how I rotate the prefab?
+        temp.transform.Rotate(0, 180, 0);
     }
 }
