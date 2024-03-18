@@ -441,7 +441,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerX: 0
   playerZ: 0
-  gridPosition: 0
 --- !u!4 &587599879
 Transform:
   m_ObjectHideFlags: 0
@@ -654,8 +653,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 1, z: 100}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 99.64, y: 0.9964, z: 99.64}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -739,7 +738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: 5
   tileSize: 10
-  tileStates: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  tileStates: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

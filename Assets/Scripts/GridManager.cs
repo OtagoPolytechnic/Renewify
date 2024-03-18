@@ -16,10 +16,13 @@ public class GridManager : MonoBehaviour
         {
             Instance = this;
         }
+        tileStates.Clear();
         for (int i = 0; i < gridSize * gridSize; i++) {
             // Add default value to the list
             tileStates.Add(TileTypes.None);
         }
+
+        //TODO: load new tileStates preset
     }
     
     // Start is called before the first frame update
