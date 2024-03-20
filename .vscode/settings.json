@@ -57,4 +57,5 @@
         "Temp/": true
     },
     "dotnet.defaultSolution": "forth-street-studios-s1-24-team-1.sln"
+    "FSharp.suggestGitignore": false
 }
