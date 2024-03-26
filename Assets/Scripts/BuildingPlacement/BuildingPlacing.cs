@@ -37,10 +37,12 @@ public class BuildingPlacing : MonoBehaviour
     {
         int playerX = MouseManager.Instance.playerX;
         int playerZ = MouseManager.Instance.playerZ;
-        if (GridManager.IsTileEmpty(MouseManager.gridPosition))
+        if (GridManager.IsTileEmpty(MouseManager.gridPosition) && InventoryManagement.instance.BuildingsLeft())
         {
             //Pass through the building I want to be placed
             GridManager.Instance.tileStates[MouseManager.gridPosition] = selectedBuilding;
+            //Remove a building from the inventory
+            InventoryManagement.instance.PlaceSelectedBuilding();
             //Place the building
             //Get the prefab with the same name as the building variable
             switch(selectedBuilding)

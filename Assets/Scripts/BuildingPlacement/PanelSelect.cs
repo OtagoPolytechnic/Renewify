@@ -36,11 +36,11 @@ public class PanelSelect : MonoBehaviour
         {
             case TileTypes.Windmills:
                 //Set child's text to Windmill as a placeholder
-                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Windmill";
+                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Windmill \n" + availableBuildings;
                 break;
             case TileTypes.SolarPanels:
                 //Set child's text to Windmill as a placeholder
-                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Solar Panels";
+                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Solar Panels \n" + availableBuildings;
                 break;
             default:
                 Debug.Log("No valid building type selected");

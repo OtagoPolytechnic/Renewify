@@ -20,9 +20,21 @@ public class InventoryManagement : MonoBehaviour
         selectionPanels.AddRange(FindObjectsOfType<PanelSelect>());
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool BuildingsLeft()
     {
-        
+        if (currentSelectionPanel.availableBuildings > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+    public void PlaceSelectedBuilding()
+    {
+        currentSelectionPanel.availableBuildings--;
+        currentSelectionPanel.SetInfo();
+    }
+
 }
