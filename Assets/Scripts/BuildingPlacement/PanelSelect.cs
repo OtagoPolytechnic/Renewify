@@ -5,9 +5,12 @@ using UnityEngine;
 public class PanelSelect : MonoBehaviour
 {
     public TileTypes panelBuilding;
+
     //This is set on spawn to the type of building this panel is for
     public GameObject WindmillPrefab;
     public GameObject SolarPanelPrefab;
+
+    public int availableBuildings;
 
     void Start()
     {
@@ -18,12 +21,11 @@ public class PanelSelect : MonoBehaviour
     void Update()
     {
         //If the selected building isn't the same as this one, disable the selected text
-        if(BuildingPlacing.selectedBuilding != panelBuilding)
+        if (BuildingPlacing.selectedBuilding != panelBuilding)
         {
             transform.GetChild(1).gameObject.SetActive(false);
         }
     }
-
 
     public void SetInfo()
     {
@@ -48,20 +50,24 @@ public class PanelSelect : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// This is called when the user clicks on the panel to select a building
     /// </summary>
     public void SelectBuilding()
     {
-        //Set the selected building to the building type of this panel
-        if (BuildingPlacing.selectedBuilding == panelBuilding)
+        if (availableBuildings > 0)
         {
-            BuildingPlacing.selectedBuilding = TileTypes.None;
-        }
-        else
-        {
-            BuildingPlacing.selectedBuilding = panelBuilding;
+            //Set the selected building to the building type of this panel
+            if (BuildingPlacing.selectedBuilding == panelBuilding)
+            {
+                BuildingPlacing.selectedBuilding = TileTypes.None;
+                InventoryManagement.instance.currentSelectionPanel = null;
+            }
+            else
+            {
+                BuildingPlacing.selectedBuilding = panelBuilding;
+                InventoryManagement.instance.currentSelectionPanel = this;
+            }
         }
         //Enable the selected text
         //This will either become a model attached to the cursor or a better way of showing selection like an effect
