@@ -37,4 +37,18 @@ public class InventoryManagement : MonoBehaviour
         currentSelectionPanel.SetInfo();
     }
 
+    //Finds which panel manages the selected building and restores 1 building to the inventory
+    public void ReturnSelectedBuilding(TileTypes buildingType)
+    {
+        foreach(PanelSelect ps in selectionPanels)
+        {
+            if (buildingType == ps.panelBuilding)
+            {
+                ps.availableBuildings++;
+                ps.SetInfo();
+                break;
+            }
+        }
+    }
+
 }
