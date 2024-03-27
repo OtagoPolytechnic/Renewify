@@ -57,6 +57,7 @@ public class GridCreator : MonoBehaviour
         Vector3 tilePosition = tiles[index].transform.position;
         GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
         tile.name = "Bonus_Tile_" + index;
+        tile.tag = "Untagged";
 
         tile.GetComponent<Renderer>().material = debugMaterial;
     }
