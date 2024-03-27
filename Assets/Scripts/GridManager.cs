@@ -9,6 +9,7 @@ public class GridManager : MonoBehaviour
     public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
 
     public List<TileTypes> tileStates = new List<TileTypes>(); 
+    public List<bool> tileBonus = new List<bool>(); 
     
     void Awake()
     {
@@ -23,6 +24,7 @@ public class GridManager : MonoBehaviour
         }
 
         //TODO: load new tileStates preset
+        
     }
     
     // Start is called before the first frame update
@@ -39,6 +41,8 @@ public class GridManager : MonoBehaviour
     {
         return Instance.onCalculatePos(x, z);
     }
+
+    
 
     private bool OnIsTileEmpty(int index)
     {
