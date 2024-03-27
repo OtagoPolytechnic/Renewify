@@ -9,6 +9,8 @@ public class PanelSelect : MonoBehaviour
     //This is set on spawn to the type of building this panel is for
     public GameObject WindmillPrefab;
     public GameObject SolarPanelPrefab;
+    public Sprite selectedSprite;
+    public Sprite normalSprite;
 
     public int availableBuildings;
 
@@ -24,6 +26,7 @@ public class PanelSelect : MonoBehaviour
         if (BuildingPlacing.selectedBuilding != panelBuilding)
         {
             transform.GetChild(1).gameObject.SetActive(false);
+            gameObject.GetComponent<UnityEngine.UI.Image>().sprite = normalSprite;
         }
     }
 
@@ -31,6 +34,9 @@ public class PanelSelect : MonoBehaviour
     {
         //Disable the selected text
         transform.GetChild(1).gameObject.SetActive(false);
+        //Set the sprite to the normal sprite
+        gameObject.GetComponent<UnityEngine.UI.Image>().sprite = normalSprite;
+
         //This will show an image of the selected item on the panel eventually
         switch (panelBuilding)
         {
@@ -72,5 +78,14 @@ public class PanelSelect : MonoBehaviour
         //Enable the selected text
         //This will either become a model attached to the cursor or a better way of showing selection like an effect
         transform.GetChild(1).gameObject.SetActive(!transform.GetChild(1).gameObject.activeSelf);
+        //If the selected building is the same as this one, set the sprite to the selected sprite
+        if (BuildingPlacing.selectedBuilding == panelBuilding)
+        {
+            gameObject.GetComponent<UnityEngine.UI.Image>().sprite = selectedSprite;
+        }
+        else
+        {
+            gameObject.GetComponent<UnityEngine.UI.Image>().sprite = normalSprite;
+        }
     }
 }
