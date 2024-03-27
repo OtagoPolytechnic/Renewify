@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PanelSelect : MonoBehaviour
 {
@@ -28,6 +29,11 @@ public class PanelSelect : MonoBehaviour
             transform.GetChild(1).gameObject.SetActive(false);
             gameObject.GetComponent<UnityEngine.UI.Image>().sprite = normalSprite;
         }
+        if (availableBuildings == 0)
+            gameObject.GetComponent<Button>().interactable = false;
+        else
+            gameObject.GetComponent<Button>().interactable = true;
+
     }
 
     public void SetInfo()
