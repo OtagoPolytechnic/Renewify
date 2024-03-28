@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class InventoryManagement : MonoBehaviour
 {
 
-    public List<PanelSelect> selectionPanels;
-    public PanelSelect currentSelectionPanel;
+     [HideInInspector] public List<PanelSelect> selectionPanels;
+    [HideInInspector] public PanelSelect currentSelectionPanel;
     public static InventoryManagement instance;
-    public Toggle deleteMode;
+     [HideInInspector] public Toggle deleteMode;
 
     void Awake()
     {
