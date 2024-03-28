@@ -24,13 +24,13 @@ public class BuildingPlacing : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if(selectedBuilding != TileTypes.None && MouseManager.isHovering)
+        if(selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
         {
             Debug.Log("Placing building");
             placeBuilding();
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
-        else if (selectedBuilding == TileTypes.None && MouseManager.isHovering && !GridManager.IsTileEmpty(MouseManager.gridPosition))
+        else if (selectedBuilding == TileTypes.None && MouseManager.isHovering && !GridManager.IsTileEmpty(MouseManager.gridPosition) && InventoryManagement.instance.deleteMode.isOn)
         {
             InventoryManagement.instance.ReturnSelectedBuilding(GridManager.Instance.tileStates[MouseManager.gridPosition]);
             GridManager.Instance.tileStates[MouseManager.gridPosition] = TileTypes.None;

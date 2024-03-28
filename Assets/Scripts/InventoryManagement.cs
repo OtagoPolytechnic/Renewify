@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManagement : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InventoryManagement : MonoBehaviour
     public List<PanelSelect> selectionPanels;
     public PanelSelect currentSelectionPanel;
     public static InventoryManagement instance;
+    public Toggle deleteMode;
 
     void Awake()
     {
@@ -18,6 +20,7 @@ public class InventoryManagement : MonoBehaviour
     {
         selectionPanels = new List<PanelSelect>();
         selectionPanels.AddRange(FindObjectsOfType<PanelSelect>());
+        deleteMode = GameObject.Find("DeleteMode").GetComponent<Toggle>();
     }
 
     public bool BuildingsLeft()
