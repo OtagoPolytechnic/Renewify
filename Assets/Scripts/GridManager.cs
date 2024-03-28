@@ -10,6 +10,8 @@ public class GridManager : MonoBehaviour
 
     public List<TileTypes> tileStates = new List<TileTypes>(); 
     public List<bool> tileBonus = new List<bool>(); 
+    //public Dictionary<TilePoints, int> tileBonus = new Dictionary<TilePoints, int>();
+
     
     void Awake()
     {
