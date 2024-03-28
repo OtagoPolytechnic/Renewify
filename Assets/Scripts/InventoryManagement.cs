@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class InventoryManagement : MonoBehaviour
 {
 
-     [HideInInspector] public List<PanelSelect> selectionPanels;
+    [HideInInspector] public List<PanelSelect> selectionPanels;
     [HideInInspector] public PanelSelect currentSelectionPanel;
+
+    [HideInInspector] public Toggle deleteMode;
+
     public static InventoryManagement instance;
-     [HideInInspector] public Toggle deleteMode;
 
     void Awake()
     {
@@ -24,12 +26,13 @@ public class InventoryManagement : MonoBehaviour
     }
     public void DeleteModeToggle()
     {
+        //If Delete mode is turned on
         if (deleteMode.isOn)
         {
-            BuildingPlacing.selectedBuilding = TileTypes.None;
-            if (currentSelectionPanel)
+            BuildingPlacing.selectedBuilding = TileTypes.None; //Set the selected type to None
+            if (currentSelectionPanel) //Null check on selected panel
             {
-                currentSelectionPanel.SetInfo();
+                currentSelectionPanel.SetInfo(); //Update selected panel info and then set it to null
                 currentSelectionPanel = null;
             }
         }
