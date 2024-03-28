@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,7 +28,7 @@ public class PanelSelect : MonoBehaviour
         if (BuildingPlacing.selectedBuilding != panelBuilding)
         {
             transform.GetChild(1).gameObject.SetActive(false);
-            gameObject.GetComponent<UnityEngine.UI.Image>().sprite = normalSprite;
+            gameObject.GetComponent<Image>().sprite = normalSprite;
         }
         if (availableBuildings == 0)
             gameObject.GetComponent<Button>().interactable = false;
@@ -41,18 +42,21 @@ public class PanelSelect : MonoBehaviour
         //Disable the selected text
         transform.GetChild(1).gameObject.SetActive(false);
         //Set the sprite to the normal sprite
-        gameObject.GetComponent<UnityEngine.UI.Image>().sprite = normalSprite;
+        gameObject.GetComponent<Image>().sprite = normalSprite;
+
+        transform.Find("count").GetComponent<TMPro.TextMeshProUGUI>().text = availableBuildings.ToString();
 
         //This will show an image of the selected item on the panel eventually
         switch (panelBuilding)
         {
             case TileTypes.Windmills:
                 //Set child's text to Windmill as a placeholder
-                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Windmill \n" + availableBuildings;
+                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Windmill";
                 break;
             case TileTypes.SolarPanels:
                 //Set child's text to Windmill as a placeholder
-                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Solar Panels \n" + availableBuildings;
+                transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Solar Panels";
+
                 break;
             default:
                 Debug.Log("No valid building type selected");
