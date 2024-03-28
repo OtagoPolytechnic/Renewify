@@ -22,15 +22,18 @@ public class InventoryManagement : MonoBehaviour
         selectionPanels.AddRange(FindObjectsOfType<PanelSelect>());
         deleteMode = GameObject.Find("DeleteMode").GetComponent<Toggle>();
     }
-  public void DeleteModeToggle()
+    public void DeleteModeToggle()
     {
-        if(deleteMode.isOn)
+        if (deleteMode.isOn)
         {
             BuildingPlacing.selectedBuilding = TileTypes.None;
-            currentSelectionPanel.SetInfo();
-            currentSelectionPanel = null;
+            if (currentSelectionPanel)
+            {
+                currentSelectionPanel.SetInfo();
+                currentSelectionPanel = null;
+            }
         }
-        
+
     }
 
     public bool BuildingsLeft()
@@ -53,7 +56,7 @@ public class InventoryManagement : MonoBehaviour
     //Finds which panel manages the selected building and restores 1 building to the inventory
     public void ReturnSelectedBuilding(TileTypes buildingType)
     {
-        foreach(PanelSelect ps in selectionPanels)
+        foreach (PanelSelect ps in selectionPanels)
         {
             if (buildingType == ps.panelBuilding)
             {

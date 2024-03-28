@@ -71,8 +71,11 @@ public class PanelSelect : MonoBehaviour
     /// </summary>
     public void SelectBuilding()
     {
-        if (availableBuildings > 0 && !InventoryManagement.instance.deleteMode.isOn)
+        if (availableBuildings > 0)
         {
+            //Turn off delete mode
+            InventoryManagement.instance.deleteMode.isOn = false;
+
             //Set the selected building to the building type of this panel
             if (BuildingPlacing.selectedBuilding == panelBuilding)
             {
