@@ -44,6 +44,7 @@ public class PanelSelect : MonoBehaviour
         //Set the sprite to the normal sprite
         gameObject.GetComponent<Image>().sprite = normalSprite;
 
+        //The Count text is updated to display the available buildings
         transform.Find("count").GetComponent<TMPro.TextMeshProUGUI>().text = availableBuildings.ToString();
 
         //This will show an image of the selected item on the panel eventually
@@ -71,6 +72,7 @@ public class PanelSelect : MonoBehaviour
     /// </summary>
     public void SelectBuilding()
     {
+        //Ensures the user cannot place buildings they don't own
         if (availableBuildings > 0)
         {
             //Turn off delete mode
@@ -85,6 +87,7 @@ public class PanelSelect : MonoBehaviour
             else
             {
                 BuildingPlacing.selectedBuilding = panelBuilding;
+                //Sets the inventory managers current selection
                 InventoryManagement.instance.currentSelectionPanel = this;
             }
         }
@@ -94,10 +97,12 @@ public class PanelSelect : MonoBehaviour
         //If the selected building is the same as this one, set the sprite to the selected sprite
         if (BuildingPlacing.selectedBuilding == panelBuilding)
         {
+            //Updates the sprite to be the higlighted mode
             gameObject.GetComponent<UnityEngine.UI.Image>().sprite = selectedSprite;
         }
         else
         {
+            //Update the sprite to be the default mode
             gameObject.GetComponent<UnityEngine.UI.Image>().sprite = normalSprite;
         }
     }
