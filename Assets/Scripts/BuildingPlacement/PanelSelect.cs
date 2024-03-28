@@ -27,7 +27,7 @@ public class PanelSelect : MonoBehaviour
         //If the selected building isn't the same as this one, disable the selected text
         if (BuildingPlacing.selectedBuilding != panelBuilding)
         {
-            transform.GetChild(1).gameObject.SetActive(false);
+           // transform.GetChild(1).gameObject.SetActive(false);
             gameObject.GetComponent<Image>().sprite = normalSprite;
         }
         if (availableBuildings == 0)
@@ -40,7 +40,7 @@ public class PanelSelect : MonoBehaviour
     public void SetInfo()
     {
         //Disable the selected text
-        transform.GetChild(1).gameObject.SetActive(false);
+        //transform.GetChild(1).gameObject.SetActive(false);
         //Set the sprite to the normal sprite
         gameObject.GetComponent<Image>().sprite = normalSprite;
 
@@ -90,7 +90,7 @@ public class PanelSelect : MonoBehaviour
         }
         //Enable the selected text
         //This will either become a model attached to the cursor or a better way of showing selection like an effect
-        transform.GetChild(1).gameObject.SetActive(!transform.GetChild(1).gameObject.activeSelf);
+       // transform.GetChild(1).gameObject.SetActive(!transform.GetChild(1).gameObject.activeSelf);
         //If the selected building is the same as this one, set the sprite to the selected sprite
         if (BuildingPlacing.selectedBuilding == panelBuilding)
         {

@@ -436,6 +436,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterPump
       objectReference: {fileID: 0}
+    - target: {fileID: 7329597480228821333, guid: 15dd4e23d19e8f3499ec295199dcbb89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7478872748569832770, guid: 15dd4e23d19e8f3499ec295199dcbb89,
         type: 3}
       propertyPath: m_fontSize
@@ -761,6 +766,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SolarPanels
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329597480228821333, guid: 15dd4e23d19e8f3499ec295199dcbb89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7478872748569832770, guid: 15dd4e23d19e8f3499ec295199dcbb89,
         type: 3}
@@ -1254,6 +1264,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Windmill
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329597480228821333, guid: 15dd4e23d19e8f3499ec295199dcbb89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7478872748569832770, guid: 15dd4e23d19e8f3499ec295199dcbb89,
         type: 3}
@@ -3232,7 +3247,7 @@ GameObject:
   - component: {fileID: 1624772718}
   - component: {fileID: 1624772717}
   m_Layer: 5
-  m_Name: DeleteModeToggle
+  m_Name: DeleteMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3256,7 +3271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -44.6, y: 0}
+  m_AnchoredPosition: {x: -44.600098, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1624772717
@@ -3305,7 +3320,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2051673321}
+        m_TargetAssemblyTypeName: InventoryManagement, Assembly-CSharp
+        m_MethodName: DeleteModeToggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!222 &1624772718
 CanvasRenderer:
@@ -3684,6 +3711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionPanels: []
   currentSelectionPanel: {fileID: 0}
+  deleteMode: {fileID: 0}
 --- !u!1 &2074462278
 GameObject:
   m_ObjectHideFlags: 0
