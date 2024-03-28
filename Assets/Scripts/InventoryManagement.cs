@@ -41,14 +41,8 @@ public class InventoryManagement : MonoBehaviour
 
     public bool BuildingsLeft()
     {
-        if (currentSelectionPanel.availableBuildings > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return  currentSelectionPanel.availableBuildings > 0;
+
     }
     public void PlaceSelectedBuilding()
     {
