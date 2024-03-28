@@ -22,6 +22,16 @@ public class InventoryManagement : MonoBehaviour
         selectionPanels.AddRange(FindObjectsOfType<PanelSelect>());
         deleteMode = GameObject.Find("DeleteMode").GetComponent<Toggle>();
     }
+  public void DeleteModeToggle()
+    {
+        if(deleteMode.isOn)
+        {
+            BuildingPlacing.selectedBuilding = TileTypes.None;
+            currentSelectionPanel.SetInfo();
+            currentSelectionPanel = null;
+        }
+        
+    }
 
     public bool BuildingsLeft()
     {

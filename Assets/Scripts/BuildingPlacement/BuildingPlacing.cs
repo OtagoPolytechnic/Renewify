@@ -22,6 +22,7 @@ public class BuildingPlacing : MonoBehaviour
         }
     }
 
+  
     public void OnMouseDown()
     {
         if(selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
