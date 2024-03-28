@@ -643,7 +643,6 @@ GameObject:
   m_Component:
   - component: {fileID: 582121600}
   - component: {fileID: 582121599}
-  - component: {fileID: 582121598}
   - component: {fileID: 582121597}
   m_Layer: 0
   m_Name: Pixel Camera
@@ -696,14 +695,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &582121598
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 582121596}
-  m_Enabled: 1
 --- !u!20 &582121599
 Camera:
   m_ObjectHideFlags: 0
@@ -826,6 +817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 604267217}
   - component: {fileID: 604267218}
+  - component: {fileID: 604267219}
   m_Layer: 0
   m_Name: BuildingPlacementManager
   m_TagString: Untagged
@@ -863,6 +855,22 @@ MonoBehaviour:
   Windmill: {fileID: 6822399163656563674, guid: 7555836f41415eb46810e50edf2e9a1a,
     type: 3}
   SolarPanelField: {fileID: 2655049923408942160, guid: 835ec267c019c8e4c95bcf18472455d6,
+    type: 3}
+--- !u!114 &604267219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604267216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce1ec02c8568b0b48adb38555ffdde2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StraightWire: {fileID: 3674633347040057346, guid: 79afe8d7373f00948aba8410045bc09d,
+    type: 3}
+  CornerWire: {fileID: 3674633347040057346, guid: 41739a3491b9311469aa35c1e3eba98a,
     type: 3}
 --- !u!1 &832575517
 GameObject:
@@ -1328,7 +1336,6 @@ Transform:
   - {fileID: 2021391153}
   - {fileID: 587599879}
   - {fileID: 1361812805}
-  - {fileID: 2008370542}
   - {fileID: 604267217}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1400,50 +1407,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2008370541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2008370542}
-  - component: {fileID: 2008370543}
-  m_Layer: 0
-  m_Name: PanelSpawnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2008370542
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008370541}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1907844346}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2008370543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008370541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e0b64061bc0da5479c042fbab5e8789, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2021391152
 GameObject:
   m_ObjectHideFlags: 0

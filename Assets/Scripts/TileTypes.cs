@@ -8,5 +8,6 @@ public enum TileTypes
     SolarPanels,
     Windmills,
     Trees, 
-    Rocks
+    Rocks,
+    Wires
 }

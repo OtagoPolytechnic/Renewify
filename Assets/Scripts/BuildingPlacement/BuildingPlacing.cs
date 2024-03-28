@@ -9,6 +9,7 @@ public class BuildingPlacing : MonoBehaviour
 {
     public GameObject Windmill;
     public GameObject SolarPanelField;
+    public static bool WiresPlacing = false;
     //Enum building variable
     public static TileTypes selectedBuilding = TileTypes.None;
     //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
@@ -47,9 +48,11 @@ public class BuildingPlacing : MonoBehaviour
             {
                 case TileTypes.Windmills:
                     spawnBuilding(Windmill, playerX, playerZ);
+                    WiresPlacing = true;
                     break;
                 case TileTypes.SolarPanels:
                     spawnBuilding(SolarPanelField, playerX, playerZ);
+                    WiresPlacing = true;
                     break;
                 default:
                     Debug.Log("No valid building type selected");
