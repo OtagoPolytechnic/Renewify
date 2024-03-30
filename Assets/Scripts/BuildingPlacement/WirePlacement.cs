@@ -10,7 +10,7 @@ public class WirePlacement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,10 +30,27 @@ public class WirePlacement : MonoBehaviour
         int playerZ = MouseManager.Instance.playerZ;
 
         GameObject temp = Instantiate(StraightWire, GridManager.CalculatePos(playerX, playerZ), Quaternion.identity);
-        //change material of the first component in the wire to "New Material"
-        temp.transform.GetChild(0).GetComponent<MeshRenderer>().material = NewMaterial;
+        changeColour(temp, NewMaterial);
 
 
         GridManager.Instance.tileStates[MouseManager.gridPosition] = TileTypes.Wires;
+    }
+
+    /// <summary>
+    ///    Change the colour of the wire to the target material
+    /// </summary>
+    /// <param name="wire"> Game Object to be changed </param>
+    /// <param name="targetMaterial"> Material to change it to </param>
+    private void changeColour(GameObject wire, Material targetMaterial)
+    {
+        //change material of the all components in the wire to the target material
+        foreach (Transform child in wire.transform)
+        {
+            if (child.gameObject.GetComponent<MeshRenderer>() != null)
+            {
+                child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
+                break;
+            }
+        }
     }
 }
