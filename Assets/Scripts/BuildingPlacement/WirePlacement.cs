@@ -3,9 +3,9 @@
 /// TODO: Check for when a wire has been connected to the main station then change colour and lock it in place
 /// TODO: If not connected when mouse click is released then remove the wire and the building and refund it to the inventory
 /// TODO: If the building is deleted remove the wires connected to it
-/// TODO: Wires can only be placed in 4way not diagonally
 /// BUG: If you backtrack over a corner wire it replaces itself with a straight wire
 /// </summary>
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,8 +57,11 @@ public class WirePlacement : MonoBehaviour
                 int secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile; //Either gets the second last tile or the starting tile
                 int rotation = 0;
                 //If the player is trying to place a wire diagonally, they can't
-                if (false) //Something about checking the pos of the current and the last tile?
+                //This uses abs and the grid size to check if the difference in both directions is 1
+                if ((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
+                (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0))
                 {
+                    resetTileList();
                     return;
                 }
                 //Getting the corners to calculate, delete, and place properly took me multiple hours. It's ugly but it works and I am actually scared to touch it in case it stops working.
@@ -140,7 +143,6 @@ public class WirePlacement : MonoBehaviour
     /// </summary>
     private void resetTileList()
     {
-        Debug.Log("Wire Placement Stopped");
         BuildingPlacing.WiresPlacing = false;
         //Clear the list of placed tiles
         tilesPlaced.Clear();
