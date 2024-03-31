@@ -1,8 +1,8 @@
 /// <summary>
 /// This script is responsible for placing wires on the grid
-/// TODO: Check for when a wire has been connected to the main station then change colour and lock it in place
 /// TODO: If not connected when mouse click is released then remove the wire and the building and refund it to the inventory
 /// TODO: If the building is deleted remove the wires connected to it
+/// CONSIDER: Accidentally going diagonally doesn't feel great. Not sure how this would be changed without introducing other issues.
 /// </summary>
 using System;
 using System.Collections;
@@ -14,12 +14,15 @@ public class WirePlacement : MonoBehaviour
     public GameObject StraightWire;
     public GameObject CornerWire;
     private GameObject lastWire;
-    public Material NewMaterial;
+    public Material CompletedConnection; //Just using one material for now. Can change to different ones based on the building
+    private Material selectedMaterial; 
     private List<int> tilesPlaced = new List<int>();
     private int startingTile = -1;
     private int lastTile = -1;
     private int secondLastTile = -1;
     private int gridsize;
+    private TileTypes goal = TileTypes.Goal;
+    //I have an intermediary variable so that I only need to change it in one place if the name of the tile is changed in the goal branch
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +32,7 @@ public class WirePlacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //The first statement checks if the player has just placed a building and is now trying to place wires
+        //This checks if the player has just placed a building and is now trying to place wires
         if (BuildingPlacing.WiresPlacing)
         {
             WirePlacingLogic();
@@ -131,13 +134,43 @@ public class WirePlacement : MonoBehaviour
                 //Adding the placed tile to the list
                 tilesPlaced.Add(MouseManager.gridPosition); 
             }
+            //If they drag over the goal tile, they lock in the wire
+            else if (GridManager.Instance.tileStates[MouseManager.gridPosition] == goal)
+            {
+                //Can swap out the material based on the building when we add the materials
+                switch (GridManager.Instance.tileStates[startingTile])
+                {
+                    case TileTypes.SolarPanels:
+                        selectedMaterial = CompletedConnection;
+                        break;
+                    case TileTypes.Windmills:
+                        selectedMaterial = CompletedConnection;
+                        break;
+                    //case TileTypes. whatever we use for water
+                    //    selectedMaterial = CompletedConnection;
+                    //    break;
+                    default:
+                        Debug.Log("The source of the wire was not a valid building type.");
+                        selectedMaterial = CompletedConnection;
+                        break;
+                }
+                //Change the colour of the wire to the target material
+                foreach (int tile in tilesPlaced)
+                {
+                    changeColour(GridCreator.tiles[tile].transform.GetChild(0).gameObject, CompletedConnection);
+                }
+                //Stops placing and resets the list for the next wire
+                resetTileList();
+            }
             //If the player drags over a tile that already has a wire, they can remove everything placed since that tile was placed
             //If it is the source building it removes everything but lets the player keep placing wires
-            //If it is the edge or anyother building it removes everything and stops the player from placing wires
+            //If it is the edge or another building it removes everything and stops the player from placing wires
             else if (lastTile != MouseManager.gridPosition)
             {
+                //While there are tiles left and it hasn't gotten to the tile the player is currently hovering over
                 while (tilesPlaced.Count > 0 && tilesPlaced[tilesPlaced.Count - 1]!= MouseManager.gridPosition)
                 {
+                    //Removed the wires from the tile and remove the tile from the list
                     RemoveWire(tilesPlaced[tilesPlaced.Count - 1]);
                     tilesPlaced.RemoveAt(tilesPlaced.Count - 1);
                     lastTile = tilesPlaced.Count > 0 ? tilesPlaced[tilesPlaced.Count - 1] : startingTile; //Resets what the last tile and second last tile are every time one is deleted
@@ -210,13 +243,14 @@ public class WirePlacement : MonoBehaviour
     /// <param name="targetMaterial"> Material to change it to </param>
     private void changeColour(GameObject wire, Material targetMaterial)
     {
+        Debug.Log(wire.name);
         //change material of the all components in the wire to the target material
         foreach (Transform child in wire.transform)
         {
+            Debug.Log(child.name);
             if (child.gameObject.GetComponent<MeshRenderer>() != null)
             {
                 child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
-                break;
             }
         }
     }
