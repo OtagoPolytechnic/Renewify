@@ -1,10 +1,10 @@
 /// <summary>
 /// This script is responsible for placing wires on the grid
-/// TODO: Logic for changing to corner wires
 /// TODO: Check for when a wire has been connected to the main station then change colour and lock it in place
 /// TODO: If not connected when mouse click is released then remove the wire and the building and refund it to the inventory
 /// TODO: If the building is deleted remove the wires connected to it
 /// TODO: Wires can only be placed in 4way not diagonally
+/// BUG: If you backtrack over a corner wire it replaces itself with a straight wire
 /// </summary>
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +18,13 @@ public class WirePlacement : MonoBehaviour
     private List<int> tilesPlaced = new List<int>();
     private int lastTilePlaced = -1;
     private int startingTile = -1;
+    private int gridsize;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        gridsize = GridManager.Instance.gridSize;   
+    }
     // Update is called once per frame
     void Update()
     {
@@ -47,8 +53,60 @@ public class WirePlacement : MonoBehaviour
             //If the player drags through a tile that is empty, they can place a wire
             if (GridManager.IsTileEmpty(MouseManager.gridPosition))
             {
+                int lastTile = tilesPlaced.Count > 0 ? tilesPlaced[tilesPlaced.Count - 1] : startingTile; //Either gets the last tile or the starting tile
+                int secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile; //Either gets the second last tile or the starting tile
+                int rotation = 0;
+                //If the player is trying to place a wire diagonally, they can't
+                if (false) //Something about checking the pos of the current and the last tile?
+                {
+                    return;
+                }
+                //Getting the corners to calculate, delete, and place properly took me multiple hours. It's ugly but it works and I am actually scared to touch it in case it stops working.
+                //This checks if the player has placed a wire on a different axis as the last two tiles
+                if ((lastTile / gridsize != secondLastTile / gridsize || lastTile / gridsize != MouseManager.gridPosition / gridsize) &&
+                    (lastTile % gridsize != secondLastTile % gridsize || lastTile % gridsize != MouseManager.gridPosition % gridsize))
+                {
+                    // Determine the direction of movement from the second last tile to the last tile and from the last tile to the current tile
+                    bool isMovingRightOrUpSecondLastToLast = secondLastTile < lastTile;
+                    bool isMovingRightOrUpLastToCurrent = lastTile < MouseManager.gridPosition;
 
-                PlaceWire(MouseManager.gridPosition, MouseManager.Instance.playerX, MouseManager.Instance.playerZ, 0, StraightWire); //Wire will always be straight when first placed
+                    // Determine the rotation of the corner wire
+                    if (MouseManager.gridPosition / gridsize == lastTile / gridsize)
+                    {
+                        if (isMovingRightOrUpSecondLastToLast)
+                        {
+                            rotation = isMovingRightOrUpLastToCurrent ? 270 : 180;
+                        }
+                        else
+                        {
+                            rotation = isMovingRightOrUpLastToCurrent ? 0 : 90;
+                        }
+                    }
+                    else
+                    {
+                        if (isMovingRightOrUpSecondLastToLast)
+                        {
+                            rotation = isMovingRightOrUpLastToCurrent ? 90 : 180;
+                        }
+                        else
+                        {
+                            rotation = isMovingRightOrUpLastToCurrent ? 0 : 270;
+                        }
+                    }
+                    // Replace the last wire with a corner wire
+                    PlaceWire(lastTile, lastTile / gridsize, lastTile % gridsize, rotation, CornerWire);
+                }
+                //Checking the rotation of the wire
+                if (MouseManager.gridPosition / gridsize == lastTile / gridsize)
+                {
+                    rotation = 90;
+                }
+                else
+                {
+                    rotation = 0;
+                }
+                //Place the wire on the current tile
+                PlaceWire(MouseManager.gridPosition, MouseManager.Instance.playerX, MouseManager.Instance.playerZ, rotation, StraightWire); //Wire will always be straight when first placed
                 //Adding the placed tile to the list
                 tilesPlaced.Add(MouseManager.gridPosition); 
                 lastTilePlaced = MouseManager.gridPosition;
@@ -96,14 +154,12 @@ public class WirePlacement : MonoBehaviour
     /// <param name="position"> Position of the tile to place the wire on </param>
     /// <param name="wireX"> X position of the wire </param>
     /// <param name="wireZ"> Z position of the wire </param>
+    /// <param name="rotation"> Rotation of the wire </param>
     /// <param name="wireType"> Type of wire to place </param>
     private void PlaceWire(int position, int wireX, int wireZ, int rotation, GameObject wireType)
     {
-        //If there is already a wire on the tile delete it first. This is assuming that the only reason a wire would be on a tile is if it was changing the wire type (Straight/Corner)
-        if (GridManager.Instance.tileStates[position] == TileTypes.Wires)
-        {
-            RemoveWire(position);
-        }
+        //Clear any wire that already exists on the tile
+        RemoveWire(position);
         //Instantiate the wire at the position of the tile
         GameObject temp = Instantiate(wireType, GridManager.CalculatePos(wireX, wireZ), Quaternion.Euler(0, rotation, 0));
         //set the parent of the wire to the tile
@@ -117,8 +173,12 @@ public class WirePlacement : MonoBehaviour
     /// <param name="position"> Position of the tile to remove the wire from </param>
     private void RemoveWire(int position)
     {
-        Destroy(GridCreator.tiles[position].transform.GetChild(0).gameObject);
-        GridManager.Instance.tileStates[position] = TileTypes.None;
+        //If the tile has a wire, remove it
+        if (GridCreator.tiles[position].transform.childCount > 0)
+        {
+            Destroy(GridCreator.tiles[position].transform.GetChild(0).gameObject);
+            GridManager.Instance.tileStates[position] = TileTypes.None;
+        }
     }
 
     /// <summary>
