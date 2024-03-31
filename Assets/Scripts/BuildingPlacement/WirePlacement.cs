@@ -3,7 +3,7 @@
 /// TODO: Check for when a wire has been connected to the main station then change colour and lock it in place
 /// TODO: If not connected when mouse click is released then remove the wire and the building and refund it to the inventory
 /// TODO: If the building is deleted remove the wires connected to it
-/// BUG: If you backtrack over a corner wire it doesn't remove anything
+/// BUG: When backtracking to a corner wire and then going straight the wires stays a corner
 /// </summary>
 using System;
 using System.Collections;
@@ -65,7 +65,6 @@ public class WirePlacement : MonoBehaviour
                     resetTileList();
                     return;
                 }
-                //Getting the corners to calculate, delete, and place properly took me multiple hours. It's ugly but it works and I am actually scared to touch it in case it stops working.
                 //This checks if the player has placed a wire on a different axis as the last two tiles
                 if ((lastTile / gridsize != secondLastTile / gridsize || lastTile / gridsize != MouseManager.gridPosition / gridsize) &&
                     (lastTile % gridsize != secondLastTile % gridsize || lastTile % gridsize != MouseManager.gridPosition % gridsize))
@@ -115,14 +114,16 @@ public class WirePlacement : MonoBehaviour
                 tilesPlaced.Add(MouseManager.gridPosition); 
             }
             //If the player drags over a tile that already has a wire, they can remove everything placed since that tile was placed
+            //If it is the source building it removes everything but lets the player keep placing wires
+            //If it is the edge or anyother building it removes everything and stops the player from placing wires
             else if (lastTile != MouseManager.gridPosition)
             {
                 while (tilesPlaced.Count > 0 && tilesPlaced[tilesPlaced.Count - 1]!= MouseManager.gridPosition)
                 {
                     RemoveWire(tilesPlaced[tilesPlaced.Count - 1]);
                     tilesPlaced.RemoveAt(tilesPlaced.Count - 1);
-                    lastTile = tilesPlaced.Count > 0 ? tilesPlaced[tilesPlaced.Count - 1] : startingTile; //Either gets the last tile or the starting tile
-                    secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile; //Either gets the second last tile or the starting tile
+                    lastTile = tilesPlaced.Count > 0 ? tilesPlaced[tilesPlaced.Count - 1] : startingTile; //Resets what the last tile and second last tile are every time one is deleted
+                    secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile; 
                     //If this removes all wires then stop placing wires unless this is the starting tile
                     if (tilesPlaced.Count == 0 && lastTile != startingTile)
                     {
@@ -167,7 +168,7 @@ public class WirePlacement : MonoBehaviour
         GameObject temp = Instantiate(wireType, GridManager.CalculatePos(wireX, wireZ), Quaternion.Euler(0, rotation, 0));
         //set the parent of the wire to the tile
         temp.transform.SetParent(GridCreator.tiles[position].transform);
-        GridManager.Instance.tileStates[MouseManager.gridPosition] = TileTypes.Wires;
+        GridManager.Instance.tileStates[position] = TileTypes.Wires;
     }
 
     /// <summary>
