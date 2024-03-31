@@ -5,8 +5,6 @@
 /// TODO: If not connected when mouse click is released then remove the wire and the building and refund it to the inventory
 /// TODO: If the building is deleted remove the wires connected to it
 /// TODO: Wires can only be placed in 4way not diagonally
-/// BUG: If the wire is dragged back over its own source building tile it will stop placement
-///      Ideally this should allow you to keep placing but only if its the source building not any other
 /// </summary>
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +17,7 @@ public class WirePlacement : MonoBehaviour
     public Material NewMaterial;
     private List<int> tilesPlaced = new List<int>();
     private int lastTilePlaced = -1;
+    private int startingTile = -1;
 
     // Update is called once per frame
     void Update()
@@ -40,10 +39,16 @@ public class WirePlacement : MonoBehaviour
         //It will also stop placing wires if the player is not hovering over a tile
         if (Input.GetMouseButton(0) && MouseManager.isHovering)
         {
-            //If the player clicks on a tile that is empty, they can place a wire
+            //If this is the first tile set starting tile to the current tile
+            if (startingTile == -1)
+            {
+                startingTile = MouseManager.gridPosition;
+            }
+            //If the player drags through a tile that is empty, they can place a wire
             if (GridManager.IsTileEmpty(MouseManager.gridPosition))
             {
-                PlaceWire(MouseManager.gridPosition, MouseManager.Instance.playerX, MouseManager.Instance.playerZ, StraightWire); //Wire will always be straight when first placed
+
+                PlaceWire(MouseManager.gridPosition, MouseManager.Instance.playerX, MouseManager.Instance.playerZ, 0, StraightWire); //Wire will always be straight when first placed
                 //Adding the placed tile to the list
                 tilesPlaced.Add(MouseManager.gridPosition); 
                 lastTilePlaced = MouseManager.gridPosition;
@@ -51,31 +56,38 @@ public class WirePlacement : MonoBehaviour
             //If the player drags over a tile that already has a wire, they can remove everything placed since that tile was placed
             else if (lastTilePlaced != MouseManager.gridPosition)
             {
-                while (tilesPlaced.Count > 0 && tilesPlaced[tilesPlaced.Count - 1] != MouseManager.gridPosition)
+                while (tilesPlaced.Count > 0 && tilesPlaced[tilesPlaced.Count - 1]!= MouseManager.gridPosition)
                 {
                     RemoveWire(tilesPlaced[tilesPlaced.Count - 1]);
                     tilesPlaced.RemoveAt(tilesPlaced.Count - 1);
                     lastTilePlaced = MouseManager.gridPosition;
-                    //If this removes all wires then stop placing wires
-                    if (tilesPlaced.Count == 0)
+                    //If this removes all wires then stop placing wires unless this is the starting tile
+                    if (tilesPlaced.Count == 0 && lastTilePlaced != startingTile)
                     {
-                        Debug.Log("Wire Placement Stopped");
-                        BuildingPlacing.WiresPlacing = false;
-                        tilesPlaced.Clear();
-                        lastTilePlaced = -1;
+                        resetTileList();
                     }
                 }
+                lastTilePlaced = MouseManager.gridPosition;
             }
         }
         else
         {
-            Debug.Log("Wire Placement Stopped");
             //If the player releases the left click, they are no longer placing wires
-            BuildingPlacing.WiresPlacing = false;
-            //Clear the list of placed tiles
-            tilesPlaced.Clear();
-            lastTilePlaced = -1;
+            resetTileList();
         }
+    }
+
+    /// <summary>
+    ///    Reset the list of placed tiles and stop placing wires
+    /// </summary>
+    private void resetTileList()
+    {
+        Debug.Log("Wire Placement Stopped");
+        BuildingPlacing.WiresPlacing = false;
+        //Clear the list of placed tiles
+        tilesPlaced.Clear();
+        lastTilePlaced = -1;
+        startingTile = -1;
     }
 
     /// <summary>
@@ -85,7 +97,7 @@ public class WirePlacement : MonoBehaviour
     /// <param name="wireX"> X position of the wire </param>
     /// <param name="wireZ"> Z position of the wire </param>
     /// <param name="wireType"> Type of wire to place </param>
-    private void PlaceWire(int position, int wireX, int wireZ, GameObject wireType)
+    private void PlaceWire(int position, int wireX, int wireZ, int rotation, GameObject wireType)
     {
         //If there is already a wire on the tile delete it first. This is assuming that the only reason a wire would be on a tile is if it was changing the wire type (Straight/Corner)
         if (GridManager.Instance.tileStates[position] == TileTypes.Wires)
@@ -93,7 +105,7 @@ public class WirePlacement : MonoBehaviour
             RemoveWire(position);
         }
         //Instantiate the wire at the position of the tile
-        GameObject temp = Instantiate(wireType, GridManager.CalculatePos(wireX, wireZ), Quaternion.identity);
+        GameObject temp = Instantiate(wireType, GridManager.CalculatePos(wireX, wireZ), Quaternion.Euler(0, rotation, 0));
         //set the parent of the wire to the tile
         temp.transform.SetParent(GridCreator.tiles[position].transform);
         GridManager.Instance.tileStates[MouseManager.gridPosition] = TileTypes.Wires;
