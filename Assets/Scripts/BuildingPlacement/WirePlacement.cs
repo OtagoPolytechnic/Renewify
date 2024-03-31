@@ -1,6 +1,6 @@
 /// <summary>
 /// This script is responsible for placing wires on the grid
-/// TODO: If not connected when mouse click is released then remove the wire and the building and refund it to the inventory
+/// TODO: If not connected when mouse click is released then remove the building and refund it to the inventory
 /// TODO: If the building is deleted remove the wires connected to it
 /// CONSIDER: Accidentally going diagonally doesn't feel great. Not sure how this would be changed without introducing other issues.
 /// </summary>
@@ -60,11 +60,15 @@ public class WirePlacement : MonoBehaviour
             if (GridManager.IsTileEmpty(MouseManager.gridPosition))
             {
                 int rotation = 0;
-                //If the player is trying to place a wire diagonally (or somehow across multiple tiles), they can't
+                //If the player is trying to place a wire diagonally (or somehow across multiple tiles), remove the wires placed so far
                 //This uses abs and the grid size to check if the difference in both directions is over 0
                 if ((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
                 (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0))
                 {
+                    foreach (int tile in tilesPlaced)
+                    {
+                        RemoveWire(tile);
+                    }
                     resetTileList();
                     return;
                 }
@@ -185,7 +189,11 @@ public class WirePlacement : MonoBehaviour
         }
         else
         {
-            //If the player releases the left click, they are no longer placing wires
+            //If the player releases the left click before reaching the goal tile, remove the wires and refund the building
+            foreach (int tile in tilesPlaced)
+            {
+                RemoveWire(tile);
+            }
             resetTileList();
         }
     }
