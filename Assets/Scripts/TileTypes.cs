@@ -7,7 +7,8 @@ public enum TileTypes
     None,
     SolarPanels,
     Windmills,
-    Trees, 
+    Trees,
     Rocks,
-    Wires
+    Wires, //This is for both straight and corner wires as outside of the placement script there is no need to know the difference
+    Goal //NOTE: THIS IS HERE FOR TESTING THE WIRE PLACEMENT BRANCH AS I DON'T HAVE A GOAL TILE YET
 }
