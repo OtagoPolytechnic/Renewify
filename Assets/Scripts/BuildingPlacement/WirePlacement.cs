@@ -3,7 +3,6 @@
 /// TODO: Check for when a wire has been connected to the main station then change colour and lock it in place
 /// TODO: If not connected when mouse click is released then remove the wire and the building and refund it to the inventory
 /// TODO: If the building is deleted remove the wires connected to it
-/// BUG: When backtracking to a corner wire and then going straight the wires stays a corner
 /// </summary>
 using System;
 using System.Collections;
@@ -14,6 +13,7 @@ public class WirePlacement : MonoBehaviour
 {
     public GameObject StraightWire;
     public GameObject CornerWire;
+    private GameObject lastWire;
     public Material NewMaterial;
     private List<int> tilesPlaced = new List<int>();
     private int startingTile = -1;
@@ -57,7 +57,7 @@ public class WirePlacement : MonoBehaviour
             if (GridManager.IsTileEmpty(MouseManager.gridPosition))
             {
                 int rotation = 0;
-                //If the player is trying to place a wire diagonally, they can't
+                //If the player is trying to place a wire diagonally (or somehow across multiple tiles), they can't
                 //This uses abs and the grid size to check if the difference in both directions is over 0
                 if ((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
                 (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0))
@@ -96,10 +96,28 @@ public class WirePlacement : MonoBehaviour
                             rotation = isMovingRightOrUpLastToCurrent ? 0 : 270;
                         }
                     }
-                    // Replace the last wire with a corner wire
-                    PlaceWire(lastTile, lastTile / gridsize, lastTile % gridsize, rotation, CornerWire);
+                    lastWire = CornerWire; //Set the last wire to a corner wire
                 }
-                //Checking the rotation of the wire
+                else
+                {
+                    //If the player is placing a wire straight
+                    //This is so that when you backtrack over a corner wire it will properly straight if it needs to
+                    if (lastTile / gridsize == secondLastTile / gridsize)
+                    {
+                        rotation = 90;
+                    }
+                    else
+                    {
+                        rotation = 0;
+                    }
+                    lastWire = StraightWire;
+                }
+                //Place the wire on the last tile if it is not the starting tile
+                if (lastTile != startingTile)
+                {
+                    PlaceWire(lastTile, lastTile / gridsize, lastTile % gridsize, rotation, lastWire);
+                }
+                //Checking the rotation of the current wire
                 if (MouseManager.gridPosition / gridsize == lastTile / gridsize)
                 {
                     rotation = 90;
