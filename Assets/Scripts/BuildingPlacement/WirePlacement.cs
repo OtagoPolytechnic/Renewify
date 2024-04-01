@@ -17,6 +17,7 @@ public class WirePlacement : MonoBehaviour
     public Material CompletedConnection; //Just using one material for now. Can change to different ones based on the building
     private Material selectedMaterial; 
     private List<int> tilesPlaced = new List<int>();
+    private List<List<int>> wiresPlaced = new List<List<int>>(); //This is the list of saved wires so they can be removed if the building is removed
     private int startingTile = -1;
     private int lastTile = -1;
     private int secondLastTile = -1;
@@ -153,6 +154,9 @@ public class WirePlacement : MonoBehaviour
         {
             changeColour(GridCreator.tiles[tile].transform.GetChild(0).gameObject, CompletedConnection);
         }
+        //Add the starting spot to the start of the list of placed wires
+        tilesPlaced.Insert(0, startingTile);
+        wiresPlaced.Add(new List<int>(tilesPlaced)); //Add the list of placed wires to the list of all placed wires
         resetTileList();
     }
     /// <summary>
@@ -273,6 +277,23 @@ public class WirePlacement : MonoBehaviour
         foreach (Transform child in wire.transform)
         {
             child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
+        }
+    }
+    /// <summary>
+    /// Deletes a full wire when given a building tile starting location
+    /// </summary>
+    /// <param name="buildingTile">Building that is being deleted</param>
+    public void RemoveFullWire(int buildingTile)
+    {
+        foreach (List<int> wire in wiresPlaced)
+        {
+            if(buildingTile == wire[0]) //If the first tile is the same as the inputted building tile
+            {
+                foreach (int tile in wire)
+                {
+                    RemoveWire(tile);
+                }
+            }
         }
     }
 }
