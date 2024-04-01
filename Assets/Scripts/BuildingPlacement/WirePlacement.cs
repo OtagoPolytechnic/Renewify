@@ -72,58 +72,8 @@ public class WirePlacement : MonoBehaviour
                     resetTileList();
                     return;
                 }
-                //This checks if the player has placed a wire on a different axis as the last two tiles
-                if ((lastTile / gridsize != secondLastTile / gridsize || lastTile / gridsize != MouseManager.gridPosition / gridsize) &&
-                    (lastTile % gridsize != secondLastTile % gridsize || lastTile % gridsize != MouseManager.gridPosition % gridsize))
-                {
-                    // Determine the direction of movement from the second last tile to the last tile and from the last tile to the current tile
-                    bool isMovingRightOrUpSecondLastToLast = secondLastTile < lastTile;
-                    bool isMovingRightOrUpLastToCurrent = lastTile < MouseManager.gridPosition;
-
-                    // Determine the rotation of the corner wire. I just put different rotations in until all directions worked.
-                    if (MouseManager.gridPosition / gridsize == lastTile / gridsize)
-                    {
-                        if (isMovingRightOrUpSecondLastToLast)
-                        {
-                            rotation = isMovingRightOrUpLastToCurrent ? 270 : 180;
-                        }
-                        else
-                        {
-                            rotation = isMovingRightOrUpLastToCurrent ? 0 : 90;
-                        }
-                    }
-                    else
-                    {
-                        if (isMovingRightOrUpSecondLastToLast)
-                        {
-                            rotation = isMovingRightOrUpLastToCurrent ? 90 : 180;
-                        }
-                        else
-                        {
-                            rotation = isMovingRightOrUpLastToCurrent ? 0 : 270;
-                        }
-                    }
-                    lastWire = CornerWire; //Set the last wire to a corner wire
-                }
-                else
-                {
-                    //If the player is placing a wire straight
-                    //This is so that when you backtrack over a corner wire it will properly straight if it needs to
-                    if (lastTile / gridsize == secondLastTile / gridsize)
-                    {
-                        rotation = 90;
-                    }
-                    else
-                    {
-                        rotation = 0;
-                    }
-                    lastWire = StraightWire;
-                }
-                //Place the wire on the last tile if it is not the starting tile
-                if (lastTile != startingTile)
-                {
-                    PlaceWire(lastTile, lastTile / gridsize, lastTile % gridsize, rotation, lastWire);
-                }
+                //Checks if the last wire needs to become a corner wire
+                PlacingCornerWire();
                 //Checking the rotation of the current wire
                 if (MouseManager.gridPosition / gridsize == lastTile / gridsize)
                 {
@@ -141,6 +91,8 @@ public class WirePlacement : MonoBehaviour
             //If they drag over the goal tile, they lock in the wire
             else if (GridManager.Instance.tileStates[MouseManager.gridPosition] == goal)
             {
+                //Checks if the last wire needs to become a corner wire
+                PlacingCornerWire();
                 //Can swap out the material based on the building when we add the materials
                 switch (GridManager.Instance.tileStates[startingTile])
                 {
@@ -155,16 +107,13 @@ public class WirePlacement : MonoBehaviour
                     //    break;
                     default:
                         Debug.Log("The source of the wire was not a valid building type.");
+                        //If this is reached something is broken
                         selectedMaterial = CompletedConnection;
                         break;
                 }
                 //Change the colour of the wire to the target material
-                foreach (int tile in tilesPlaced)
-                {
-                    changeColour(GridCreator.tiles[tile].transform.GetChild(0).gameObject, CompletedConnection);
-                }
-                //Stops placing and resets the list for the next wire
-                resetTileList();
+                //I need to invoke it or the colour change will happen before the last corner wire is placed for some reason
+                Invoke("DelayedColourChange", 0f);
             }
             //If the player drags over a tile that already has a wire, they can remove everything placed since that tile was placed
             //If it is the source building it removes everything but lets the player keep placing wires
@@ -187,7 +136,7 @@ public class WirePlacement : MonoBehaviour
                 }
             }
         }
-        else
+        else //If the player releases the left click or is not hovering over a tile
         {
             //If the player releases the left click before reaching the goal tile, remove the wires and refund the building
             foreach (int tile in tilesPlaced)
@@ -195,6 +144,75 @@ public class WirePlacement : MonoBehaviour
                 RemoveWire(tile);
             }
             resetTileList();
+        }
+    }
+
+    private void DelayedColourChange()
+    {
+        foreach (int tile in tilesPlaced)
+        {
+            changeColour(GridCreator.tiles[tile].transform.GetChild(0).gameObject, CompletedConnection);
+        }
+        resetTileList();
+    }
+    /// <summary>
+    /// This is used for placing a corner wire on the last tile if needed
+    /// It is a separate function for code readability and because it is only used in two places
+    /// </summary>
+    private void PlacingCornerWire()
+    {
+        int rotation = 0;
+        //This checks if the player has placed a wire on a different axis as the last two tiles
+        if ((lastTile / gridsize != secondLastTile / gridsize || lastTile / gridsize != MouseManager.gridPosition / gridsize) &&
+            (lastTile % gridsize != secondLastTile % gridsize || lastTile % gridsize != MouseManager.gridPosition % gridsize))
+        {
+            // Determine the direction of movement from the second last tile to the last tile and from the last tile to the current tile
+            bool isMovingRightOrUpSecondLastToLast = secondLastTile < lastTile;
+            bool isMovingRightOrUpLastToCurrent = lastTile < MouseManager.gridPosition;
+
+            // Determine the rotation of the corner wire. I just put different rotations in until all directions worked.
+            if (MouseManager.gridPosition / gridsize == lastTile / gridsize)
+            {
+                if (isMovingRightOrUpSecondLastToLast)
+                {
+                    rotation = isMovingRightOrUpLastToCurrent ? 270 : 180;
+                }
+                else
+                {
+                    rotation = isMovingRightOrUpLastToCurrent ? 0 : 90;
+                }
+            }
+            else
+            {
+                if (isMovingRightOrUpSecondLastToLast)
+                {
+                    rotation = isMovingRightOrUpLastToCurrent ? 90 : 180;
+                }
+                else
+                {
+                    rotation = isMovingRightOrUpLastToCurrent ? 0 : 270;
+                }
+            }
+            lastWire = CornerWire; //Set the last wire to a corner wire
+        }
+        else
+        {
+            //If the player is placing a wire straight
+            //This is so that when you backtrack over a corner wire it will properly straight if it needs to
+            if (lastTile / gridsize == secondLastTile / gridsize)
+            {
+                rotation = 90;
+            }
+            else
+            {
+                rotation = 0;
+            }
+            lastWire = StraightWire;
+        }
+        //Place the wire on the last tile if it is not the starting tile
+        if (lastTile != startingTile)
+        {
+            PlaceWire(lastTile, lastTile / gridsize, lastTile % gridsize, rotation, lastWire);
         }
     }
 
@@ -251,15 +269,10 @@ public class WirePlacement : MonoBehaviour
     /// <param name="targetMaterial"> Material to change it to </param>
     private void changeColour(GameObject wire, Material targetMaterial)
     {
-        Debug.Log(wire.name);
         //change material of the all components in the wire to the target material
         foreach (Transform child in wire.transform)
         {
-            Debug.Log(child.name);
-            if (child.gameObject.GetComponent<MeshRenderer>() != null)
-            {
-                child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
-            }
+            child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
         }
     }
 }
