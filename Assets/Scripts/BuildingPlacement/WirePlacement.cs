@@ -1,7 +1,6 @@
 /// <summary>
 /// This script is responsible for placing wires on the grid
-/// TODO: If not connected when mouse click is released then remove the building and refund it to the inventory
-/// TODO: If the building is deleted remove the wires connected to it
+/// TODO: Connect to Chases branch to remove buildings and refund buildings. See line 137
 /// CONSIDER: Accidentally going diagonally doesn't feel great. Not sure how this would be changed without introducing other issues.
 /// </summary>
 using System;
@@ -135,6 +134,8 @@ public class WirePlacement : MonoBehaviour
                         resetTileList();
                     }
                 }
+                //TODO: Call a function to remove the building and refund it to the inventory
+                //Will likely be in Chases branch?
             }
         }
         else //If the player releases the left click or is not hovering over a tile
