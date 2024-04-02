@@ -59,6 +59,7 @@ public class GridCreator : MonoBehaviour
         GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
         tile.name = "Bonus_Tile_" + index;
         tile.tag = "Untagged";
+        tile.GetComponent<MeshCollider>().enabled = false;
 
         tile.GetComponent<Renderer>().material = debugMaterial;
     }
