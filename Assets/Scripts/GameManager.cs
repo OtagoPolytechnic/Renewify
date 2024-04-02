@@ -5,8 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public int totalScore = 0;
-    // Start is called before the first frame update
+    public int totalScore = 0; //DEBUG: this can be removed later, it's just here to see the score in the editor.
     void Awake()
     {
         if(Instance == null)
@@ -20,7 +19,7 @@ public class GameManager : MonoBehaviour
         CalculateTotalScore(GridManager.Instance.tileStates, GridManager.Instance.tileBonus);
     }
     /// <summary>
-    /// 
+    /// This function will calculate the score based on how many correct buildings the player has placed
     /// </summary>
     /// <param name="tileStates"></param>
     /// <param name="tileBonus"></param>
@@ -35,12 +34,13 @@ public class GameManager : MonoBehaviour
         totalScore = 0; //reset score before changing it in loop below
         for(int i = 0; i < tileStates.Count; i++)
         {
-            if(tileStates[i] == TileTypes.Windmills && tileBonus[i])
+            //TODO: allow this function to specify which type of bonus tile this is (wind, solar, water)
+            if(tileStates[i] == TileTypes.Windmills && tileBonus[i]) //This checks if the player has a windmill on a bonus tile. 
             {
-                totalScore++;
+                totalScore++; //increments score by 1
             }
         }
 
-        return totalScore;
+        return totalScore; //This function will return the score as an int
     }
 }
