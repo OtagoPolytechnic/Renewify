@@ -1694,8 +1694,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: CentralBuilding
       objectReference: {fileID: 0}
+    - target: {fileID: 3479843312412931029, guid: bba098b0d1ac79f40ab9ce30960971ad,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5477521643544163457, guid: bba098b0d1ac79f40ab9ce30960971ad,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7964583301619380429, guid: bba098b0d1ac79f40ab9ce30960971ad,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2c63d6bc72143a94b9e4c40354f6f8ed, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 745171002826451211, guid: bba098b0d1ac79f40ab9ce30960971ad, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bba098b0d1ac79f40ab9ce30960971ad, type: 3}
