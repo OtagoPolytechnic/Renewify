@@ -26,12 +26,12 @@ public class GridCreator : MonoBehaviour
         GenerateGrid();
         for(int i = 0; i < GridManager.Instance.tileBonus.Count; i++)
         {
-            /*
+            
             if(GridManager.Instance.tileBonus[i] == true)
             {
                 Debug.Log(i);
                 DebugTileScore(i);
-            }*/
+            }
         }
     }
 
