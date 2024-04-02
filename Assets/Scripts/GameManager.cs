@@ -26,12 +26,12 @@ public class GameManager : MonoBehaviour
     /// unity c#
     public int CalculateTotalScore(List<TileTypes> tileStates, List<bool> tileBonus)
     {
-        int totalScore;
+        int totalScore = 0;
         for(int i = 0; i < tileStates.Count; i++)
         {
             if(tileStates[i] == TileTypes.Windmills && tileBonus[i])
             {
-                totalScore++
+                totalScore++;
             }
         }
 
