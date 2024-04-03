@@ -1,7 +1,5 @@
 /// <summary>
 /// This script is responsible for placing wires on the grid
-/// TODO: Connect to Chases branch to remove buildings and refund buildings. See line 137
-/// CONSIDER: Accidentally going diagonally doesn't feel great. Not sure how this would be changed without introducing other issues.
 /// </summary>
 using System;
 using System.Collections;
@@ -169,19 +167,24 @@ public class WirePlacement : MonoBehaviour
     /// This is used for placing a corner wire on the last tile if needed
     /// It is a separate function for code readability and because it is only used in two places
     /// </summary>
-    private void PlacingCornerWire()
+    /// <param name="currentTile">The tile that the player is currently hovering over. By default this is grid position</param>
+    private void PlacingCornerWire(int currentTile = -1)
     {
+        if (currentTile == -1)
+        {
+            currentTile = MouseManager.gridPosition;
+        }
         int rotation = 0;
         //This checks if the player has placed a wire on a different axis as the last two tiles
-        if ((lastTile / gridsize != secondLastTile / gridsize || lastTile / gridsize != MouseManager.gridPosition / gridsize) &&
-            (lastTile % gridsize != secondLastTile % gridsize || lastTile % gridsize != MouseManager.gridPosition % gridsize))
+        if ((lastTile / gridsize != secondLastTile / gridsize || lastTile / gridsize != currentTile / gridsize) &&
+            (lastTile % gridsize != secondLastTile % gridsize || lastTile % gridsize != currentTile % gridsize))
         {
             // Determine the direction of movement from the second last tile to the last tile and from the last tile to the current tile
             bool isMovingRightOrUpSecondLastToLast = secondLastTile < lastTile;
-            bool isMovingRightOrUpLastToCurrent = lastTile < MouseManager.gridPosition;
+            bool isMovingRightOrUpLastToCurrent = lastTile < currentTile;
 
             // Determine the rotation of the corner wire. I just put different rotations in until all directions worked.
-            if (MouseManager.gridPosition / gridsize == lastTile / gridsize)
+            if (currentTile / gridsize == lastTile / gridsize)
             {
                 if (isMovingRightOrUpSecondLastToLast)
                 {
@@ -228,21 +231,56 @@ public class WirePlacement : MonoBehaviour
 
     /// <summary>
     ///   Check if the player is trying to make an illegal move
+    ///   If the move is diagonal but could be legal with a tile placed in an empty square between them it will do that and return false
     /// </summary>
     /// <returns>Returns true if move is illegal</returns>
     private bool illegalMoveCheck()
     {
-        if (((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
-        (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0)) //If a diagonal movement is made
-        ||
-        (((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 1) ||
-        (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 1)))) //If it is a movement of more than one tile
+        if ((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 1) ||
+        (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 1)) //If it is a movement of more than one tile
         {
-            return true;
+            //CONSIDER: I could probably do the same thing as the diagonal movement for this. Should I?
+            return true; //Illegal move
+        }
+        else if ((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
+            (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0)) //If a diagonal movement is made
+        {
+            // Calculate the positions of the two squares in between the diagonal move
+            // I asked an AI for the correct calculation to figure out these two squares because it is 1am and my brain hurt trying to figure it out
+            int square1 = MouseManager.gridPosition % gridsize > lastTile % gridsize ? lastTile + 1 : lastTile - 1;
+            int square2 = MouseManager.gridPosition / gridsize > lastTile / gridsize ? lastTile + gridsize : lastTile - gridsize;
+
+            // Check if either of the squares is empty
+            if (GridManager.IsTileEmpty(square1) || GridManager.IsTileEmpty(square2))
+            {
+                int emptySquare;
+                // Place a wire on the empty square
+                if (GridManager.IsTileEmpty(square1))
+                {
+                    emptySquare = square1;
+                }
+                else
+                {
+                    emptySquare = square2;
+                }
+                PlacingCornerWire(emptySquare); //Because there is suddenly a new wire that might be a corner
+                PlaceWire(emptySquare, emptySquare / gridsize, emptySquare % gridsize, 0, StraightWire);
+
+                // Update lastTile, secondLastTile, and tilesPlaced
+                secondLastTile = lastTile;
+                lastTile = emptySquare;
+                tilesPlaced.Add(emptySquare);
+
+                return false; //Legal move with the tile placed in the empty square
+            }
+            else
+            {
+                return true; //Illegal move
+            }
         }
         else
         {
-            return false;
+            return false; //Legal move
         }
     }
 
