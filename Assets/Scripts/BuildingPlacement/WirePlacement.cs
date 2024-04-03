@@ -6,6 +6,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WirePlacement : MonoBehaviour
@@ -14,7 +15,7 @@ public class WirePlacement : MonoBehaviour
     public GameObject CornerWire;
     private GameObject lastWire;
     public Material CompletedConnection; //Just using one material for now. Can change to different ones based on the building
-    private Material selectedMaterial; 
+    private Material selectedMaterial;
     private List<int> tilesPlaced = new List<int>();
     private List<List<int>> wiresPlaced = new List<List<int>>(); //This is the list of saved wires so they can be removed if the building is removed
     private int startingTile = -1;
@@ -27,7 +28,7 @@ public class WirePlacement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gridsize = GridManager.Instance.gridSize;   
+        gridsize = GridManager.Instance.gridSize;
     }
     // Update is called once per frame
     void Update()
@@ -60,10 +61,14 @@ public class WirePlacement : MonoBehaviour
             if (GridManager.IsTileEmpty(MouseManager.gridPosition))
             {
                 int rotation = 0;
-                //If the player is trying to place a wire diagonally (or somehow across multiple tiles), remove the wires placed so far
+                //If the player is trying to place a wire diagonally or across multiple tiles, remove the wires placed so far
                 //This uses abs and the grid size to check if the difference in both directions is over 0
-                if ((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
-                (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0))
+                if (
+                    ((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
+                    (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0)) //If a diagonal movement is made
+                    ||
+                    (((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 1) ||
+                    (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 1)))) //If it is a movement of more than one tile
                 {
                     foreach (int tile in tilesPlaced)
                     {
@@ -86,7 +91,7 @@ public class WirePlacement : MonoBehaviour
                 //Place the wire on the current tile
                 PlaceWire(MouseManager.gridPosition, MouseManager.Instance.playerX, MouseManager.Instance.playerZ, rotation, StraightWire);
                 //Adding the placed tile to the list
-                tilesPlaced.Add(MouseManager.gridPosition); 
+                tilesPlaced.Add(MouseManager.gridPosition);
             }
             //If they drag over the goal tile, they lock in the wire
             else if (GridManager.Instance.tileStates[MouseManager.gridPosition] == goal)
@@ -115,19 +120,18 @@ public class WirePlacement : MonoBehaviour
                 //I need to invoke it or the colour change will happen before the last corner wire is placed for some reason
                 Invoke("DelayedColourChange", 0f);
             }
-            //If the player drags over a tile that already has a wire, they can remove everything placed since that tile was placed
+            //If the player drags over a tile that already has a wire from this list, they can remove everything placed since that tile was placed
             //If it is the source building it removes everything but lets the player keep placing wires
-            //If it is the edge or another building it removes everything and stops the player from placing wires
-            else if (lastTile != MouseManager.gridPosition)
+            else if (tilesPlaced.Contains(MouseManager.gridPosition) && lastTile != MouseManager.gridPosition)
             {
                 //While there are tiles left and it hasn't gotten to the tile the player is currently hovering over
-                while (tilesPlaced.Count > 0 && tilesPlaced[tilesPlaced.Count - 1]!= MouseManager.gridPosition)
+                while (tilesPlaced.Count > 0 && tilesPlaced[tilesPlaced.Count - 1] != MouseManager.gridPosition)
                 {
                     //Removed the wires from the tile and remove the tile from the list
                     RemoveWire(tilesPlaced[tilesPlaced.Count - 1]);
                     tilesPlaced.RemoveAt(tilesPlaced.Count - 1);
                     lastTile = tilesPlaced.Count > 0 ? tilesPlaced[tilesPlaced.Count - 1] : startingTile; //Resets what the last tile and second last tile are every time one is deleted
-                    secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile; 
+                    secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile;
                     //If this removes all wires then stop placing wires unless this is the starting tile
                     if (tilesPlaced.Count == 0 && lastTile != startingTile)
                     {
@@ -288,7 +292,7 @@ public class WirePlacement : MonoBehaviour
     {
         foreach (List<int> wire in wiresPlaced)
         {
-            if(buildingTile == wire[0]) //If the first tile is the same as the inputted building tile
+            if (buildingTile == wire[0]) //If the first tile is the same as the inputted building tile
             {
                 foreach (int tile in wire)
                 {
