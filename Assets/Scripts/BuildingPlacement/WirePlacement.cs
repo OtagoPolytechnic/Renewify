@@ -70,12 +70,7 @@ public class WirePlacement : MonoBehaviour
                 int rotation = 0;
                 //If the player is trying to place a wire diagonally or across multiple tiles, remove the wires placed so far
                 //This uses abs and the grid size to check if the difference in both directions is over 0
-                if (
-                    ((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
-                    (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0)) //If a diagonal movement is made
-                    ||
-                    (((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 1) ||
-                    (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 1)))) //If it is a movement of more than one tile
+                if (illegalMoveCheck())
                 {
                     foreach (int tile in tilesPlaced)
                     {
@@ -101,7 +96,7 @@ public class WirePlacement : MonoBehaviour
                 tilesPlaced.Add(MouseManager.gridPosition);
             }
             //If they drag over the goal tile, they lock in the wire
-            else if (GridManager.Instance.tileStates[MouseManager.gridPosition] == goal)
+            else if (GridManager.Instance.tileStates[MouseManager.gridPosition] == goal && !illegalMoveCheck())
             {
                 //Checks if the last wire needs to become a corner wire
                 PlacingCornerWire();
@@ -228,6 +223,26 @@ public class WirePlacement : MonoBehaviour
         if (lastTile != startingTile)
         {
             PlaceWire(lastTile, lastTile / gridsize, lastTile % gridsize, rotation, lastWire);
+        }
+    }
+
+    /// <summary>
+    ///   Check if the player is trying to make an illegal move
+    /// </summary>
+    /// <returns>Returns true if move is illegal</returns>
+    private bool illegalMoveCheck()
+    {
+        if (((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 0) &&
+        (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 0)) //If a diagonal movement is made
+        ||
+        (((Math.Abs((MouseManager.gridPosition % gridsize) - (lastTile % gridsize)) > 1) ||
+        (Math.Abs((MouseManager.gridPosition / gridsize) - (lastTile / gridsize)) > 1)))) //If it is a movement of more than one tile
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
