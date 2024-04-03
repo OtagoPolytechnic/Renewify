@@ -18,6 +18,7 @@ public class WirePlacement : MonoBehaviour
     private Material selectedMaterial;
     private List<int> tilesPlaced = new List<int>();
     private List<List<int>> wiresPlaced = new List<List<int>>(); //This is the list of saved wires so they can be removed if the building is removed
+    private List<int> buildingTiles = new List<int>(); //This is the list of building tiles that don't have a wire attached to them
     private int startingTile = -1;
     private int lastTile = -1;
     private int secondLastTile = -1;
@@ -38,6 +39,11 @@ public class WirePlacement : MonoBehaviour
         {
             WirePlacingLogic();
         }
+        else if (buildingTiles.Contains(MouseManager.gridPosition) && Input.GetMouseButtonDown(0))
+        {
+            BuildingPlacing.WiresPlacing = true;
+            startingTile = MouseManager.gridPosition;
+        }
     }
 
     /// <summary>
@@ -54,6 +60,7 @@ public class WirePlacement : MonoBehaviour
             if (startingTile == -1)
             {
                 startingTile = MouseManager.gridPosition;
+                buildingTiles.Add(startingTile);
             }
             lastTile = tilesPlaced.Count > 0 ? tilesPlaced[tilesPlaced.Count - 1] : startingTile; //Either gets the last tile or the starting tile
             secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile; //Either gets the second last tile or the starting tile
@@ -122,7 +129,7 @@ public class WirePlacement : MonoBehaviour
             }
             //If the player drags over a tile that already has a wire from this list, they can remove everything placed since that tile was placed
             //If it is the source building it removes everything but lets the player keep placing wires
-            else if (tilesPlaced.Contains(MouseManager.gridPosition) && lastTile != MouseManager.gridPosition)
+            else if ((tilesPlaced.Contains(MouseManager.gridPosition) || startingTile == MouseManager.gridPosition) && lastTile != MouseManager.gridPosition)
             {
                 //While there are tiles left and it hasn't gotten to the tile the player is currently hovering over
                 while (tilesPlaced.Count > 0 && tilesPlaced[tilesPlaced.Count - 1] != MouseManager.gridPosition)
@@ -138,8 +145,6 @@ public class WirePlacement : MonoBehaviour
                         resetTileList();
                     }
                 }
-                //TODO: Call a function to remove the building and refund it to the inventory
-                //Will likely be in Chases branch?
             }
         }
         else //If the player releases the left click or is not hovering over a tile
@@ -162,6 +167,7 @@ public class WirePlacement : MonoBehaviour
         //Add the starting spot to the start of the list of placed wires
         tilesPlaced.Insert(0, startingTile);
         wiresPlaced.Add(new List<int>(tilesPlaced)); //Add the list of placed wires to the list of all placed wires
+        buildingTiles.Remove(startingTile); //Remove the starting tile from the list of building tiles wihtout wires
         resetTileList();
     }
     /// <summary>
