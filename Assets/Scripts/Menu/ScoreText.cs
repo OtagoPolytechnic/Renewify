@@ -16,6 +16,13 @@ public class ScoreText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textMeshProText.text = GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates, GridManager.Instance.tileBonus).ToString();
+        //This doesn't need to be called every frame, setScoreText should ideally only be called when the score changes
+        //TODO: call setScoreText when placing building, instead of calling it here
+        setScoreText(GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates, GridManager.Instance.tileBonus))
+    }
+
+    void setScoreText(int score)
+    {
+        textMeshProText.text = "Score: " + score.ToString();
     }
 }
