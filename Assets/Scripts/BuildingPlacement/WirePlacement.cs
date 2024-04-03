@@ -142,7 +142,7 @@ public class WirePlacement : MonoBehaviour
                 }
             }
         }
-        else //If the player releases the left click or is not hovering over a tile
+        else if (!Input.GetMouseButton(0)) //If the player releases the left click
         {
             //If the player releases the left click before reaching the goal tile, remove the wires and refund the building
             foreach (int tile in tilesPlaced)
