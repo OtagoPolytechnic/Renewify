@@ -218,22 +218,50 @@ public class WirePlacement : MonoBehaviour
             {
                 if (isMovingRightOrUpSecondLastToLast)
                 {
-                    rotation = isMovingRightOrUpLastToCurrent ? 270 : 180;
+                    if (isMovingRightOrUpLastToCurrent)
+                    {
+                        rotation = 270;
+                    }
+                    else
+                    {
+                        rotation = 180;
+                    }
                 }
                 else
                 {
-                    rotation = isMovingRightOrUpLastToCurrent ? 0 : 90;
+                    if (isMovingRightOrUpLastToCurrent)
+                    {
+                        rotation = 0;
+                    }
+                    else
+                    {
+                        rotation = 90;
+                    }
                 }
             }
             else
             {
                 if (isMovingRightOrUpSecondLastToLast)
                 {
-                    rotation = isMovingRightOrUpLastToCurrent ? 90 : 180;
+                    if (isMovingRightOrUpLastToCurrent)
+                    {
+                        rotation = 90;
+                    }
+                    else
+                    {
+                        rotation = 180;
+                    }
                 }
                 else
                 {
-                    rotation = isMovingRightOrUpLastToCurrent ? 0 : 270;
+                    if (isMovingRightOrUpLastToCurrent)
+                    {
+                        rotation = 0;
+                    }
+                    else
+                    {
+                        rotation = 270;
+                    }
                 }
             }
             lastWire = CornerWire; //Set the last wire to a corner wire
