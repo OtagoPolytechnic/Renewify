@@ -17,12 +17,23 @@ public class WirePlacement : MonoBehaviour
     private List<int> tilesPlaced = new List<int>();
     private List<List<int>> wiresPlaced = new List<List<int>>(); //This is the list of saved wires so they can be removed if the building is removed
     private List<int> buildingTiles = new List<int>(); //This is the list of building tiles that don't have a wire attached to them
+    private List<int> connectedBuildings = new List<int>(); //Buildings that have been connected to the goal
     private int startingTile = -1;
     private int lastTile = -1;
     private int secondLastTile = -1;
     private int gridsize;
     private TileTypes goal = TileTypes.Goal;
     //I have an intermediary variable so that I only need to change it in one place if the name of the tile is changed in the goal branch
+    
+    //Singleton pattern
+    public static WirePlacement Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +52,23 @@ public class WirePlacement : MonoBehaviour
         {
             BuildingPlacing.WiresPlacing = true;
             startingTile = MouseManager.gridPosition;
+        }
+    }
+
+    /// <summary>
+    ///   Check if a building is connected to the goal tile
+    /// </summary>
+    /// <param name="gridPosition">Building to check</param>
+    /// <returns></returns>
+    public bool isTileConnected(int gridPosition)
+    {
+        if(connectedBuildings.Contains(gridPosition))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -118,7 +146,7 @@ public class WirePlacement : MonoBehaviour
                 }
                 //Change the colour of the wire to the target material
                 //I need to invoke it or the colour change will happen before the last corner wire is placed for some reason
-                Invoke("DelayedColourChange", 0f);
+                Invoke("EndWirePlace", 0f);
             }
             //If the player drags over a tile that already has a wire from this list, they can remove everything placed since that tile was placed
             //If it is the source building it removes everything but lets the player keep placing wires
@@ -151,7 +179,7 @@ public class WirePlacement : MonoBehaviour
         }
     }
 
-    private void DelayedColourChange()
+    private void EndWirePlace()
     {
         foreach (int tile in tilesPlaced)
         {
@@ -159,6 +187,8 @@ public class WirePlacement : MonoBehaviour
         }
         //Add the starting spot to the start of the list of placed wires
         tilesPlaced.Insert(0, startingTile);
+        //Add the starting tile to the list of connected buildings
+        connectedBuildings.Add(startingTile);
         wiresPlaced.Add(new List<int>(tilesPlaced)); //Add the list of placed wires to the list of all placed wires
         buildingTiles.Remove(startingTile); //Remove the starting tile from the list of building tiles wihtout wires
         resetTileList();
@@ -343,12 +373,15 @@ public class WirePlacement : MonoBehaviour
             child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
         }
     }
+
     /// <summary>
     /// Deletes a full wire when given a building tile starting location
     /// </summary>
     /// <param name="buildingTile">Building that is being deleted</param>
     public void RemoveFullWire(int buildingTile)
     {
+        //Remove the building from the list of connected buildings
+        connectedBuildings.Remove(buildingTile);
         foreach (List<int> wire in wiresPlaced)
         {
             if (buildingTile == wire[0]) //If the first tile is the same as the inputted building tile
