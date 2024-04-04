@@ -1823,6 +1823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 604267217}
   - component: {fileID: 604267218}
+  - component: {fileID: 604267219}
   m_Layer: 0
   m_Name: BuildingPlacementManager
   m_TagString: Untagged
@@ -1861,6 +1862,23 @@ MonoBehaviour:
     type: 3}
   SolarPanelField: {fileID: 2655049923408942160, guid: 835ec267c019c8e4c95bcf18472455d6,
     type: 3}
+--- !u!114 &604267219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604267216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce1ec02c8568b0b48adb38555ffdde2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StraightWire: {fileID: 3674633347040057346, guid: 79afe8d7373f00948aba8410045bc09d,
+    type: 3}
+  CornerWire: {fileID: 3674633347040057346, guid: 41739a3491b9311469aa35c1e3eba98a,
+    type: 3}
+  CompletedConnection: {fileID: 2100000, guid: 4a8ed71d6ce338c4dab4bada65f99399, type: 2}
 --- !u!1 &677761160
 GameObject:
   m_ObjectHideFlags: 0
