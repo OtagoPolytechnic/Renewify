@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PanelSelect : MonoBehaviour
 {
     public TileTypes panelBuilding;
+
     //This is set on spawn to the type of building this panel is for
     public GameObject WindmillPrefab;
     public GameObject SolarPanelPrefab;
+    public Sprite selectedSprite;
+    public Sprite normalSprite;
+
+    public int availableBuildings;
 
     void Start()
     {
@@ -18,17 +25,24 @@ public class PanelSelect : MonoBehaviour
     void Update()
     {
         //If the selected building isn't the same as this one, disable the selected text
-        if(BuildingPlacing.selectedBuilding != panelBuilding)
+        if (BuildingPlacing.selectedBuilding != panelBuilding)
         {
-            transform.GetChild(1).gameObject.SetActive(false);
+            gameObject.GetComponent<Image>().sprite = normalSprite;
         }
-    }
+        //The button will be clickable as long as the available buildings is more than 0
+        gameObject.GetComponent<Button>().interactable = availableBuildings > 0;
 
+    }
 
     public void SetInfo()
     {
-        //Disable the selected text
-        transform.GetChild(1).gameObject.SetActive(false);
+
+        //Set the sprite to the normal sprite
+        gameObject.GetComponent<Image>().sprite = normalSprite;
+
+        //The Count text is updated to display the available buildings
+        transform.Find("count").GetComponent<TMPro.TextMeshProUGUI>().text = availableBuildings.ToString();
+
         //This will show an image of the selected item on the panel eventually
         switch (panelBuilding)
         {
@@ -39,6 +53,7 @@ public class PanelSelect : MonoBehaviour
             case TileTypes.SolarPanels:
                 //Set child's text to Windmill as a placeholder
                 transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Solar Panels";
+
                 break;
             default:
                 Debug.Log("No valid building type selected");
@@ -48,23 +63,33 @@ public class PanelSelect : MonoBehaviour
         }
     }
 
-
     /// <summary>
     /// This is called when the user clicks on the panel to select a building
     /// </summary>
     public void SelectBuilding()
     {
-        //Set the selected building to the building type of this panel
-        if (BuildingPlacing.selectedBuilding == panelBuilding)
+        //Ensures the user cannot place buildings they don't own
+        if (availableBuildings > 0)
         {
-            BuildingPlacing.selectedBuilding = TileTypes.None;
+            //Turn off delete mode
+            InventoryManagement.instance.deleteMode.isOn = false;
+
+            //Set the selected building to the building type of this panel
+            if (BuildingPlacing.selectedBuilding == panelBuilding)
+            {
+                BuildingPlacing.selectedBuilding = TileTypes.None;
+                InventoryManagement.instance.currentSelectionPanel = null;
+            }
+            else
+            {
+                BuildingPlacing.selectedBuilding = panelBuilding;
+                //Sets the inventory managers current selection
+                InventoryManagement.instance.currentSelectionPanel = this;
+            }
         }
-        else
-        {
-            BuildingPlacing.selectedBuilding = panelBuilding;
-        }
-        //Enable the selected text
-        //This will either become a model attached to the cursor or a better way of showing selection like an effect
-        transform.GetChild(1).gameObject.SetActive(!transform.GetChild(1).gameObject.activeSelf);
+
+        //If the selected building is the same as this one, set the sprite to the selected sprite
+        gameObject.GetComponent<UnityEngine.UI.Image>().sprite = BuildingPlacing.selectedBuilding == panelBuilding ? selectedSprite : normalSprite;
+
     }
 }
