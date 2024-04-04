@@ -9,6 +9,7 @@ public class GridCreator : MonoBehaviour
 
     public Material defaultMaterial;
     public Material highlightedMaterial;
+    public Material debugMaterial;
 
     public static List<GameObject> tiles = new List<GameObject>();
     
@@ -23,6 +24,14 @@ public class GridCreator : MonoBehaviour
     void Start()
     {
         GenerateGrid();
+        for(int i = 0; i < GridManager.Instance.tileBonus.Count; i++)
+        {
+            
+            if(GridManager.Instance.tileBonus[i] == true)
+            {
+                DebugTileScore(i);
+            }
+        }
     }
 
     void GenerateGrid()
@@ -40,6 +49,18 @@ public class GridCreator : MonoBehaviour
                 tiles.Add(tile);
             }
         }
+        
+    }
+
+    public void DebugTileScore(int index)
+    {
+        Vector3 tilePosition = tiles[index].transform.position;
+        GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity);
+        tile.name = "Bonus_Tile_" + index;
+        tile.tag = "Untagged";
+        tile.GetComponent<MeshCollider>().enabled = false;
+
+        tile.GetComponent<Renderer>().material = debugMaterial;
     }
 
 }
