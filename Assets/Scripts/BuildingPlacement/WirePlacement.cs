@@ -24,7 +24,7 @@ public class WirePlacement : MonoBehaviour
     private int gridsize;
     private TileTypes goal = TileTypes.Goal;
     //I have an intermediary variable so that I only need to change it in one place if the name of the tile is changed in the goal branch
-    
+
     //Singleton pattern
     public static WirePlacement Instance;
     private void Awake()
@@ -43,6 +43,10 @@ public class WirePlacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (InventoryManagement.instance.deleteMode.isOn) //If delete mode is on, don't place wires
+        {
+            return;
+        }
         //This checks if the player has just placed a building and is now trying to place wires
         if (BuildingPlacing.WiresPlacing)
         {
@@ -62,7 +66,7 @@ public class WirePlacement : MonoBehaviour
     /// <returns></returns>
     public bool isTileConnected(int gridPosition)
     {
-        if(connectedBuildings.Contains(gridPosition))
+        if (connectedBuildings.Contains(gridPosition))
         {
             return true;
         }
@@ -410,6 +414,7 @@ public class WirePlacement : MonoBehaviour
     {
         //Remove the building from the list of connected buildings
         connectedBuildings.Remove(buildingTile);
+        buildingTiles.Remove(buildingTile);
         foreach (List<int> wire in wiresPlaced)
         {
             if (buildingTile == wire[0]) //If the first tile is the same as the inputted building tile

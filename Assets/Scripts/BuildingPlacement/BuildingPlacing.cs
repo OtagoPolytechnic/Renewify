@@ -23,10 +23,10 @@ public class BuildingPlacing : MonoBehaviour
         }
     }
 
-  
+
     public void OnMouseDown()
     {
-        if(selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
+        if (selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
         {
             Debug.Log("Placing building");
             placeBuilding();
@@ -37,6 +37,7 @@ public class BuildingPlacing : MonoBehaviour
             InventoryManagement.instance.ReturnSelectedBuilding(GridManager.Instance.tileStates[MouseManager.gridPosition]);
             GridManager.Instance.tileStates[MouseManager.gridPosition] = TileTypes.None;
             Destroy(GetTileObject(MouseManager.gridPosition).transform.GetChild(0).gameObject);
+            WirePlacement.Instance.RemoveFullWire(MouseManager.gridPosition);
         }
 
     }
@@ -62,7 +63,7 @@ public class BuildingPlacing : MonoBehaviour
             InventoryManagement.instance.PlaceSelectedBuilding();
             //Place the building
             //Get the prefab with the same name as the building variable
-            switch(selectedBuilding)
+            switch (selectedBuilding)
             {
                 case TileTypes.Windmills:
                     spawnBuilding(Windmill, playerX, playerZ, GetTileObject(MouseManager.gridPosition));

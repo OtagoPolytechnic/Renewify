@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public int totalScore = 0; //DEBUG: this can be removed later, it's just here to see the score in the editor.
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -32,10 +32,11 @@ public class GameManager : MonoBehaviour
         /// unity c#
 
         totalScore = 0; //reset score before changing it in loop below
-        for(int i = 0; i < tileStates.Count; i++)
+        for (int i = 0; i < tileStates.Count; i++)
         {
             //TODO: allow this function to specify which type of bonus tile this is (wind, solar, water)
-            if(tileStates[i] == TileTypes.Windmills && tileBonus[i]) //This checks if the player has a windmill on a bonus tile. 
+            //Note from Palin: Added a check if the tile is connected to the goal
+            if (tileStates[i] == TileTypes.Windmills && tileBonus[i] && WirePlacement.Instance.isTileConnected(i)) //This checks if the player has a windmill on a bonus tile. 
             {
                 totalScore++; //increments score by 1
             }
