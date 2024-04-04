@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997af2e4d7a5d6641a9d1df00c5328a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panelBuilding: 0
   WindmillPrefab: {fileID: 6822399163656563674, guid: 7555836f41415eb46810e50edf2e9a1a,
     type: 3}
   SolarPanelPrefab: {fileID: 2655049923408942160, guid: 835ec267c019c8e4c95bcf18472455d6,
