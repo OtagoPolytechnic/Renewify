@@ -32,7 +32,10 @@ public class BuildingPlacing : MonoBehaviour
             placeBuilding();
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
-        else if (selectedBuilding == TileTypes.None && MouseManager.isHovering && !GridManager.IsTileEmpty(MouseManager.gridPosition) && InventoryManagement.instance.deleteMode.isOn)
+        else if (selectedBuilding == TileTypes.None &&
+                MouseManager.isHovering &&
+                (GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.Windmills || GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.SolarPanels) &&
+                InventoryManagement.instance.deleteMode.isOn)
         {
             InventoryManagement.instance.ReturnSelectedBuilding(GridManager.Instance.tileStates[MouseManager.gridPosition]);
             GridManager.Instance.tileStates[MouseManager.gridPosition] = TileTypes.None;
