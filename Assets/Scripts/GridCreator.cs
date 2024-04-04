@@ -29,7 +29,6 @@ public class GridCreator : MonoBehaviour
             
             if(GridManager.Instance.tileBonus[i] == true)
             {
-                Debug.Log(i);
                 DebugTileScore(i);
             }
         }
