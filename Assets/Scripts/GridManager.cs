@@ -9,6 +9,9 @@ public class GridManager : MonoBehaviour
     public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
 
     public List<TileTypes> tileStates = new List<TileTypes>(); 
+    public List<bool> tileBonus = new List<bool>(); 
+    //public Dictionary<TilePoints, int> tileBonus = new Dictionary<TilePoints, int>();
+
     
     void Awake()
     {
@@ -23,6 +26,18 @@ public class GridManager : MonoBehaviour
         }
 
         //TODO: load new tileStates preset
+        
+        //THIS IS TEMPORARY CODE TO HARDCODE GOALS AND OBSTACLES FOR A DEMONSTRATION.
+        tileStates[2] = TileTypes.Plants;
+        tileStates[12] = TileTypes.Plants;
+        tileStates[69] = TileTypes.Rocks;
+        tileStates[70] = TileTypes.Rocks;
+        tileStates[93] = TileTypes.Rocks;
+        tileStates[86] = TileTypes.Trees;
+        tileStates[44] = TileTypes.Goal;
+        tileStates[45] = TileTypes.Goal;
+        tileStates[54] = TileTypes.Goal;
+        tileStates[55] = TileTypes.Goal;
     }
     
     // Start is called before the first frame update
@@ -39,6 +54,8 @@ public class GridManager : MonoBehaviour
     {
         return Instance.onCalculatePos(x, z);
     }
+
+    
 
     private bool OnIsTileEmpty(int index)
     {
