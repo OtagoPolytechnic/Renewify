@@ -10,7 +10,7 @@ public class MouseManager : MonoBehaviour
     public static MouseManager Instance;
     public int playerX;
     public int playerZ; 
-    public static int gridPosition;
+    public static Vector2 gridPosition;
 
     public static bool isHovering = false; 
 
@@ -46,7 +46,7 @@ public class MouseManager : MonoBehaviour
                 playerZ = int.Parse(tileNameParts[2]);
 
                 
-                gridPosition = playerX * GridManager.Instance.gridSize + playerZ;    
+                gridPosition = new Vector2(playerX, playerZ);    
                 SetTileAtPlayerPosition();
                 //Debug.Log(GridManager.IsTileEmpty(MouseManager.gridPosition));
 
