@@ -66,7 +66,7 @@ public class WirePlacement : MonoBehaviour
     /// <returns></returns>
     public bool isTileConnected(int gridPosition)
     {
-        if (connectedBuildings.Contains(BuildingPlacing.GetTilePosition(gridPosition)))
+        if (connectedBuildings.Contains(GridManager.GetTilePosition(gridPosition)))
         {
             return true;
         }
@@ -95,7 +95,7 @@ public class WirePlacement : MonoBehaviour
             lastTile = tilesPlaced.Count > 0 ? tilesPlaced[tilesPlaced.Count - 1] : startingTile; //Either gets the last tile or the starting tile
             secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile; //Either gets the second last tile or the starting tile
             //If the player drags through a tile that is empty, they can place a wire
-            if (GridManager.IsTileEmpty(BuildingPlacing.GetTileIndex(MouseManager.gridPosition)))
+            if (GridManager.IsTileEmpty(GridManager.GetTileIndex(MouseManager.gridPosition)))
             {
                 int rotation = 0;
                 //If the player is trying to place a wire diagonally or across multiple tiles, remove the wires placed so far
@@ -104,7 +104,7 @@ public class WirePlacement : MonoBehaviour
                 {
                     foreach (Vector2 tile in tilesPlaced)
                     {
-                        RemoveWire(BuildingPlacing.GetTileIndex(tile));
+                        RemoveWire(GridManager.GetTileIndex(tile));
                     }
                     resetTileList();
                     return;
@@ -121,17 +121,17 @@ public class WirePlacement : MonoBehaviour
                     rotation = 0;
                 }
                 //Place the wire on the current tile
-                PlaceWire(BuildingPlacing.GetTileIndex(MouseManager.gridPosition), MouseManager.Instance.playerX, MouseManager.Instance.playerZ, rotation, StraightWire);
+                PlaceWire(GridManager.GetTileIndex(MouseManager.gridPosition), (int) MouseManager.gridPosition.x, (int) MouseManager.gridPosition.y, rotation, StraightWire);
                 //Adding the placed tile to the list
                 tilesPlaced.Add(MouseManager.gridPosition);
             }
             //If they drag over the goal tile, they lock in the wire
-            else if (GridManager.Instance.tileStates[BuildingPlacing.GetTileIndex(MouseManager.gridPosition)] == goal && !illegalMoveCheck())
+            else if (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == goal && !illegalMoveCheck())
             {
                 //Checks if the last wire needs to become a corner wire
                 PlacingCornerWire(MouseManager.gridPosition);
                 //Can swap out the material based on the building when we add the materials
-                switch (GridManager.Instance.tileStates[BuildingPlacing.GetTileIndex(startingTile)])
+                switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)])
                 {
                     case TileTypes.SolarPanels:
                         selectedMaterial = CompletedConnection;
@@ -160,7 +160,7 @@ public class WirePlacement : MonoBehaviour
                 while (tilesPlaced.Count > 0 && tilesPlaced[tilesPlaced.Count - 1] != MouseManager.gridPosition)
                 {
                     //Removed the wires from the tile and remove the tile from the list
-                    RemoveWire(BuildingPlacing.GetTileIndex(tilesPlaced[tilesPlaced.Count - 1]));
+                    RemoveWire(GridManager.GetTileIndex(tilesPlaced[tilesPlaced.Count - 1]));
                     tilesPlaced.RemoveAt(tilesPlaced.Count - 1);
                     lastTile = tilesPlaced.Count > 0 ? tilesPlaced[tilesPlaced.Count - 1] : startingTile; //Resets what the last tile and second last tile are every time one is deleted
                     secondLastTile = tilesPlaced.Count > 1 ? tilesPlaced[tilesPlaced.Count - 2] : startingTile;
@@ -177,7 +177,7 @@ public class WirePlacement : MonoBehaviour
             //If the player releases the left click before reaching the goal tile, remove the wires and refund the building
             foreach (Vector2 tile in tilesPlaced)
             {
-                RemoveWire(BuildingPlacing.GetTileIndex(tile));
+                RemoveWire(GridManager.GetTileIndex(tile));
             }
             resetTileList();
         }
@@ -187,7 +187,7 @@ public class WirePlacement : MonoBehaviour
     {
         foreach (Vector2 tile in tilesPlaced)
         {
-            changeColour(GridCreator.tiles[BuildingPlacing.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+            changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
         }
         //Add the starting spot to the start of the list of placed wires
         tilesPlaced.Insert(0, startingTile);
@@ -214,8 +214,8 @@ public class WirePlacement : MonoBehaviour
             (lastTile.y != secondLastTile.y || lastTile.y != MouseManager.gridPosition.y))
         {
             // Determine the direction of movement from the second last tile to the last tile and from the last tile to the current tile
-            bool isMovingRightOrUpSecondLastToLast = BuildingPlacing.GetTileIndex(secondLastTile) <  BuildingPlacing.GetTileIndex(lastTile);
-            bool isMovingRightOrUpLastToCurrent =  BuildingPlacing.GetTileIndex(lastTile) <  BuildingPlacing.GetTileIndex(currentTile);
+            bool isMovingRightOrUpSecondLastToLast = GridManager.GetTileIndex(secondLastTile) <  GridManager.GetTileIndex(lastTile);
+            bool isMovingRightOrUpLastToCurrent =  GridManager.GetTileIndex(lastTile) <  GridManager.GetTileIndex(currentTile);
 
             // Determine the rotation of the corner wire. I just put different rotations in until all directions worked.
             if (currentTile.x == lastTile.x)
@@ -287,7 +287,7 @@ public class WirePlacement : MonoBehaviour
         //Place the wire on the last tile if it is not the starting tile
         if (lastTile != startingTile)
         {
-            PlaceWire( BuildingPlacing.GetTileIndex(lastTile), (int) lastTile.x, (int) lastTile.y, rotation, lastWire);
+            PlaceWire( GridManager.GetTileIndex(lastTile), (int) lastTile.x, (int) lastTile.y, rotation, lastWire);
         }
     }
 
@@ -313,11 +313,11 @@ public class WirePlacement : MonoBehaviour
             Vector2 square2 = MouseManager.gridPosition.x > lastTile.x ? new Vector2(lastTile.x + 1,lastTile.y) : new Vector2(lastTile.x -1,lastTile.y);
 
             // Check if either of the squares is empty
-            if (GridManager.IsTileEmpty(BuildingPlacing.GetTileIndex(square1)) || GridManager.IsTileEmpty(BuildingPlacing.GetTileIndex(square2)))
+            if (GridManager.IsTileEmpty(GridManager.GetTileIndex(square1)) || GridManager.IsTileEmpty(GridManager.GetTileIndex(square2)))
             {
                 Vector2 emptySquare;
                 // Place a wire on the empty square
-                if (GridManager.IsTileEmpty(BuildingPlacing.GetTileIndex(square1)))
+                if (GridManager.IsTileEmpty(GridManager.GetTileIndex(square1)))
                 {
                     emptySquare = square1;
                 }
@@ -326,7 +326,7 @@ public class WirePlacement : MonoBehaviour
                     emptySquare = square2;
                 }
                 PlacingCornerWire(emptySquare); //Because there is suddenly a new wire that might be a corner
-                PlaceWire(BuildingPlacing.GetTileIndex(emptySquare), (int) emptySquare.x, (int) emptySquare.y, 0, StraightWire);
+                PlaceWire(GridManager.GetTileIndex(emptySquare), (int) emptySquare.x, (int) emptySquare.y, 0, StraightWire);
 
                 // Update lastTile, secondLastTile, and tilesPlaced
                 secondLastTile = lastTile;
@@ -421,7 +421,7 @@ public class WirePlacement : MonoBehaviour
             {
                 foreach (Vector2 tile in wire)
                 {
-                    RemoveWire(BuildingPlacing.GetTileIndex(tile));
+                    RemoveWire(GridManager.GetTileIndex(tile));
                 }
             }
         }
