@@ -10,17 +10,20 @@ using UnityEngine;
 public class GridBorder : MonoBehaviour
 {
     public GameObject borderPrefab; //assign this in inspector
-    public int positionOffset;
+    public float positionOffset;
+    public float oddOffset;
     void Start()
     {
-        positionOffset = GridManager.Instance.gridSize * 5; //if grid size is 10, the borders should be at 50
         
+        positionOffset = (GridManager.Instance.gridSize * 5); //if grid size is 10, the borders should be at 50
+        oddOffset = GridManager.Instance.gridSize % 2 * 5; //moves grid over by 5 if the gridize is an odd number
+
         Vector3[] spawnPositions = new Vector3[]
         {
-            new Vector3(-positionOffset, 1, 0),
-            new Vector3(positionOffset, 1, 0), 
-            new Vector3(0, 1, -positionOffset),
-            new Vector3(0, 1, positionOffset) 
+            new Vector3(-positionOffset + oddOffset, 1, 0),
+            new Vector3(positionOffset + oddOffset, 1, 0), 
+            new Vector3(0, 1, -positionOffset + oddOffset),
+            new Vector3(0, 1, positionOffset + oddOffset) 
         };
         
         SpawnBorder(spawnPositions);

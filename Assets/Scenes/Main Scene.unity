@@ -278,7 +278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &91043838
 Transform:
   m_ObjectHideFlags: 0
@@ -2839,7 +2839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1115083528
 Transform:
   m_ObjectHideFlags: 0
@@ -4581,6 +4581,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   borderPrefab: {fileID: 2424457325692560533, guid: 92f3c943e58cc204f904a43ea42a0b86,
     type: 3}
+  positionOffset: 0
+  oddOffset: 0
 --- !u!1 &1900135518
 GameObject:
   m_ObjectHideFlags: 0
@@ -4598,7 +4600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1900135519
 Transform:
   m_ObjectHideFlags: 0
@@ -5021,7 +5023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &4658643393541546099
 MeshRenderer:
   m_ObjectHideFlags: 0
