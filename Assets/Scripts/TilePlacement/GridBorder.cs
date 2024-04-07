@@ -20,10 +20,10 @@ public class GridBorder : MonoBehaviour
 
         Vector3[] spawnPositions = new Vector3[]
         {
-            new Vector3(-positionOffset + oddOffset, 1, 0),
-            new Vector3(positionOffset + oddOffset, 1, 0), 
-            new Vector3(0, 1, -positionOffset + oddOffset),
-            new Vector3(0, 1, positionOffset + oddOffset) 
+            new Vector3(-positionOffset + oddOffset, 1, oddOffset),
+            new Vector3(positionOffset + oddOffset, 1, oddOffset), 
+            new Vector3(oddOffset, 1, -positionOffset + oddOffset),
+            new Vector3(oddOffset, 1, positionOffset + oddOffset) 
         };
         
         SpawnBorder(spawnPositions);
@@ -37,7 +37,7 @@ public class GridBorder : MonoBehaviour
         {
             Quaternion spawnRotation;
 
-            if (spawnPositions[i].x != 0)
+            if (spawnPositions[i].x != oddOffset)
             {
                 spawnRotation = Quaternion.Euler(0, 90, 0);
             }
@@ -48,6 +48,7 @@ public class GridBorder : MonoBehaviour
 
             GameObject border = Instantiate(borderPrefab, spawnPositions[i], spawnRotation);
             border.name = "Border_" + i;
+            border.transform.localScale = new Vector3((GridManager.Instance.gridSize + 0.1f), 1f, 0.1f);
             //GridManager.Instance.gridSize;
         }
     }
