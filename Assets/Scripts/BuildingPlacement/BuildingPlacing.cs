@@ -10,6 +10,10 @@ public class BuildingPlacing : MonoBehaviour
 {
     public GameObject Windmill;
     public GameObject SolarPanelField;
+    public GameObject ghostWindmill;
+    public GameObject ghostSolarPanelField;
+    private bool isRed = false;
+    private GameObject ghostBuilding = null;
     public static bool WiresPlacing = false;
     //Enum building variable
     public static TileTypes selectedBuilding = TileTypes.None;
@@ -20,6 +24,76 @@ public class BuildingPlacing : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             OnMouseDown();
+            if(ghostBuilding != null)
+            {
+                Destroy(ghostBuilding);
+            }
+        }
+        else if (selectedBuilding != TileTypes.None && MouseManager.isHovering)
+        {
+            if (ghostBuilding == null)
+            {
+                GameObject temp = null;
+                //Instantiate a ghost version of the selected building at the mouse position. The ghostWindmill and ghostSolarPanelField are the prefabs of the ghost buildings
+                switch (selectedBuilding)
+                {
+                    case TileTypes.Windmills:
+                    //Instantiate the ghost building at the mouse position
+                        temp = ghostWindmill;
+                        break;
+                    case TileTypes.SolarPanels:
+                        temp = ghostSolarPanelField;
+                        break;
+                    default:
+                        Debug.Log("No valid building type selected");
+                        break;
+                }
+                if (temp != null)
+                {
+                    ghostBuilding = Instantiate(temp, GridManager.CalculatePos(MouseManager.Instance.playerX, MouseManager.Instance.playerZ), Quaternion.identity);
+                    ghostBuilding.transform.Rotate(0, 180, 0);
+                }
+                isRed = false;
+            }
+            else if (ghostBuilding.transform.position != GridManager.CalculatePos(MouseManager.Instance.playerX, MouseManager.Instance.playerZ))
+            {
+                ghostBuilding.transform.position = GridManager.CalculatePos(MouseManager.Instance.playerX, MouseManager.Instance.playerZ);
+            }
+            
+
+            //If tile is not empty change the colour of the ghost building to red
+            if (!GridManager.IsTileEmpty(MouseManager.gridPosition))
+            {
+                if (!isRed)
+                {
+                    colourChange(ghostBuilding, Color.red);
+                    isRed = true;
+                }
+            }
+            //Else reset the colour to white
+            else
+            {
+                if (isRed)
+                {
+                    colourChange(ghostBuilding, Color.white);
+                    isRed = false;
+                }
+            }
+        }
+    }
+
+    //Will recursively change the colour of all children of the parent object
+    private void colourChange(GameObject parent, Color color)
+    {
+        Renderer renderer = parent.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = color;
+        }
+
+        foreach (Transform child in parent.transform)
+        {
+            colourChange(child.gameObject, color);
         }
     }
 
@@ -28,7 +102,6 @@ public class BuildingPlacing : MonoBehaviour
     {
         if (selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
         {
-            Debug.Log("Placing building");
             placeBuilding();
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
