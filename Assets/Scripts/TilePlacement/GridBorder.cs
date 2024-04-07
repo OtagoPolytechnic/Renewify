@@ -15,11 +15,30 @@ public class GridBorder : MonoBehaviour
         SpawnBorder();
     }
 
+    Vector3[] spawnPositions = new Vector3[]
+    {
+        new Vector3(-50, 1, 0),
+        new Vector3(50, 1, 0), 
+        new Vector3(0, 1, -50),
+        new Vector3(0, 1, 50) 
+    };
+
     public void SpawnBorder()
     {
         for (int i = 0; i < 4; i++)
         {
-            GameObject border = Instantiate(borderPrefab, new Vector3(0,1,0), Quaternion.identity);
+            Quaternion spawnRotation;
+            
+            if (spawnPositions[i].x != 0)
+            {
+                spawnRotation = Quaternion.Euler(0, 90, 0);
+            }
+            else
+            {
+                spawnRotation = Quaternion.identity;
+            }
+
+            GameObject border = Instantiate(borderPrefab, spawnPositions[i], spawnRotation);
             border.name = "Border_" + i;
             //GridManager.Instance.gridSize;
         }
