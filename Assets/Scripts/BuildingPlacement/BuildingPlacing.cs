@@ -29,8 +29,10 @@ public class BuildingPlacing : MonoBehaviour
                 Destroy(ghostBuilding);
             }
         }
+        //If the user is hovering over a tile and has selected a building create a ghost building at the mouse position
         else if (selectedBuilding != TileTypes.None && MouseManager.isHovering)
         {
+            //If there isnt a ghost building already created then create one
             if (ghostBuilding == null)
             {
                 GameObject temp = null;
@@ -55,12 +57,11 @@ public class BuildingPlacing : MonoBehaviour
                 }
                 isRed = false;
             }
+            //If the ghost building exists and is not at the mouse position then move it to the mouse position
             else if (ghostBuilding.transform.position != GridManager.CalculatePos(MouseManager.Instance.playerX, MouseManager.Instance.playerZ))
             {
                 ghostBuilding.transform.position = GridManager.CalculatePos(MouseManager.Instance.playerX, MouseManager.Instance.playerZ);
             }
-            
-
             //If tile is not empty change the colour of the ghost building to red
             if (!GridManager.IsTileEmpty(MouseManager.gridPosition))
             {
@@ -80,9 +81,28 @@ public class BuildingPlacing : MonoBehaviour
                 }
             }
         }
+        else if (InventoryManagement.instance.deleteMode.isOn)
+        {
+
+            if (MouseManager.isHovering
+                && (GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.Windmills || GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.SolarPanels))
+            {
+                //Something to show that the building would be deleted?
+                //Save the position of the building
+            }
+            else
+            {
+                //Recall the position
+                //Remove the thing that shows the building would be deleted
+            }
+        }
     }
 
-    //Will recursively change the colour of all children of the parent object
+    /// <summary>
+    /// Will recursively change the colour of all renderers in all children of the parent object
+    /// </summary>
+    /// <param name="parent">Parent object</param>
+    /// <param name="color">Colour to change it to</param>
     private void colourChange(GameObject parent, Color color)
     {
         Renderer renderer = parent.GetComponent<Renderer>();
@@ -105,8 +125,7 @@ public class BuildingPlacing : MonoBehaviour
             placeBuilding();
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
-        else if (selectedBuilding == TileTypes.None &&
-                MouseManager.isHovering &&
+        else if (MouseManager.isHovering &&
                 (GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.Windmills || GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.SolarPanels) &&
                 InventoryManagement.instance.deleteMode.isOn)
         {
@@ -118,7 +137,11 @@ public class BuildingPlacing : MonoBehaviour
 
     }
 
-    //Returns the gameobject of the tile
+    /// <summary>
+    /// Returns the gameobject of the tile
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     public GameObject GetTileObject(int index)
     {
         return GridCreator.tiles[index];

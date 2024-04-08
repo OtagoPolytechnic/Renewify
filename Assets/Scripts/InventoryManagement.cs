@@ -10,6 +10,7 @@ public class InventoryManagement : MonoBehaviour
     [HideInInspector] public PanelSelect currentSelectionPanel;
 
     [HideInInspector] public Toggle deleteMode;
+    public Texture2D cursorTexture;
 
     public static InventoryManagement instance;
 
@@ -35,6 +36,10 @@ public class InventoryManagement : MonoBehaviour
                 currentSelectionPanel.SetInfo(); //Update selected panel info and then set it to null
                 currentSelectionPanel = null;
             }
+            Cursor.SetCursor(cursorTexture, new Vector2(cursorTexture.width / 2, cursorTexture.height / 2), CursorMode.Auto);        }
+        else
+        {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); //Set the cursor to the default cursor
         }
 
     }
