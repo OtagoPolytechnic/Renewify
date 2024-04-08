@@ -37,7 +37,8 @@ public class BuildingPlacing : MonoBehaviour
                 InventoryManagement.instance.deleteMode.isOn)
         {
             InventoryManagement.instance.ReturnSelectedBuilding(GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)]);
-            GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] = TileTypes.None;
+            //GridManager.Instance.tileStates[GetTileIndex(MouseManager.gridPosition)] = TileTypes.None;
+            GridManager.SetTileState(MouseManager.gridPosition, TileTypes.None);
             Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.GetChild(0).gameObject);
             WirePlacement.Instance.RemoveFullWire(MouseManager.gridPosition);
         }
@@ -61,7 +62,8 @@ public class BuildingPlacing : MonoBehaviour
         if (GridManager.IsTileEmpty(GridManager.GetTileIndex(MouseManager.gridPosition)) && InventoryManagement.instance.BuildingsLeft())
         {
             //Pass through the building I want to be placed
-            GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] = selectedBuilding;
+           // GridManager.Instance.tileStates[GetTileIndex(MouseManager.gridPosition)] = selectedBuilding;
+            GridManager.SetTileState(MouseManager.gridPosition, selectedBuilding);
             //Remove a building from the inventory
             InventoryManagement.instance.PlaceSelectedBuilding();
             //Place the building
