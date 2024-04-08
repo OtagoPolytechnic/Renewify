@@ -51,7 +51,7 @@ public class ResolutionChange : MonoBehaviour
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = filteredResolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, true);
+        Screen.SetResolution(resolution.width, resolution.height, PlayerPrefs.GetInt("fullscreen", 1) == 1);
     }
 
     
