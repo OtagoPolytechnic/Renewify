@@ -143,7 +143,6 @@ public class WirePlacement : MonoBehaviour
                     //    selectedMaterial = CompletedConnection;
                     //    break;
                     default:
-                        Debug.Log("The source of the wire was not a valid building type.");
                         //If this is reached something is broken
                         selectedMaterial = CompletedConnection;
                         break;

@@ -28,7 +28,6 @@ public class BuildingPlacing : MonoBehaviour
     {
         if (selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
         {
-            Debug.Log("Placing building");
             placeBuilding();
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
@@ -78,15 +77,11 @@ public class BuildingPlacing : MonoBehaviour
                     WiresPlacing = true;
                     break;
                 default:
-                    Debug.Log("No valid building type selected");
                     break;
             }
             selectedBuilding = TileTypes.None;
         }
-        {
-            //Show a message saying that the space is full
-            Debug.Log("Space is full");
-        }
+
     }
 
     private void spawnBuilding(GameObject building, int playerX, int playerZ, GameObject parent)

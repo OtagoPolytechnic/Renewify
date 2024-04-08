@@ -48,7 +48,6 @@ public class MouseManager : MonoBehaviour
                 
                 gridPosition = new Vector2(playerX, playerZ);    
                 SetTileAtPlayerPosition();
-                //Debug.Log(GridManager.IsTileEmpty(MouseManager.gridPosition));
 
             }else{
                 isHovering = false;
