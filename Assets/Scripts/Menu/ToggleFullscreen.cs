@@ -7,23 +7,27 @@ public class ToggleFullscreen : MonoBehaviour
 {
     void Start()
     {
-        gameObject.GetComponent<Toggle>().isOn = Screen.fullScreen;
-        //Debug.Log(Screen.fullScreen);
+        LoadPrefs();
     }
 
     public void Fullscreen()
     {
-        Screen.fullScreen = !Screen.fullScreen;
+        if(gameObject.GetComponent<Toggle>().isOn)
+        {
+            PlayerPrefs.SetInt("fullscreen", 1);
+        }else
+        {
+            PlayerPrefs.SetInt("fullscreen", 0);
+        }
+
+        Screen.fullScreen = gameObject.GetComponent<Toggle>().isOn;
     }
 
-    public void SavePrefs()
-    {
-        PlayerPrefs.SetInt("Volume", 50);
-        PlayerPrefs.Save();
-    }
-    
     public void LoadPrefs()
     {
-        int volume = PlayerPrefs.GetInt("Volume", 0); 
+        bool fullscreen = PlayerPrefs.GetInt("fullscreen", 1) == 1;
+
+        Screen.fullScreen = fullscreen;
+        gameObject.GetComponent<Toggle>().isOn = fullscreen;
     }
 }
