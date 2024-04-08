@@ -66,4 +66,9 @@ public class GridManager : MonoBehaviour
     {
         return Instance.OnIsTileEmpty(index);
     }
+
+    public static void SetTileState(Vector2 tilePos, TileTypes tileType)
+    {
+        Instance.tileStates[BuildingPlacing.GetTileIndex(tilePos)] = tileType;
+    }
 }
