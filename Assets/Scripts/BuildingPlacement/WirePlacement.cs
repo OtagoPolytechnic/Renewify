@@ -376,6 +376,7 @@ public class WirePlacement : MonoBehaviour
         //set the parent of the wire to the tile
         temp.transform.SetParent(GridCreator.tiles[position].transform);
         GridManager.Instance.tileStates[position] = TileTypes.Wires;
+        GridManager.SetTileState(BuildingPlacing.GetTilePosition(position), TileTypes.Wires);
     }
 
     /// <summary>
@@ -388,7 +389,8 @@ public class WirePlacement : MonoBehaviour
         if (GridCreator.tiles[position].transform.childCount > 0)
         {
             Destroy(GridCreator.tiles[position].transform.GetChild(0).gameObject);
-            GridManager.Instance.tileStates[position] = TileTypes.None;
+           // GridManager.Instance.tileStates[position] = TileTypes.None;
+            GridManager.SetTileState(BuildingPlacing.GetTilePosition(position), TileTypes.None);
         }
     }
 
