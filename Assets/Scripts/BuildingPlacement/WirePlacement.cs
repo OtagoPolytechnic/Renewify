@@ -209,8 +209,8 @@ public class WirePlacement : MonoBehaviour
         // }
         int rotation = 0;
         //This checks if the player has placed a wire on a different axis as the last two tiles
-        if ((lastTile.x != secondLastTile.x || lastTile.x != MouseManager.gridPosition.x) &&
-            (lastTile.y != secondLastTile.y || lastTile.y != MouseManager.gridPosition.y))
+        if ((lastTile.x != secondLastTile.x || lastTile.x != currentTile.x) &&
+            (lastTile.y != secondLastTile.y || lastTile.y != currentTile.y))
         {
             // Determine the direction of movement from the second last tile to the last tile and from the last tile to the current tile
             bool isMovingRightOrUpSecondLastToLast = GridManager.GetTileIndex(secondLastTile) <  GridManager.GetTileIndex(lastTile);
@@ -268,6 +268,7 @@ public class WirePlacement : MonoBehaviour
                 }
             }
             lastWire = CornerWire; //Set the last wire to a corner wire
+            Debug.Log(currentTile + " " + lastTile + " " + secondLastTile + " " + rotation);
         }
         else
         {
