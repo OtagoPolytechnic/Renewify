@@ -2067,10 +2067,8 @@ MonoBehaviour:
     type: 3}
   SolarPanelField: {fileID: 2655049923408942160, guid: 835ec267c019c8e4c95bcf18472455d6,
     type: 3}
-  ghostWindmill: {fileID: 6822399163656563674, guid: 988fc67bf484bd34c9a4decb6dc3ba08,
-    type: 3}
-  ghostSolarPanelField: {fileID: 2655049923408942160, guid: 61420c014db967b42834e95fe615039e,
-    type: 3}
+  ghostWindmill: {fileID: 0}
+  ghostSolarPanelField: {fileID: 0}
 --- !u!114 &604267219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4637,7 +4635,7 @@ MonoBehaviour:
   selectionPanels: []
   currentSelectionPanel: {fileID: 0}
   deleteMode: {fileID: 0}
-  cursorTexture: {fileID: 2800000, guid: 6f7e808a320c29f43b673647aefc843c, type: 3}
+  cursorTexture: {fileID: 0}
 --- !u!1 &2074462278
 GameObject:
   m_ObjectHideFlags: 0

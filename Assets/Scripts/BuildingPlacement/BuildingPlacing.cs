@@ -8,10 +8,18 @@ using UnityEngine;
 
 public class BuildingPlacing : MonoBehaviour
 {
-    public GameObject Windmill;
-    public GameObject SolarPanelField;
-    public GameObject ghostWindmill;
-    public GameObject ghostSolarPanelField;
+    [SerializeField]
+    private GameObject Windmill;
+    [SerializeField]
+    private GameObject SolarPanelField;
+    [SerializeField]
+    private GameObject ghostWindmill;
+    [SerializeField]
+    private GameObject ghostSolarPanelField;
+    [SerializeField]
+    private Material ghostTexture;
+    [SerializeField]
+    private Material ghostTextureRed;
     private bool isRed = false;
     private GameObject ghostBuilding = null;
     public static bool WiresPlacing = false;
@@ -67,16 +75,16 @@ public class BuildingPlacing : MonoBehaviour
             {
                 if (!isRed)
                 {
-                    colourChange(ghostBuilding, Color.red);
+                    colourChange(ghostBuilding, ghostTextureRed);
                     isRed = true;
                 }
             }
-            //Else reset the colour to white
+            //Else reset the colour
             else
             {
                 if (isRed)
                 {
-                    colourChange(ghostBuilding, Color.white);
+                    colourChange(ghostBuilding, ghostTexture);
                     isRed = false;
                 }
             }
@@ -103,17 +111,17 @@ public class BuildingPlacing : MonoBehaviour
     /// </summary>
     /// <param name="parent">Parent object</param>
     /// <param name="color">Colour to change it to</param>
-    private void colourChange(GameObject parent, Color color)
+    private void colourChange(GameObject parent, Material mat)
     {
         Renderer renderer = parent.GetComponent<Renderer>();
         if (renderer != null)
         {
-            renderer.material.color = color;
+            renderer.material = mat;
         }
 
         foreach (Transform child in parent.transform)
         {
-            colourChange(child.gameObject, color);
+            colourChange(child.gameObject, mat);
         }
     }
 
