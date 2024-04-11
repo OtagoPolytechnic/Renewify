@@ -8,9 +8,9 @@ using UnityEngine;
 public class MouseManager : MonoBehaviour
 {
     public static MouseManager Instance;
-    public int playerX;
-    public int playerZ; 
-    public static int gridPosition;
+    private int playerX;
+    private int playerZ; 
+    public static Vector2 gridPosition;
 
     public static bool isHovering = false; 
 
@@ -46,9 +46,8 @@ public class MouseManager : MonoBehaviour
                 playerZ = int.Parse(tileNameParts[2]);
 
                 
-                gridPosition = playerX * GridManager.Instance.gridSize + playerZ;    
+                gridPosition = new Vector2(playerX, playerZ);    
                 SetTileAtPlayerPosition();
-                //Debug.Log(GridManager.IsTileEmpty(MouseManager.gridPosition));
 
             }else{
                 isHovering = false;
@@ -69,9 +68,9 @@ public class MouseManager : MonoBehaviour
         }
 
         //Checks if player's x,y grid position is within bounds
-        if (playerX >= 0 && playerX < GridManager.Instance.gridSize && playerZ >= 0 && playerZ < GridManager.Instance.gridSize)
+        if (gridPosition.x >= 0 && gridPosition.x < GridManager.Instance.gridSize && gridPosition.y >= 0 && gridPosition.y < GridManager.Instance.gridSize)
         {
-            int index = playerX * GridManager.Instance.gridSize + playerZ;
+            int index = GridManager.GetTileIndex(gridPosition);
 
             //Change tile material to highlighted
             GridCreator.tiles[index].GetComponent<Renderer>().material = GridCreator.Instance.highlightedMaterial;
