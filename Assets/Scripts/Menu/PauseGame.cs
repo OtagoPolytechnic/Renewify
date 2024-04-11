@@ -10,10 +10,11 @@ using UnityEngine;
 public class PauseGame : MonoBehaviour
 {
     //Time.timescale is a static variable, and will persist through scene transitions
+    //Some code will still run while paused, the CheckMouseHover() function in MouseManager.cs is a crutial function that will still run when paused. 
+    //So this function now first checks if the game is unpaused before running 
     //Source: https://www.youtube.com/watch?v=ROwsdftEGF0 
     public void Pause()
     {
-        //TODO: mousemanager still functions while the game is paused, so you can place buildings while paused
         Time.timeScale = 0;
     }
 
