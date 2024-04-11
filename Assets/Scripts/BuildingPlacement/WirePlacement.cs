@@ -268,7 +268,6 @@ public class WirePlacement : MonoBehaviour
                 }
             }
             lastWire = CornerWire; //Set the last wire to a corner wire
-            Debug.Log(currentTile + " " + lastTile + " " + secondLastTile + " " + rotation);
         }
         else
         {

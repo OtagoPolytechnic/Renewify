@@ -45,7 +45,7 @@ public class BuildingPlacing : MonoBehaviour
 
     }
 
- 
+
     //Returns the gameobject of the tile
     public GameObject GetTileObject(int index)
     {
@@ -57,12 +57,11 @@ public class BuildingPlacing : MonoBehaviour
     /// </summary>
     private void placeBuilding()
     {
-        int playerX = (int) MouseManager.gridPosition.x;
-        int playerZ =  (int) MouseManager.gridPosition.y;
+        int playerX = (int)MouseManager.gridPosition.x;
+        int playerZ = (int)MouseManager.gridPosition.y;
         if (GridManager.IsTileEmpty(GridManager.GetTileIndex(MouseManager.gridPosition)) && InventoryManagement.instance.BuildingsLeft())
         {
             //Pass through the building I want to be placed
-           // GridManager.Instance.tileStates[GetTileIndex(MouseManager.gridPosition)] = selectedBuilding;
             GridManager.SetTileState(MouseManager.gridPosition, selectedBuilding);
             //Remove a building from the inventory
             InventoryManagement.instance.PlaceSelectedBuilding();
