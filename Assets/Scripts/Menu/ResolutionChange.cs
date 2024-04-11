@@ -23,6 +23,10 @@ public class ResolutionChange : MonoBehaviour
 
         resolutionDropdown.ClearOptions();
         currentRefreshRate = Screen.currentResolution.refreshRate;
+        
+        //refreshRate is obsolete, but I've tried using refreshRateRatio and it caused the feature to break. 
+        //refreshRate seems to work fine
+        //currentRefreshRate = (float)Screen.currentResolution.refreshRateRatio.value; 
 
         for (int i = 0; i < resolutions.Length; i++)
         {
