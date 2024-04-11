@@ -17,7 +17,7 @@ public class WirePlacement : MonoBehaviour
     private List<int> tilesPlaced = new List<int>();
     private List<List<int>> wiresPlaced = new List<List<int>>(); //This is the list of saved wires so they can be removed if the building is removed
     private List<int> buildingTiles = new List<int>(); //This is the list of building tiles that don't have a wire attached to them
-    private List<int> connectedBuildings = new List<int>(); //Buildings that have been connected to the goal
+    public List<int> connectedBuildings = new List<int>(); //Buildings that have been connected to the goal
     private int startingTile = -1;
     private int lastTile = -1;
     private int secondLastTile = -1;
