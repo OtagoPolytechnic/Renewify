@@ -13,6 +13,7 @@ public class PauseGame : MonoBehaviour
     //Source: https://www.youtube.com/watch?v=ROwsdftEGF0 
     public void Pause()
     {
+        //TODO: mousemanager still functions while the game is paused, so you can place buildings while paused
         Time.timeScale = 0;
     }
 
