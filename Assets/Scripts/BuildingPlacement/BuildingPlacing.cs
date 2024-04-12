@@ -24,6 +24,11 @@ public class BuildingPlacing : MonoBehaviour
     private GameObject ghostBuilding = null;
     public static bool WiresPlacing = false;
     private Vector2 hoveredPos = new Vector2(-1, -1);
+    [SerializeField]
+    private GameObject redSolarPanel;
+    [SerializeField]
+    private GameObject redWindmill;
+    private GameObject redBuilding = null;
     //Enum building variable
     public static TileTypes selectedBuilding = TileTypes.None;
     //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
@@ -93,17 +98,40 @@ public class BuildingPlacing : MonoBehaviour
         else if (InventoryManagement.instance.deleteMode.isOn)
         {
 
+            if (hoveredPos != new Vector2(-1, -1)
+            && hoveredPos != MouseManager.gridPosition)
+            {
+                if (redBuilding != null)
+                {
+                    Destroy(redBuilding);
+                }
+                //Remove the thing that shows the building would be deleted
+                hoveredPos = new Vector2(-1, -1);
+            }
             if (MouseManager.isHovering
             && hoveredPos != MouseManager.gridPosition
                 && (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels))
             {
-                //Something to show that the building would be deleted?
+                
+                switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)])
+                {
+                    case TileTypes.Windmills:
+                    //Instantiate the ghost building at the mouse position
+                        redBuilding = redWindmill;
+                        break;
+                    case TileTypes.SolarPanels:
+                        redBuilding = redSolarPanel;
+                        break;
+                    default:
+                        Debug.Log("No valid building type selected");
+                        break;
+                }
+                if (redBuilding != null)
+                {
+                    redBuilding = Instantiate(redBuilding, GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y), Quaternion.identity);
+                    redBuilding.transform.Rotate(0, 180, 0);
+                }
                 hoveredPos = MouseManager.gridPosition;
-            }
-            else if (hoveredPos != new Vector2(-1, -1))
-            {
-                //Remove the thing that shows the building would be deleted
-                hoveredPos = new Vector2(-1, -1);
             }
         }
     }
@@ -145,6 +173,10 @@ public class BuildingPlacing : MonoBehaviour
             Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.GetChild(0).gameObject);
             WirePlacement.Instance.RemoveFullWire(MouseManager.gridPosition);
             hoveredPos = new Vector2(-1, -1);
+            if (redBuilding != null)
+            {
+                Destroy(redBuilding);
+            }
         }
 
     }

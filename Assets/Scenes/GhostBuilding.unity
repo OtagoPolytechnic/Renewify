@@ -2071,6 +2071,10 @@ MonoBehaviour:
     type: 3}
   ghostTexture: {fileID: 2100000, guid: cdf9b425484e8004291ce66769c9a20c, type: 2}
   ghostTextureRed: {fileID: 2100000, guid: 258ec686153a62b4b84250e811a2d176, type: 2}
+  redSolarPanel: {fileID: 2655049923408942160, guid: 8951255d9859a4c4eb48ac512cc999c6,
+    type: 3}
+  redWindmill: {fileID: 6822399163656563674, guid: 0ed78b593027bc049ae8ab07574e1889,
+    type: 3}
 --- !u!114 &604267219
 MonoBehaviour:
   m_ObjectHideFlags: 0
