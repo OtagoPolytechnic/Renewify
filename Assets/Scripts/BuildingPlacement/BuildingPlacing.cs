@@ -60,18 +60,18 @@ public class BuildingPlacing : MonoBehaviour
                 }
                 if (temp != null)
                 {
-                    ghostBuilding = Instantiate(temp, GridManager.CalculatePos(MouseManager.Instance.playerX, MouseManager.Instance.playerZ), Quaternion.identity);
+                    ghostBuilding = Instantiate(temp, GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y), Quaternion.identity);
                     ghostBuilding.transform.Rotate(0, 180, 0);
                 }
                 isRed = false;
             }
             //If the ghost building exists and is not at the mouse position then move it to the mouse position
-            else if (ghostBuilding.transform.position != GridManager.CalculatePos(MouseManager.Instance.playerX, MouseManager.Instance.playerZ))
+            else if (ghostBuilding.transform.position != GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y))
             {
-                ghostBuilding.transform.position = GridManager.CalculatePos(MouseManager.Instance.playerX, MouseManager.Instance.playerZ);
+                ghostBuilding.transform.position = GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y);
             }
             //If tile is not empty change the colour of the ghost building to red
-            if (!GridManager.IsTileEmpty(MouseManager.gridPosition))
+            if (!GridManager.IsTileEmpty(GridManager.GetTileIndex(MouseManager.gridPosition)))
             {
                 if (!isRed)
                 {
@@ -93,7 +93,7 @@ public class BuildingPlacing : MonoBehaviour
         {
 
             if (MouseManager.isHovering
-                && (GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.Windmills || GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.SolarPanels))
+                && (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels))
             {
                 //Something to show that the building would be deleted?
                 //Save the position of the building
