@@ -134,12 +134,13 @@ public class BuildingPlacing : MonoBehaviour
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
         else if (MouseManager.isHovering &&
-                (GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.Windmills || GridManager.Instance.tileStates[MouseManager.gridPosition] == TileTypes.SolarPanels) &&
+                (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels) &&
                 InventoryManagement.instance.deleteMode.isOn)
         {
-            InventoryManagement.instance.ReturnSelectedBuilding(GridManager.Instance.tileStates[MouseManager.gridPosition]);
-            GridManager.Instance.tileStates[MouseManager.gridPosition] = TileTypes.None;
-            Destroy(GetTileObject(MouseManager.gridPosition).transform.GetChild(0).gameObject);
+            InventoryManagement.instance.ReturnSelectedBuilding(GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)]);
+            //GridManager.Instance.tileStates[GetTileIndex(MouseManager.gridPosition)] = TileTypes.None;
+            GridManager.SetTileState(MouseManager.gridPosition, TileTypes.None);
+            Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.GetChild(0).gameObject);
             WirePlacement.Instance.RemoveFullWire(MouseManager.gridPosition);
         }
 
@@ -160,12 +161,12 @@ public class BuildingPlacing : MonoBehaviour
     /// </summary>
     private void placeBuilding()
     {
-        int playerX = MouseManager.Instance.playerX;
-        int playerZ = MouseManager.Instance.playerZ;
-        if (GridManager.IsTileEmpty(MouseManager.gridPosition) && InventoryManagement.instance.BuildingsLeft())
+        int playerX = (int)MouseManager.gridPosition.x;
+        int playerZ = (int)MouseManager.gridPosition.y;
+        if (GridManager.IsTileEmpty(GridManager.GetTileIndex(MouseManager.gridPosition)) && InventoryManagement.instance.BuildingsLeft())
         {
             //Pass through the building I want to be placed
-            GridManager.Instance.tileStates[MouseManager.gridPosition] = selectedBuilding;
+            GridManager.SetTileState(MouseManager.gridPosition, selectedBuilding);
             //Remove a building from the inventory
             InventoryManagement.instance.PlaceSelectedBuilding();
             //Place the building
@@ -173,23 +174,19 @@ public class BuildingPlacing : MonoBehaviour
             switch (selectedBuilding)
             {
                 case TileTypes.Windmills:
-                    spawnBuilding(Windmill, playerX, playerZ, GetTileObject(MouseManager.gridPosition));
+                    spawnBuilding(Windmill, playerX, playerZ, GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)));
                     WiresPlacing = true;
                     break;
                 case TileTypes.SolarPanels:
-                    spawnBuilding(SolarPanelField, playerX, playerZ, GetTileObject(MouseManager.gridPosition));
+                    spawnBuilding(SolarPanelField, playerX, playerZ, GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)));
                     WiresPlacing = true;
                     break;
                 default:
-                    Debug.Log("No valid building type selected");
                     break;
             }
             selectedBuilding = TileTypes.None;
         }
-        {
-            //Show a message saying that the space is full
-            Debug.Log("Space is full");
-        }
+
     }
 
     private void spawnBuilding(GameObject building, int playerX, int playerZ, GameObject parent)
