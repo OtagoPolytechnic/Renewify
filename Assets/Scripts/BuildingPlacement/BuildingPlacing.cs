@@ -23,6 +23,7 @@ public class BuildingPlacing : MonoBehaviour
     private bool isRed = false;
     private GameObject ghostBuilding = null;
     public static bool WiresPlacing = false;
+    private Vector2 hoveredPos = new Vector2(-1, -1);
     //Enum building variable
     public static TileTypes selectedBuilding = TileTypes.None;
     //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
@@ -75,7 +76,7 @@ public class BuildingPlacing : MonoBehaviour
             {
                 if (!isRed)
                 {
-                    colourChange(ghostBuilding, ghostTextureRed);
+                    materialChange(ghostBuilding, ghostTextureRed);
                     isRed = true;
                 }
             }
@@ -84,7 +85,7 @@ public class BuildingPlacing : MonoBehaviour
             {
                 if (isRed)
                 {
-                    colourChange(ghostBuilding, ghostTexture);
+                    materialChange(ghostBuilding, ghostTexture);
                     isRed = false;
                 }
             }
@@ -93,25 +94,26 @@ public class BuildingPlacing : MonoBehaviour
         {
 
             if (MouseManager.isHovering
+            && hoveredPos != MouseManager.gridPosition
                 && (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels))
             {
                 //Something to show that the building would be deleted?
-                //Save the position of the building
+                hoveredPos = MouseManager.gridPosition;
             }
-            else
+            else if (hoveredPos != new Vector2(-1, -1))
             {
-                //Recall the position
                 //Remove the thing that shows the building would be deleted
+                hoveredPos = new Vector2(-1, -1);
             }
         }
     }
 
     /// <summary>
-    /// Will recursively change the colour of all renderers in all children of the parent object
+    /// Will recursively change the material of all renderers in all children of the parent object
     /// </summary>
     /// <param name="parent">Parent object</param>
-    /// <param name="color">Colour to change it to</param>
-    private void colourChange(GameObject parent, Material mat)
+    /// <param name="mat">Material to change it to</param>
+    private void materialChange(GameObject parent, Material mat)
     {
         Renderer renderer = parent.GetComponent<Renderer>();
         if (renderer != null)
@@ -121,7 +123,7 @@ public class BuildingPlacing : MonoBehaviour
 
         foreach (Transform child in parent.transform)
         {
-            colourChange(child.gameObject, mat);
+            materialChange(child.gameObject, mat);
         }
     }
 
@@ -142,6 +144,7 @@ public class BuildingPlacing : MonoBehaviour
             GridManager.SetTileState(MouseManager.gridPosition, TileTypes.None);
             Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.GetChild(0).gameObject);
             WirePlacement.Instance.RemoveFullWire(MouseManager.gridPosition);
+            hoveredPos = new Vector2(-1, -1);
         }
 
     }

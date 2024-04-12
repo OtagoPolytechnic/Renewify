@@ -2001,8 +2001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc02e8f1e54377469c7af1f2ce524a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerX: 0
-  playerZ: 0
 --- !u!4 &587599879
 Transform:
   m_ObjectHideFlags: 0
@@ -4639,7 +4637,7 @@ MonoBehaviour:
   selectionPanels: []
   currentSelectionPanel: {fileID: 0}
   deleteMode: {fileID: 0}
-  cursorTexture: {fileID: 2800000, guid: 6f7e808a320c29f43b673647aefc843c, type: 3}
+  cursorTexture: {fileID: 2800000, guid: 6bbbe64bc95e6c04ea6c90dfe2893ebb, type: 3}
 --- !u!1 &2074462278
 GameObject:
   m_ObjectHideFlags: 0

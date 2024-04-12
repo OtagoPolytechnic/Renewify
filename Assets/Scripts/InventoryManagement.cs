@@ -36,7 +36,10 @@ public class InventoryManagement : MonoBehaviour
                 currentSelectionPanel.SetInfo(); //Update selected panel info and then set it to null
                 currentSelectionPanel = null;
             }
-            Cursor.SetCursor(cursorTexture, new Vector2(cursorTexture.width / 2, cursorTexture.height / 2), CursorMode.Auto);        }
+            //TODO: Vector2 needs to be different depending on what cursor is used
+            //Cursor.SetCursor(cursorTexture, new Vector2(cursorTexture.width / 2, cursorTexture.height / 2), CursorMode.Auto);
+            Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        }
         else
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); //Set the cursor to the default cursor
