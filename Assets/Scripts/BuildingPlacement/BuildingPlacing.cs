@@ -38,7 +38,7 @@ public class BuildingPlacing : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             OnMouseDown();
-            if(ghostBuilding != null)
+            if (ghostBuilding != null)
             {
                 Destroy(ghostBuilding);
             }
@@ -54,7 +54,7 @@ public class BuildingPlacing : MonoBehaviour
                 switch (selectedBuilding)
                 {
                     case TileTypes.Windmills:
-                    //Instantiate the ghost building at the mouse position
+                        //Instantiate the ghost building at the mouse position
                         temp = ghostWindmill;
                         break;
                     case TileTypes.SolarPanels:
@@ -98,25 +98,25 @@ public class BuildingPlacing : MonoBehaviour
         else if (InventoryManagement.instance.deleteMode.isOn)
         {
 
+            //Remove the thing that shows the building would be deleted
             if (hoveredPos != new Vector2(-1, -1)
             && hoveredPos != MouseManager.gridPosition)
             {
+                InventoryManagement.instance.deleteBuildingHover(false);
                 if (redBuilding != null)
                 {
                     Destroy(redBuilding);
                 }
-                //Remove the thing that shows the building would be deleted
                 hoveredPos = new Vector2(-1, -1);
             }
             if (MouseManager.isHovering
             && hoveredPos != MouseManager.gridPosition
                 && (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels))
             {
-                
+                InventoryManagement.instance.deleteBuildingHover(true);
                 switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)])
                 {
                     case TileTypes.Windmills:
-                    //Instantiate the ghost building at the mouse position
                         redBuilding = redWindmill;
                         break;
                     case TileTypes.SolarPanels:
@@ -128,6 +128,7 @@ public class BuildingPlacing : MonoBehaviour
                 }
                 if (redBuilding != null)
                 {
+                    //Instantiate the ghost building at the mouse position
                     redBuilding = Instantiate(redBuilding, GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y), Quaternion.identity);
                     redBuilding.transform.Rotate(0, 180, 0);
                 }
@@ -177,6 +178,7 @@ public class BuildingPlacing : MonoBehaviour
             {
                 Destroy(redBuilding);
             }
+            InventoryManagement.instance.deleteBuildingHover(false);
         }
 
     }
