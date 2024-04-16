@@ -99,8 +99,9 @@ public class BuildingPlacing : MonoBehaviour
         {
 
             //Remove the thing that shows the building would be deleted
-            if (hoveredPos != new Vector2(-1, -1)
+            if ((hoveredPos != new Vector2(-1, -1)
             && hoveredPos != MouseManager.gridPosition)
+            || !MouseManager.isHovering) //If the mouse is no longer on a playable space
             {
                 InventoryManagement.instance.deleteBuildingHover(false);
                 if (redBuilding != null)
