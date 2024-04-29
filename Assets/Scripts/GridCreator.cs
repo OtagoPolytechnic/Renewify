@@ -36,6 +36,7 @@ public class GridCreator : MonoBehaviour
 
     void GenerateGrid()
     {
+        tiles.Clear(); //Previously the tile list would increase when exiting and reloading the scene
         for(int x = 0; x < GridManager.Instance.gridSize; x++)
         {
             for(int z = 0; z < GridManager.Instance.gridSize; z++)

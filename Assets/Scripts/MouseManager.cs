@@ -24,7 +24,10 @@ public class MouseManager : MonoBehaviour
 
     void Update()
     {
-        CheckMouseHover();
+        if(Time.timeScale == 1) //Checks if the game is unpaused. Otherwise the player can still place down buildings while the pause menu is active.
+        {
+            CheckMouseHover();
+        }
     }
 
     void CheckMouseHover()
