@@ -2098,9 +2098,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a1900e9c04e4842917edc40e550593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Windmill: {fileID: 6822399163656563674, guid: 7555836f41415eb46810e50edf2e9a1a,
+  Windmill: {fileID: 6822399163656563674, guid: 23ba66ed06873304eac86afa1fec2528,
     type: 3}
-  SolarPanelField: {fileID: 2655049923408942160, guid: 835ec267c019c8e4c95bcf18472455d6,
+  SolarPanelField: {fileID: 2655049923408942160, guid: 71b35f974cd56b642aa082fb84ba01d1,
     type: 3}
   ghostWindmill: {fileID: 6822399163656563674, guid: 988fc67bf484bd34c9a4decb6dc3ba08,
     type: 3}
