@@ -2001,8 +2001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc02e8f1e54377469c7af1f2ce524a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerX: 0
-  playerZ: 0
 --- !u!4 &587599879
 Transform:
   m_ObjectHideFlags: 0
@@ -2066,6 +2064,16 @@ MonoBehaviour:
   Windmill: {fileID: 6822399163656563674, guid: 7555836f41415eb46810e50edf2e9a1a,
     type: 3}
   SolarPanelField: {fileID: 2655049923408942160, guid: 835ec267c019c8e4c95bcf18472455d6,
+    type: 3}
+  ghostWindmill: {fileID: 6822399163656563674, guid: 988fc67bf484bd34c9a4decb6dc3ba08,
+    type: 3}
+  ghostSolarPanelField: {fileID: 2655049923408942160, guid: 61420c014db967b42834e95fe615039e,
+    type: 3}
+  ghostTexture: {fileID: 2100000, guid: cdf9b425484e8004291ce66769c9a20c, type: 2}
+  ghostTextureRed: {fileID: 2100000, guid: 258ec686153a62b4b84250e811a2d176, type: 2}
+  redSolarPanel: {fileID: 2655049923408942160, guid: 8951255d9859a4c4eb48ac512cc999c6,
+    type: 3}
+  redWindmill: {fileID: 6822399163656563674, guid: 0ed78b593027bc049ae8ab07574e1889,
     type: 3}
 --- !u!114 &604267219
 MonoBehaviour:
@@ -4682,6 +4690,9 @@ MonoBehaviour:
   selectionPanels: []
   currentSelectionPanel: {fileID: 0}
   deleteMode: {fileID: 0}
+  deleteCursorTexture: {fileID: 2800000, guid: 6bbbe64bc95e6c04ea6c90dfe2893ebb, type: 3}
+  activeDeleteCursorTexture: {fileID: 2800000, guid: 35f7d0c9ed3269d47b3e0e188510f3b1,
+    type: 3}
 --- !u!1 &2074462278
 GameObject:
   m_ObjectHideFlags: 0
