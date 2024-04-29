@@ -56,8 +56,7 @@ public class PanelSelect : MonoBehaviour
 
                 break;
             default:
-                Debug.Log("No valid building type selected");
-                Debug.Log(panelBuilding);
+                Debug.LogError("Panel does not have a valid building type");
                 //This should never get selected
                 break;
         }

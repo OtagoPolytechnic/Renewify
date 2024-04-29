@@ -27,12 +27,6 @@ public class MenuNavigation : MonoBehaviour
         mainMenuParent.SetActive(true);
         levelSelectParent.SetActive(false);
     }
-    public void OpenScene(string levelName) //eg: "Level 1"
-    {
-        SceneManager.LoadScene(levelName);
-    }
-
-
 
     public void QuitGame() //This function will be called when the quit button is clicked and quit the game
     {
