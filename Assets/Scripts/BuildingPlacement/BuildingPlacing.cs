@@ -8,9 +8,27 @@ using UnityEngine;
 
 public class BuildingPlacing : MonoBehaviour
 {
-    public GameObject Windmill;
-    public GameObject SolarPanelField;
+    [SerializeField]
+    private GameObject Windmill;
+    [SerializeField]
+    private GameObject SolarPanelField;
+    [SerializeField]
+    private GameObject ghostWindmill;
+    [SerializeField]
+    private GameObject ghostSolarPanelField;
+    [SerializeField]
+    private Material ghostTexture;
+    [SerializeField]
+    private Material ghostTextureRed;
+    private bool isRed = false;
+    private GameObject ghostBuilding = null;
     public static bool WiresPlacing = false;
+    private Vector2 hoveredPos = new Vector2(-1, -1);
+    [SerializeField]
+    private GameObject redSolarPanel;
+    [SerializeField]
+    private GameObject redWindmill;
+    private GameObject redBuilding = null;
     //Enum building variable
     public static TileTypes selectedBuilding = TileTypes.None;
     //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
@@ -20,6 +38,122 @@ public class BuildingPlacing : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             OnMouseDown();
+            if (ghostBuilding != null)
+            {
+                Destroy(ghostBuilding);
+            }
+        }
+        //If the user is hovering over a tile and has selected a building create a ghost building at the mouse position
+        else if (selectedBuilding != TileTypes.None && MouseManager.isHovering)
+        {
+            //If there isnt a ghost building already created then create one
+            if (ghostBuilding == null)
+            {
+                GameObject temp = null;
+                //Instantiate a ghost version of the selected building at the mouse position. The ghostWindmill and ghostSolarPanelField are the prefabs of the ghost buildings
+                switch (selectedBuilding)
+                {
+                    case TileTypes.Windmills:
+                        //Instantiate the ghost building at the mouse position
+                        temp = ghostWindmill;
+                        break;
+                    case TileTypes.SolarPanels:
+                        temp = ghostSolarPanelField;
+                        break;
+                    default:
+                        Debug.Log("No valid building type selected");
+                        break;
+                }
+                if (temp != null)
+                {
+                    ghostBuilding = Instantiate(temp, GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y), Quaternion.identity);
+                    ghostBuilding.transform.Rotate(0, 180, 0);
+                }
+                isRed = false;
+            }
+            //If the ghost building exists and is not at the mouse position then move it to the mouse position
+            else if (ghostBuilding.transform.position != GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y))
+            {
+                ghostBuilding.transform.position = GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y);
+            }
+            //If tile is not empty change the colour of the ghost building to red
+            if (!GridManager.IsTileEmpty(GridManager.GetTileIndex(MouseManager.gridPosition)))
+            {
+                if (!isRed)
+                {
+                    materialChange(ghostBuilding, ghostTextureRed);
+                    isRed = true;
+                }
+            }
+            //Else reset the colour
+            else
+            {
+                if (isRed)
+                {
+                    materialChange(ghostBuilding, ghostTexture);
+                    isRed = false;
+                }
+            }
+        }
+        else if (InventoryManagement.instance.deleteMode.isOn)
+        {
+
+            //Remove the thing that shows the building would be deleted
+            if ((hoveredPos != new Vector2(-1, -1)
+            && hoveredPos != MouseManager.gridPosition)
+            || !MouseManager.isHovering) //If the mouse is no longer on a playable space
+            {
+                InventoryManagement.instance.deleteBuildingHover(false);
+                if (redBuilding != null)
+                {
+                    Destroy(redBuilding);
+                }
+                hoveredPos = new Vector2(-1, -1);
+            }
+            if (MouseManager.isHovering
+            && hoveredPos != MouseManager.gridPosition
+                && (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels))
+            {
+                InventoryManagement.instance.deleteBuildingHover(true);
+                switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)])
+                {
+                    case TileTypes.Windmills:
+                        redBuilding = redWindmill;
+                        break;
+                    case TileTypes.SolarPanels:
+                        redBuilding = redSolarPanel;
+                        break;
+                    default:
+                        Debug.Log("No valid building type selected");
+                        break;
+                }
+                if (redBuilding != null)
+                {
+                    //Instantiate the ghost building at the mouse position
+                    redBuilding = Instantiate(redBuilding, GridManager.CalculatePos(MouseManager.gridPosition.x, MouseManager.gridPosition.y), Quaternion.identity);
+                    redBuilding.transform.Rotate(0, 180, 0);
+                }
+                hoveredPos = MouseManager.gridPosition;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Will recursively change the material of all renderers in all children of the parent object
+    /// </summary>
+    /// <param name="parent">Parent object</param>
+    /// <param name="mat">Material to change it to</param>
+    private void materialChange(GameObject parent, Material mat)
+    {
+        Renderer renderer = parent.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material = mat;
+        }
+
+        foreach (Transform child in parent.transform)
+        {
+            materialChange(child.gameObject, mat);
         }
     }
 
@@ -31,8 +165,7 @@ public class BuildingPlacing : MonoBehaviour
             placeBuilding();
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
-        else if (selectedBuilding == TileTypes.None &&
-                MouseManager.isHovering &&
+        else if (MouseManager.isHovering &&
                 (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels) &&
                 InventoryManagement.instance.deleteMode.isOn)
         {
@@ -41,12 +174,21 @@ public class BuildingPlacing : MonoBehaviour
             GridManager.SetTileState(MouseManager.gridPosition, TileTypes.None);
             Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.GetChild(0).gameObject);
             WirePlacement.Instance.RemoveFullWire(MouseManager.gridPosition);
+            hoveredPos = new Vector2(-1, -1);
+            if (redBuilding != null)
+            {
+                Destroy(redBuilding);
+            }
+            InventoryManagement.instance.deleteBuildingHover(false);
         }
 
     }
 
-
-    //Returns the gameobject of the tile
+    /// <summary>
+    /// Returns the gameobject of the tile
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     public GameObject GetTileObject(int index)
     {
         return GridCreator.tiles[index];

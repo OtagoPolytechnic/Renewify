@@ -10,6 +10,8 @@ public class InventoryManagement : MonoBehaviour
     [HideInInspector] public PanelSelect currentSelectionPanel;
 
     [HideInInspector] public Toggle deleteMode;
+    public Texture2D deleteCursorTexture;
+    public Texture2D activeDeleteCursorTexture;
 
     public static InventoryManagement instance;
 
@@ -35,8 +37,28 @@ public class InventoryManagement : MonoBehaviour
                 currentSelectionPanel.SetInfo(); //Update selected panel info and then set it to null
                 currentSelectionPanel = null;
             }
+            Cursor.SetCursor(deleteCursorTexture, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); //Set the cursor to the default cursor
         }
 
+    }
+    
+    /// <summary>
+    /// Sets the cursor to the active one when the player is hovering over a building to delete it
+    /// </summary>
+    public void deleteBuildingHover(bool active)
+    {
+        if (active)
+        {
+            Cursor.SetCursor(activeDeleteCursorTexture, Vector2.zero, CursorMode.Auto); //Set the cursor to activeDeleteCursorTexture
+        }
+        else
+        {
+            Cursor.SetCursor(deleteCursorTexture, Vector2.zero, CursorMode.Auto); //Set the cursor to deleteCursorTexture
+        }
     }
 
     public bool BuildingsLeft()
