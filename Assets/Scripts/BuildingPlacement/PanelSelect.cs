@@ -9,8 +9,7 @@ public class PanelSelect : MonoBehaviour
     public TileTypes panelBuilding;
 
     //This is set on spawn to the type of building this panel is for
-    public GameObject WindmillPrefab;
-    public GameObject SolarPanelPrefab;
+
     public Sprite selectedSprite;
     public Sprite normalSprite;
 
