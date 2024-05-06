@@ -8,10 +8,12 @@ public class Tooltip : MonoBehaviour
     public Image tooltipBackground;
     public GameObject header;
     public GameObject content;
+        public Image toggle;
     public bool isTooltipActive = false;
     // Start is called before the first frame update
     void Start()
     {
+        ToggleButton();
 
     }
 
@@ -20,9 +22,11 @@ public class Tooltip : MonoBehaviour
     public void ToggleButton()
     {
         isTooltipActive = !isTooltipActive;
+
         tooltipBackground.enabled = isTooltipActive;
-        tooltipBackground.gameObject.GetComponent<ContentSizeFitter>().enabled = isTooltipActive;
+
         header.SetActive(isTooltipActive);
         content.SetActive(isTooltipActive);
+        toggle.GetComponent<Image>().color = isTooltipActive ? Color.gray :Color.yellow;
     }
 }
