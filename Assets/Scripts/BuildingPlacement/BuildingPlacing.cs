@@ -164,8 +164,15 @@ public class BuildingPlacing : MonoBehaviour
         {
             if(!GridManager.Instance.isTutorial)
                 placeBuilding();
-            else if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 5)))
-                placeBuilding();
+            else if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
+                {
+                
+                    placeBuilding();
+                    TutorialManager.Instance.mainTooltip.SetTitle("Wiring Buildings");
+                    TutorialManager.Instance.mainTooltip.SetContent("Now that you have placed a building, you need to connect it to the power source. Click on the building and drag to the power source to connect them.");
+                }
+                    
+
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
         else if (MouseManager.isHovering &&
