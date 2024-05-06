@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int totalScore = 0; //DEBUG: this can be removed later, it's just here to see the score in the editor.
+    public LevelData level;
     void Awake()
     {
         if (Instance == null)

@@ -8,8 +8,11 @@ public class GridManager : MonoBehaviour
     public int gridSize = 5; //width and height of grid (5x5, 9x9, etc)
     public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
 
+    
     public List<TileTypes> tileStates = new List<TileTypes>(); 
     public List<bool> tileBonus = new List<bool>(); 
+
+    public List<TileData> tiles = new List<TileData>(); 
     //public Dictionary<TilePoints, int> tileBonus = new Dictionary<TilePoints, int>();
 
     
@@ -19,25 +22,27 @@ public class GridManager : MonoBehaviour
         {
             Instance = this;
         }
+
         tileStates.Clear();
+        /*
         for (int i = 0; i < gridSize * gridSize; i++) {
             // Add default value to the list
             tileStates.Add(TileTypes.None);
+        }*/
+
+        tileBonus.Clear();
+
+        
+        for (int i = 0; i < GameManager.Instance.level.positions.Count; i++)
+        {
+            tiles.Add(new TileData(GameManager.Instance.level.positions[i], GameManager.Instance.level.tileTypes[i]));
         }
 
-        //TODO: load new tileStates preset
-        
-        //THIS IS TEMPORARY CODE TO HARDCODE GOALS AND OBSTACLES FOR A DEMONSTRATION.
-        tileStates[2] = TileTypes.Plants;
-        tileStates[12] = TileTypes.Plants;
-        tileStates[69] = TileTypes.Rocks;
-        tileStates[70] = TileTypes.Rocks;
-        tileStates[93] = TileTypes.Rocks;
-        tileStates[86] = TileTypes.Trees;
-        tileStates[44] = TileTypes.Goal;
-        tileStates[45] = TileTypes.Goal;
-        tileStates[54] = TileTypes.Goal;
-        tileStates[55] = TileTypes.Goal;
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            Debug.Log(tiles[i].position);
+        }
+
     }
     
     // Start is called before the first frame update

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileData : ScriptableObject
+public class TileData
 {
-    public int levelIndex;
-    
+    public Vector2 position;
+    public TileTypes tileType;
 
     /*
     data to load:
@@ -16,4 +16,9 @@ public class TileData : ScriptableObject
     - specify tile position
 
     */
+    public TileData(Vector2 pos, TileTypes type)
+    {
+        position = pos;
+        tileType = type;
+    }
 }
