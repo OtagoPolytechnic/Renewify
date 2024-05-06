@@ -400,8 +400,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredWidth: 161.73001
+  m_PreferredHeight: 77.04
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -420,6 +420,8 @@ MonoBehaviour:
   tooltipBackground: {fileID: 1351064184699946293}
   header: {fileID: 4765664815197998312}
   content: {fileID: 1384489690630441579}
+  toggle: {fileID: 6134063951751467267}
+  isTooltipActive: 0
 --- !u!1 &4765664815197998312
 GameObject:
   m_ObjectHideFlags: 0

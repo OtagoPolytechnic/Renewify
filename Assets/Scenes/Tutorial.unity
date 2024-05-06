@@ -2039,6 +2039,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7893248114977871844}
     m_Modifications:
+    - target: {fileID: 1351064184699946293, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2182955561096417629, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: isTooltipActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3128689644308219408, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_Enabled
@@ -2083,6 +2093,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Central Building
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290222256323735891, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4625241086161813469, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -2182,12 +2197,12 @@ PrefabInstance:
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1265
+      value: 1341.5576
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -77
+      value: 23.359375
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -2234,11 +2249,46 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_MinWidth
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_MinHeight
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_FlexibleWidth
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 429.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 134.54001
+      objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_text
-      value: "Youre goal is to wire all the buildings here and \nrecieve enough power
-        to complete the level."
+      value: "Your goal is to wire all the buildings \nhere and recieve enough power
+        to \ncomplete the level."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2724,6 +2774,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2182955561096417629, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: isTooltipActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128689644308219408, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3253513433416766805, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_Name
@@ -2765,6 +2825,11 @@ PrefabInstance:
       value: Bonus Tiles
       objectReference: {fileID: 0}
     - target: {fileID: 4290222256323735891, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625241086161813469, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -2919,6 +2984,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 690.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 105.79
+      objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_text
@@ -2926,6 +3001,11 @@ PrefabInstance:
 
         specific buildings
         with power, for example this tile has wind'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3197,6 +3277,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7893248114977871844}
     m_Modifications:
+    - target: {fileID: 2182955561096417629, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: isTooltipActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128689644308219408, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3253513433416766805, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_Name
@@ -3236,6 +3326,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Buildings
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290222256323735891, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -3279,6 +3374,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3315,12 +3425,12 @@ PrefabInstance:
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 742.0475
+      value: 782.0475
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -431
+      value: -391.64062
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -3367,11 +3477,23 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 576.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 105.79
+      objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_text
-      value: These buildings can be placed onto the grid, you have a limited supply
-        of each
+      value: 'These buildings can be placed onto the grid,
+
+        but be warned
+        you have a limited supply of each'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4166,6 +4288,16 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.7372549
       objectReference: {fileID: 0}
+    - target: {fileID: 2182955561096417629, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: isTooltipActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128689644308219408, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3253513433416766805, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_Name
@@ -4351,6 +4483,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 706.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 105.79
+      objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_text
@@ -4411,7 +4553,7 @@ MonoBehaviour:
   gridSize: 10
   tileSize: 10
   tileStates: 
-  tileBonus: 00000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  tileBonus: 00000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   isTutorial: 1
 --- !u!1 &2051673319
 GameObject:
