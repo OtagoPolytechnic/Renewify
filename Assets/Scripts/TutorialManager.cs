@@ -25,14 +25,28 @@ public class TutorialManager : MonoBehaviour
         mainTooltip.SetTitle("Welcome to the Tutorial!");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     public void WiringSection()
     {
         //Highlight the tiles leading to the power source
+        /*
+            Vector2(1, 3)
+            Vector2(2, 3)
+            Vector2(3, 3)
+            Vector2(3, 4)
+            Vector2(3, 5)
+            Vector2(3, 6)
+            Vector2(3, 7)
+            Vector2(3, 8)
+        tile.GetComponent<Renderer>().material = highlighted;
+
+
+        */
+    }
+
+    public void DeletionSection()
+    {
+        //Add a new building and show how to delete it
     }
 }
