@@ -11,6 +11,7 @@ public class GridManager : MonoBehaviour
     public List<TileTypes> tileStates = new List<TileTypes>(); 
     public List<bool> tileBonus = new List<bool>(); 
     //public Dictionary<TilePoints, int> tileBonus = new Dictionary<TilePoints, int>();
+    public bool isTutorial = false; //Temporary variable to check if the game is in tutorial mode
 
     
     void Awake()
@@ -34,10 +35,16 @@ public class GridManager : MonoBehaviour
         tileStates[70] = TileTypes.Rocks;
         tileStates[93] = TileTypes.Rocks;
         tileStates[86] = TileTypes.Trees;
+        if(!isTutorial)
+        {
+
         tileStates[44] = TileTypes.Goal;
         tileStates[45] = TileTypes.Goal;
         tileStates[54] = TileTypes.Goal;
         tileStates[55] = TileTypes.Goal;
+        }
+        else
+            tileStates[GetTileIndex(new Vector2(3, 9))] = TileTypes.Goal; //Tutorial goal
     }
     
     // Start is called before the first frame update
