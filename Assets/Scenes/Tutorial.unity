@@ -2076,6 +2076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainTooltip: {fileID: 8640983944108428467}
+  glowMaterial: {fileID: 2100000, guid: 981ffb4b55d180d4e94f3c80980e730e, type: 2}
 --- !u!1001 &1128036845
 PrefabInstance:
   m_ObjectHideFlags: 0
