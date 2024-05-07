@@ -1,3 +1,11 @@
+/// <remarks>
+/// Author: Chase Bennett-Hill
+/// Last Edited: 07 / 05 / 2024
+/// Known Bugs: None at the moment
+/// <remarks>
+/// <summary>
+/// Manages the tutorial creates tooltips for each section of the tutorial
+/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,10 +36,13 @@ public class TutorialManager : MonoBehaviour
         mainTooltip.SetTitle("Welcome to the Tutorial!");
     }
 
+/// <summary>
+/// Starts the Wiring Section of the Tutorial, highlighting the path to the power source
+/// </summary>
     public void WiringSection()
     {
         //Highlight the tiles leading to the power source
-    List<Vector2> locations = new List<Vector2>() {
+    List<Vector2> locations = new() {
 
         new Vector2(1, 3),
         new Vector2(2, 3),
