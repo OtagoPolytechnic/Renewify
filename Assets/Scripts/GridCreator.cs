@@ -11,7 +11,7 @@ public class GridCreator : MonoBehaviour
     public Material highlightedMaterial;
     public Material debugMaterial;
 
-    public static List<GameObject> tiles = new List<GameObject>();
+    public static List<GameObject> tiles = new();
     
     void Awake()
     {
