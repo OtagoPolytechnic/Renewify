@@ -93,6 +93,8 @@ public class TutorialManager : MonoBehaviour
 
     public void DeletionSection()
     {
-        //Add a new building and show how to delete it
+        Debug.Log("Deletion Section");
+        BuildingPlacing.instance.placeBuilding(new Vector2(4,1), TileTypes.Windmills);
+        BuildingPlacing.instance.placeBuilding(new Vector2(7, 3), TileTypes.SolarPanels);
     }
 }

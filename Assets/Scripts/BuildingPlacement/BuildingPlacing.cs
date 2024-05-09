@@ -31,7 +31,13 @@ public class BuildingPlacing : MonoBehaviour
     private GameObject redBuilding = null;
     //Enum building variable
     public static TileTypes selectedBuilding = TileTypes.None;
+    public static BuildingPlacing instance;
     //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
+
+    void Awake()
+    {
+        instance = this;
+    }
     void Update()
     {
         //If the user clicks the mouse
@@ -238,6 +244,34 @@ public class BuildingPlacing : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Places a building at the specified tile
+    /// </summary>
+    /// <param name="tile">The Tile the building is spawned to</param>
+    /// <param name="building">The building to be spawned</param>
+    public void placeBuilding(Vector2 tile, TileTypes building)
+    {
+
+            Debug.Log("Placing Building");
+            //Pass through the building I want to be placed
+            GridManager.SetTileState(tile, building);
+            //Remove a building from the inventory
+            //Place the building
+            //Get the prefab with the same name as the building variable
+            switch (building)
+            {
+                case TileTypes.Windmills:
+                    spawnBuilding(Windmill, (int) tile.x, (int) tile.y, GetTileObject(GridManager.GetTileIndex(tile)));
+                    break;
+                case TileTypes.SolarPanels:
+                    spawnBuilding(SolarPanelField, (int) tile.x, (int) tile.y, GetTileObject(GridManager.GetTileIndex(tile)));
+                    break;
+                default:
+                    break;
+            }
+        
+
+    }
     private void spawnBuilding(GameObject building, int playerX, int playerZ, GameObject parent)
     {
         GameObject temp = Instantiate(building, GridManager.CalculatePos(playerX, playerZ), Quaternion.identity);
