@@ -195,6 +195,7 @@ public class BuildingPlacing : MonoBehaviour
             //GridManager.Instance.tileStates[GetTileIndex(MouseManager.gridPosition)] = TileTypes.None;
             GridManager.SetTileState(MouseManager.gridPosition, TileTypes.None);
             Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.GetChild(0).gameObject);
+            Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
             WirePlacement.Instance.RemoveFullWire(MouseManager.gridPosition);
             hoveredPos = new Vector2(-1, -1);
             if (redBuilding != null)
