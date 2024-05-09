@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public enum TutorialSections
@@ -42,6 +43,7 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
+        GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
         mainTooltip.SetTitle("Welcome to the Tutorial!");
         currentSection = TutorialSections.Building;
         for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
@@ -105,7 +107,10 @@ public class TutorialManager : MonoBehaviour
     {
         currentSection = TutorialSections.Deletion;
         Debug.Log("Deletion Section");
-        //DeleteButton.interactable = true;
+        mainTooltip.SetTitle("Deleting Buildings");
+        mainTooltip.SetContent("To delete a building, click the delete button in the bottom right corner of the screen. Then click on the building you want to delete. Try deleting the windmill and solar panel that were placed for you.");
+        //Highlight the tiles two tiles that need to be deleted
+        GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = true;
         for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
         {
             if(GridManager.Instance.tileStates[i] == TileTypes.Rocks)
