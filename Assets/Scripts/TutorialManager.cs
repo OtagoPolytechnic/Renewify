@@ -35,7 +35,29 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         mainTooltip.SetTitle("Welcome to the Tutorial!");
-            }
+        for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
+        {
+            GridManager.Instance.tileStates[i] = TileTypes.Rocks;
+        }
+        GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(3, 9))] = TileTypes.Goal; //Tutorial goal
+        GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(0, 3))] = TileTypes.None; //Tutorial Building location
+        List<Vector2> locations = new() {
+
+        new Vector2(1, 3),
+        new Vector2(2, 3),
+        new Vector2(3, 3),
+        new Vector2(3, 4),
+        new Vector2(3, 5),
+        new Vector2(3, 6),
+        new Vector2(3, 7),
+        new Vector2(3, 8)
+    };
+        foreach (Vector2 location in locations)
+        {
+            GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.None;
+        }
+
+    }
 
     /// <summary>
     /// Starts the Wiring Section of the Tutorial, highlighting the path to the power source
