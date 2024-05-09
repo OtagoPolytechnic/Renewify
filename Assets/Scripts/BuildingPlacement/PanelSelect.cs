@@ -80,6 +80,20 @@ public class PanelSelect : MonoBehaviour
             }
             else
             {
+                if (TutorialManager.Instance.tutorialActive)
+                {
+                    GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(new Vector2 (0, 3))];
+                    Debug.Log(GridManager.GetTileIndex(new Vector2 (0, 3)));
+                    GameObject guide = Instantiate(
+                        GridCreator.Instance.tilePrefab,
+                        new Vector3(tile.transform.position.x,1.1f,tile.transform.position.z),
+                        Quaternion.identity
+                    );
+                    guide.GetComponent<Renderer>().material = TutorialManager.Instance.glowMaterial;
+                    guide.GetComponent<MeshCollider>().enabled = false;
+                    guide.name = "GuideTile";
+                    guide.tag = "Untagged";
+                }
                 BuildingPlacing.selectedBuilding = panelBuilding;
                 //Sets the inventory managers current selection
                 InventoryManagement.instance.currentSelectionPanel = this;
