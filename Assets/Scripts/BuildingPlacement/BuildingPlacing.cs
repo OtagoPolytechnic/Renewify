@@ -162,7 +162,7 @@ public class BuildingPlacing : MonoBehaviour
     {
         if (selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
         {
-            if(!GridManager.Instance.isTutorial)
+            if(!TutorialManager.Instance.tutorialActive)
                 placeBuilding();
             else if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
                 {

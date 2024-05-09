@@ -15,6 +15,7 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager Instance;
     public Tooltip mainTooltip;
     public Material glowMaterial;
+    public bool tutorialActive;
 
     // Start is called before the first frame update
 
@@ -34,15 +35,15 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         mainTooltip.SetTitle("Welcome to the Tutorial!");
-    }
+            }
 
-/// <summary>
-/// Starts the Wiring Section of the Tutorial, highlighting the path to the power source
-/// </summary>
+    /// <summary>
+    /// Starts the Wiring Section of the Tutorial, highlighting the path to the power source
+    /// </summary>
     public void WiringSection()
     {
         //Highlight the tiles leading to the power source
-    List<Vector2> locations = new() {
+        List<Vector2> locations = new() {
 
         new Vector2(1, 3),
         new Vector2(2, 3),
@@ -53,9 +54,9 @@ public class TutorialManager : MonoBehaviour
         new Vector2(3, 7),
         new Vector2(3, 8)
     };
-       foreach (Vector2 location in locations)
+        foreach (Vector2 location in locations)
         {
-        GameObject tile  =  GridCreator.tiles[GridManager.GetTileIndex(location)];
+            GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(location)];
             GameObject guide = Instantiate(
                 GridCreator.Instance.tilePrefab,
                 tile.transform.position,
