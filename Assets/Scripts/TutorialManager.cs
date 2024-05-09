@@ -113,12 +113,30 @@ public class TutorialManager : MonoBehaviour
         GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = true;
         for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
         {
-            if(GridManager.Instance.tileStates[i] == TileTypes.Rocks)
+            if (GridManager.Instance.tileStates[i] == TileTypes.Rocks)
             {
                 GridManager.Instance.tileStates[i] = TileTypes.None;
             }
         }
-        BuildingPlacing.instance.placeBuilding(new Vector2(8,1), TileTypes.Windmills);
+        BuildingPlacing.instance.placeBuilding(new Vector2(8, 1), TileTypes.Windmills);
         BuildingPlacing.instance.placeBuilding(new Vector2(7, 3), TileTypes.SolarPanels);
+        List<Vector2> locations = new() {
+
+new Vector2(8,1),
+new Vector2(7, 3)
+    };
+       foreach (Vector2 location in locations)
+        {
+            GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(location)];
+            GameObject guide = Instantiate(
+                GridCreator.Instance.tilePrefab,
+                tile.transform.position,
+                Quaternion.identity
+            );
+            guide.GetComponent<Renderer>().material = glowMaterial;
+            guide.GetComponent<MeshCollider>().enabled = false;
+            guide.name = "GuideTile";
+            guide.tag = "Untagged";
+        }
     }
 }
