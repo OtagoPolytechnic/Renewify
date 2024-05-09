@@ -29,7 +29,7 @@ public class PanelSelect : MonoBehaviour
             gameObject.GetComponent<Image>().sprite = normalSprite;
         }
         //The button will be clickable as long as the available buildings is more than 0
-        if(TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Deletion)
+        if(TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Deletion || TutorialManager.Instance.currentSection == TutorialSections.DeletionPart2)
         {
             gameObject.GetComponent<Button>().interactable = false;
         }

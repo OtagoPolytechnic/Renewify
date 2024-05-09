@@ -197,7 +197,6 @@ public class BuildingPlacing : MonoBehaviour
             //GridManager.Instance.tileStates[GetTileIndex(MouseManager.gridPosition)] = TileTypes.None;
             GridManager.SetTileState(MouseManager.gridPosition, TileTypes.None);
             Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.GetChild(0).gameObject);
-            Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
             WirePlacement.Instance.RemoveFullWire(MouseManager.gridPosition);
             hoveredPos = new Vector2(-1, -1);
             if (redBuilding != null)
@@ -205,6 +204,19 @@ public class BuildingPlacing : MonoBehaviour
                 Destroy(redBuilding);
             }
             InventoryManagement.instance.deleteBuildingHover(false);
+            if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Deletion)
+            {
+                Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
+                if(TutorialManager.Instance.deleteSectionBuildings  > 0)
+                {
+                    TutorialManager.Instance.deleteSectionBuildings--;
+                }
+                if(TutorialManager.Instance.deleteSectionBuildings == 0)
+                {
+                    TutorialManager.Instance.mainTooltip.SetContent("Click on the delete button again to turn off delete mode.");
+                    TutorialManager.Instance.currentSection = TutorialSections.DeletionPart2;
+                }
+            }
         }
 
     }

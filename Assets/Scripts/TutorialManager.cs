@@ -16,7 +16,10 @@ public enum TutorialSections
 {
     Building,
     Wiring,
-    Deletion
+    Deletion,
+    DeletionPart2,
+    Obstacles,
+    End
 }
 
 public class TutorialManager : MonoBehaviour
@@ -26,6 +29,7 @@ public class TutorialManager : MonoBehaviour
     public Material glowMaterial;
     public bool tutorialActive;
     public TutorialSections currentSection;
+    public int deleteSectionBuildings;
 
     // Start is called before the first frame update
 
@@ -113,6 +117,7 @@ public class TutorialManager : MonoBehaviour
         }
         BuildingPlacing.instance.placeBuilding(new Vector2(8, 1), TileTypes.Windmills);
         BuildingPlacing.instance.placeBuilding(new Vector2(7, 3), TileTypes.SolarPanels);
+        deleteSectionBuildings = 2;
         List<Vector2> DeleteGuides = new() { new Vector2(8, 1), new Vector2(7, 3) };
         foreach (Vector2 location in DeleteGuides)
         {
@@ -127,8 +132,15 @@ public class TutorialManager : MonoBehaviour
             guide.name = "GuideTile";
             guide.tag = "Untagged";
             guide.transform.parent = tile.transform;
-
-
         }
+    }
+
+    public void ObstacleSection()
+    {
+        currentSection = TutorialSections.Obstacles;
+        TutorialManager.Instance.mainTooltip.SetTitle("Obstacles");
+        TutorialManager.Instance.mainTooltip.SetContent(
+            "Obstacles are rocks and trees that you cannot build on. You must work around them to reach the goal. Try to build around the rocks and trees to reach the goal."
+        );
     }
 }
