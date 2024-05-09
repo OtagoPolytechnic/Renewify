@@ -8,6 +8,7 @@
 /// </summary>
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -96,8 +97,6 @@ public class TutorialManager : MonoBehaviour
     {
         currentSection = TutorialSections.Deletion;
 
-
-
         Debug.Log("Deletion Section");
         mainTooltip.SetTitle("Deleting Buildings");
         mainTooltip.SetContent(
@@ -128,6 +127,8 @@ public class TutorialManager : MonoBehaviour
             guide.name = "GuideTile";
             guide.tag = "Untagged";
             guide.transform.parent = tile.transform;
+
+
         }
     }
 }
