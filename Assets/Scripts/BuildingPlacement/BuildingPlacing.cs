@@ -174,6 +174,8 @@ public class BuildingPlacing : MonoBehaviour
                 {
 
                     placeBuilding();
+                    GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(new Vector2(0, 3))];
+                    Destroy(tile.transform.Find("GuideTile").gameObject);
                     TutorialManager.Instance.mainTooltip.SetTitle("Wiring Buildings");
                     TutorialManager.Instance.mainTooltip.SetContent("Now that you have placed a building, you need to connect it to the power source. Click on the building and drag to the power source to connect them.");
                     TutorialManager.Instance.WiringSection();

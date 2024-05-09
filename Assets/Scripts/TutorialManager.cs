@@ -88,12 +88,16 @@ public class TutorialManager : MonoBehaviour
             guide.GetComponent<MeshCollider>().enabled = false;
             guide.name = "GuideTile";
             guide.tag = "Untagged";
+            guide.transform.parent = tile.transform;
         }
     }
 
     public void DeletionSection()
     {
         currentSection = TutorialSections.Deletion;
+
+
+
         Debug.Log("Deletion Section");
         mainTooltip.SetTitle("Deleting Buildings");
         mainTooltip.SetContent(
@@ -110,8 +114,8 @@ public class TutorialManager : MonoBehaviour
         }
         BuildingPlacing.instance.placeBuilding(new Vector2(8, 1), TileTypes.Windmills);
         BuildingPlacing.instance.placeBuilding(new Vector2(7, 3), TileTypes.SolarPanels);
-        List<Vector2> locations = new() { new Vector2(8, 1), new Vector2(7, 3) };
-        foreach (Vector2 location in locations)
+        List<Vector2> DeleteGuides = new() { new Vector2(8, 1), new Vector2(7, 3) };
+        foreach (Vector2 location in DeleteGuides)
         {
             GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(location)];
             GameObject guide = Instantiate(

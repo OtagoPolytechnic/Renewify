@@ -93,6 +93,7 @@ public class PanelSelect : MonoBehaviour
                     guide.GetComponent<MeshCollider>().enabled = false;
                     guide.name = "GuideTile";
                     guide.tag = "Untagged";
+                    guide.transform.parent = tile.transform;
                 }
                 BuildingPlacing.selectedBuilding = panelBuilding;
                 //Sets the inventory managers current selection
