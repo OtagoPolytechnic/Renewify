@@ -10,12 +10,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum TutorialSections
+{
+    Building,
+    Wiring,
+    Deletion
+}
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance;
     public Tooltip mainTooltip;
     public Material glowMaterial;
     public bool tutorialActive;
+    public TutorialSections currentSection;
 
     // Start is called before the first frame update
 
@@ -35,6 +43,7 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         mainTooltip.SetTitle("Welcome to the Tutorial!");
+        currentSection = TutorialSections.Building;
         for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
         {
             GridManager.Instance.tileStates[i] = TileTypes.Rocks;
@@ -64,6 +73,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     public void WiringSection()
     {
+        currentSection = TutorialSections.Wiring;
         //Highlight the tiles leading to the power source
         List<Vector2> locations = new() {
 
@@ -93,8 +103,17 @@ public class TutorialManager : MonoBehaviour
 
     public void DeletionSection()
     {
+        currentSection = TutorialSections.Deletion;
         Debug.Log("Deletion Section");
-        BuildingPlacing.instance.placeBuilding(new Vector2(4,1), TileTypes.Windmills);
+        //DeleteButton.interactable = true;
+        for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
+        {
+            if(GridManager.Instance.tileStates[i] == TileTypes.Rocks)
+            {
+                GridManager.Instance.tileStates[i] = TileTypes.None;
+            }
+        }
+        BuildingPlacing.instance.placeBuilding(new Vector2(8,1), TileTypes.Windmills);
         BuildingPlacing.instance.placeBuilding(new Vector2(7, 3), TileTypes.SolarPanels);
     }
 }

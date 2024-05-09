@@ -1583,6 +1583,7 @@ MonoBehaviour:
   CornerWire: {fileID: 3674633347040057346, guid: 41739a3491b9311469aa35c1e3eba98a,
     type: 3}
   CompletedConnection: {fileID: 2100000, guid: 4a8ed71d6ce338c4dab4bada65f99399, type: 2}
+  buildingTiles: []
 --- !u!1 &677761160
 GameObject:
   m_ObjectHideFlags: 0
@@ -2082,6 +2083,7 @@ MonoBehaviour:
   mainTooltip: {fileID: 8640983944108428467}
   glowMaterial: {fileID: 2100000, guid: 981ffb4b55d180d4e94f3c80980e730e, type: 2}
   tutorialActive: 1
+  currentSection: 0
 --- !u!1001 &1128036845
 PrefabInstance:
   m_ObjectHideFlags: 0

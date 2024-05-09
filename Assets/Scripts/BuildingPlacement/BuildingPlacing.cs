@@ -168,17 +168,22 @@ public class BuildingPlacing : MonoBehaviour
     {
         if (selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
         {
-            if(!TutorialManager.Instance.tutorialActive)
-                placeBuilding();
-            else if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
+            if (TutorialManager.Instance.currentSection == TutorialSections.Building && TutorialManager.Instance.tutorialActive)
+            {
+                if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
                 {
-                
+
                     placeBuilding();
                     TutorialManager.Instance.mainTooltip.SetTitle("Wiring Buildings");
                     TutorialManager.Instance.mainTooltip.SetContent("Now that you have placed a building, you need to connect it to the power source. Click on the building and drag to the power source to connect them.");
                     TutorialManager.Instance.WiringSection();
                 }
-                    
+            }
+            else
+            {
+                placeBuilding();
+            }
+
 
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
@@ -252,24 +257,24 @@ public class BuildingPlacing : MonoBehaviour
     public void placeBuilding(Vector2 tile, TileTypes building)
     {
 
-            Debug.Log("Placing Building");
-            //Pass through the building I want to be placed
-            GridManager.SetTileState(tile, building);
-            //Remove a building from the inventory
-            //Place the building
-            //Get the prefab with the same name as the building variable
-            switch (building)
-            {
-                case TileTypes.Windmills:
-                    spawnBuilding(Windmill, (int) tile.x, (int) tile.y, GetTileObject(GridManager.GetTileIndex(tile)));
-                    break;
-                case TileTypes.SolarPanels:
-                    spawnBuilding(SolarPanelField, (int) tile.x, (int) tile.y, GetTileObject(GridManager.GetTileIndex(tile)));
-                    break;
-                default:
-                    break;
-            }
-        
+        Debug.Log("Placing Building");
+        //Pass through the building I want to be placed
+        GridManager.SetTileState(tile, building);
+        //Remove a building from the inventory
+        //Place the building
+        //Get the prefab with the same name as the building variable
+        switch (building)
+        {
+            case TileTypes.Windmills:
+                spawnBuilding(Windmill, (int)tile.x, (int)tile.y, GetTileObject(GridManager.GetTileIndex(tile)));
+                break;
+            case TileTypes.SolarPanels:
+                spawnBuilding(SolarPanelField, (int)tile.x, (int)tile.y, GetTileObject(GridManager.GetTileIndex(tile)));
+                break;
+            default:
+                break;
+        }
+
 
     }
     private void spawnBuilding(GameObject building, int playerX, int playerZ, GameObject parent)

@@ -80,7 +80,7 @@ public class PanelSelect : MonoBehaviour
             }
             else
             {
-                if (TutorialManager.Instance.tutorialActive)
+                if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Building)
                 {
                     GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(new Vector2 (0, 3))];
                     Debug.Log(GridManager.GetTileIndex(new Vector2 (0, 3)));
