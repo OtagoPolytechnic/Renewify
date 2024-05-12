@@ -31,6 +31,9 @@ public class TutorialManager : MonoBehaviour
     public TutorialSections currentSection;
     public int deleteSectionBuildings;
 
+    [SerializeField]
+    private GameObject flowersPrefab,rocksPrefab;
+
     // Start is called before the first frame update
 
 
@@ -59,6 +62,49 @@ public class TutorialManager : MonoBehaviour
             TileTypes.Goal; //Tutorial goal
         GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(0, 3))] =
             TileTypes.None; //Tutorial Building location
+
+        List<Vector2> flowers =
+            new()
+            {
+                new Vector2(0, 2),
+                new Vector2(0, 4),
+                new Vector2(0, 5),
+                new Vector2(0, 7),
+                new Vector2(1, 2),
+                new Vector2(2, 4),
+                new Vector2(2, 8)
+            };
+        foreach (Vector2 location in flowers)
+        {
+            GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Plants;
+            GameObject temp = Instantiate(
+                flowersPrefab,
+                GridManager.CalculatePos(location.x, location.y),
+                Quaternion.identity
+            );
+        }
+
+        List<Vector2> rocks = new() 
+        {
+            new Vector2(6,8),
+            new Vector2(6,9),
+            new Vector2(7,0),
+            new Vector2(7,1),
+            new Vector2(7,8),
+            new Vector2(7,9),
+            new Vector2(8,0),
+            new Vector2(8,1),
+            new Vector2(8,8),
+            new Vector2(8,9),
+        };
+        foreach (Vector2 location in rocks)
+        {
+            GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Rocks;
+            GameObject temp = Instantiate(rocksPrefab,
+                GridManager.CalculatePos(location.x, location.y),
+                Quaternion.identity
+            );
+        }
     }
 
     /// <summary>
@@ -115,10 +161,10 @@ public class TutorialManager : MonoBehaviour
                 GridManager.Instance.tileStates[i] = TileTypes.None;
             }
         }
-        BuildingPlacing.instance.placeBuilding(new Vector2(8, 1), TileTypes.Windmills);
+        BuildingPlacing.instance.placeBuilding(new Vector2(6, 1), TileTypes.Windmills);
         BuildingPlacing.instance.placeBuilding(new Vector2(7, 3), TileTypes.SolarPanels);
         deleteSectionBuildings = 2;
-        List<Vector2> DeleteGuides = new() { new Vector2(8, 1), new Vector2(7, 3) };
+        List<Vector2> DeleteGuides = new() { new Vector2(6, 1), new Vector2(7, 3) };
         foreach (Vector2 location in DeleteGuides)
         {
             GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(location)];
