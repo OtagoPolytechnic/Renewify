@@ -199,7 +199,7 @@ public class BuildingPlacing : MonoBehaviour
                 if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
                     return;
 
-                   // Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
+                   Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
                     if(TutorialManager.Instance.deleteSectionBuildings  > 0)
                     {
                         TutorialManager.Instance.deleteSectionBuildings--;
