@@ -193,6 +193,24 @@ public class BuildingPlacing : MonoBehaviour
                 (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels) &&
                 InventoryManagement.instance.deleteMode.isOn)
         {
+            
+            if (TutorialManager.Instance.tutorialActive && (TutorialManager.Instance.currentSection == TutorialSections.Deletion || TutorialManager.Instance.currentSection == TutorialSections.DeletionPart2 || TutorialManager.Instance.currentSection == TutorialSections.Obstacles))
+            {
+                if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
+                    return;
+
+                   // Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
+                    if(TutorialManager.Instance.deleteSectionBuildings  > 0)
+                    {
+                        TutorialManager.Instance.deleteSectionBuildings--;
+                    }
+                    if(TutorialManager.Instance.deleteSectionBuildings == 0)
+                    {
+                        TutorialManager.Instance.mainTooltip.SetContent("Click on the delete button again to turn off delete mode.");
+                        TutorialManager.Instance.currentSection = TutorialSections.DeletionPart2;
+                    }
+                
+            }
             InventoryManagement.instance.ReturnSelectedBuilding(GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)]);
             //GridManager.Instance.tileStates[GetTileIndex(MouseManager.gridPosition)] = TileTypes.None;
             GridManager.SetTileState(MouseManager.gridPosition, TileTypes.None);
@@ -204,19 +222,6 @@ public class BuildingPlacing : MonoBehaviour
                 Destroy(redBuilding);
             }
             InventoryManagement.instance.deleteBuildingHover(false);
-            if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Deletion)
-            {
-                Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
-                if(TutorialManager.Instance.deleteSectionBuildings  > 0)
-                {
-                    TutorialManager.Instance.deleteSectionBuildings--;
-                }
-                if(TutorialManager.Instance.deleteSectionBuildings == 0)
-                {
-                    TutorialManager.Instance.mainTooltip.SetContent("Click on the delete button again to turn off delete mode.");
-                    TutorialManager.Instance.currentSection = TutorialSections.DeletionPart2;
-                }
-            }
         }
 
     }
