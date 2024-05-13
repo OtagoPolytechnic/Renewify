@@ -53,7 +53,7 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
-        mainTooltip.SetTitle("Welcome to the Tutorial!");
+        mainTooltip.SetTitle("Welcome to the tutorial!");
         currentSection = TutorialSections.Building;
         for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
         {
