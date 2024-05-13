@@ -187,7 +187,7 @@ public class TutorialManager : MonoBehaviour
         currentSection = TutorialSections.Obstacles;
         TutorialManager.Instance.mainTooltip.SetTitle("Obstacles");
         TutorialManager.Instance.mainTooltip.SetContent(
-            "Obstacles are rocks and trees that you cannot build on. You must work around them to reach the goal. Try to build around the rocks and trees to reach the goal."
+            "Obstacles are rocks, plants and trees that you cannot build on. You must work around them to reach the goal. Try to build around the rocks and trees to reach the goal. You now have 1 windmill and 1 solar panel to use."
         );
     }
 
