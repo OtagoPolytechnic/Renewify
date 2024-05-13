@@ -148,13 +148,18 @@ public class TutorialManager : MonoBehaviour
             guide.GetComponent<Renderer>().material = glowMaterial;
             guide.GetComponent<MeshCollider>().enabled = false;
             guide.name = "GuideTile";
-            guide.tag = "Untagged";
+            guide.tag = "GuideTile";
         }
     }
 
     public void DeletionSection()
     {
         currentSection = TutorialSections.Deletion;
+        GameObject[] guides = GameObject.FindGameObjectsWithTag("GuideTile");
+        foreach (GameObject guide in guides)
+        {
+            Destroy(guide);
+        }
 
         Debug.Log("Deletion Section");
         mainTooltip.SetTitle("Deleting Buildings");
@@ -185,7 +190,7 @@ public class TutorialManager : MonoBehaviour
             guide.GetComponent<Renderer>().material = glowMaterial;
             guide.GetComponent<MeshCollider>().enabled = false;
             guide.name = "GuideTile";
-            guide.tag = "Untagged";
+            guide.tag = "GuideTile";
             guide.transform.parent = tile.transform;
         }
     }
