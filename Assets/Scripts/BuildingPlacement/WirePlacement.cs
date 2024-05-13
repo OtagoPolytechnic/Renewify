@@ -223,7 +223,7 @@ public class WirePlacement : MonoBehaviour
             if (TutorialManager.Instance.obstacleSectionBuildingsRemaining == 3)
             {
                 TutorialManager.Instance.mainTooltip.SetTitle("You Have Completed The Tutorial");
-                TutorialManager.Instance.mainTooltip.SetContent("Well Done, You have connected all the buildings to the goal. you can now play the game.");
+                TutorialManager.Instance.mainTooltip.SetContent("Well Done, you have connected all the buildings to the goal. You can now play the game.");
             }
         }
     }
