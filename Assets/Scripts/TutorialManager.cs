@@ -149,7 +149,6 @@ public class TutorialManager : MonoBehaviour
             guide.GetComponent<MeshCollider>().enabled = false;
             guide.name = "GuideTile";
             guide.tag = "Untagged";
-            guide.transform.parent = tile.transform;
         }
     }
 

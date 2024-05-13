@@ -419,7 +419,7 @@ public class WirePlacement : MonoBehaviour
         //If the tile has a wire, remove it
         if (GridCreator.tiles[position].transform.childCount > 0)
         {
-            Destroy(GridCreator.tiles[position].transform.GetChild(0).gameObject);
+                Destroy(GridCreator.tiles[position].transform.GetChild(0).gameObject);
             // GridManager.Instance.tileStates[position] = TileTypes.None;
             GridManager.SetTileState(GridManager.GetTilePosition(position), TileTypes.None);
         }
