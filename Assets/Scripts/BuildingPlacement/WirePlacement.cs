@@ -27,6 +27,9 @@ public class WirePlacement : MonoBehaviour
 
     //Singleton pattern
     public static WirePlacement Instance;
+
+    public List<Vector2> ConnectedBuildings { get => connectedBuildings; } //public getter for connected buildings
+
     private void Awake()
     {
         if (Instance == null)
@@ -206,12 +209,21 @@ public class WirePlacement : MonoBehaviour
             {
                 Debug.Log("Tutorial Active from WirePlacement and connected");
                 TutorialManager.Instance.DeletionSection();
-                buildingTiles.Add(new Vector2(8,1));
-                buildingTiles.Add(new Vector2(7, 3));
+                TutorialManager.Instance.obstacleSectionBuildingsRemaining = 1;
             }
             else
             {
                 Debug.Log("Tutorial Active from WirePlacement and not connected");
+            }
+        }
+        else if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Obstacles)
+        {
+            TutorialManager.Instance.obstacleSectionBuildingsRemaining = connectedBuildings.Count;
+            Debug.Log("Buildings connected: " + TutorialManager.Instance.obstacleSectionBuildingsRemaining);
+            if (TutorialManager.Instance.obstacleSectionBuildingsRemaining == 3)
+            {
+                TutorialManager.Instance.mainTooltip.SetTitle("You Have Completed The Tutorial");
+                TutorialManager.Instance.mainTooltip.SetContent("Well Done, You have connected all the buildings to the goal. you can now play the game.");
             }
         }
     }

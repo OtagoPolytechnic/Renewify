@@ -30,6 +30,7 @@ public class TutorialManager : MonoBehaviour
     public bool tutorialActive;
     public TutorialSections currentSection;
     public int deleteSectionBuildings;
+    public int obstacleSectionBuildingsRemaining = 0;
 
     [SerializeField]
     private GameObject flowersPrefab,rocksPrefab;
