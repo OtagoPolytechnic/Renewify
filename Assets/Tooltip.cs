@@ -6,11 +6,11 @@ using TMPro;
 
 public class Tooltip : MonoBehaviour
 {
-    public Image tooltipBackground;
-    public GameObject header;
-    public GameObject content;
-    public Image toggle;
-    public bool isTooltipActive = false;
+    [SerializeField] private  Image tooltipBackground;
+    [SerializeField] private  GameObject header;
+    [SerializeField] private  GameObject content;
+    [SerializeField] private Image toggle;
+    private bool isTooltipActive = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +19,9 @@ public class Tooltip : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Toggles the tooltip on and off
+    /// </summary>
     public void ToggleButton()
     {
         isTooltipActive = !isTooltipActive;
@@ -32,10 +34,18 @@ public class Tooltip : MonoBehaviour
     }
 
 
+    /// <summary>
+    ///     Sets the title of the tooltip
+    /// </summary>
+    /// <param name="title">The Title of the tooltip</param>
     public void SetTitle(string title)
     {
         header.GetComponent<TMP_Text>().text = title;
     }
+    /// <summary>
+    ///     Sets the content of the tooltip
+    /// </summary>
+    /// <param name="content">The content paragraph of the tooltip</param>
     public void SetContent(string content)
     {
         this.content.GetComponent<TMP_Text>().text = content;
