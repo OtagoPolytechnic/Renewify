@@ -2657,6 +2657,11 @@ PrefabInstance:
       propertyPath: m_PreferredHeight
       value: 134.54001
       objectReference: {fileID: 0}
+    - target: {fileID: 6861452217646642817, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Name
+      value: text
+      objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_text
@@ -3307,6 +3312,11 @@ PrefabInstance:
       propertyPath: m_PreferredHeight
       value: 105.79
       objectReference: {fileID: 0}
+    - target: {fileID: 6861452217646642817, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Name
+      value: text
+      objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_text
@@ -3809,6 +3819,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PreferredHeight
       value: 105.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861452217646642817, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Name
+      value: text
       objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -5057,6 +5072,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PreferredHeight
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861452217646642817, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Name
+      value: text
       objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}

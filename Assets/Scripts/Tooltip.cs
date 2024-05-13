@@ -30,7 +30,8 @@ public class Tooltip : MonoBehaviour
 
         header.SetActive(isTooltipActive);
         content.SetActive(isTooltipActive);
-        toggle.GetComponent<Image>().color = isTooltipActive ? Color.gray :Color.yellow;
+        toggle.GetComponent<Image>().color = isTooltipActive ? Color.gray :Color.gray;
+        toggle.gameObject.transform.Find("text").GetComponent<TMP_Text>().text = isTooltipActive ? "x" : "+";
     }
 
 
