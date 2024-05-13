@@ -33,7 +33,11 @@ public class TutorialManager : MonoBehaviour
     [HideInInspector] public int obstacleSectionBuildingsRemaining = 0;
 
     [SerializeField]
-    private GameObject flowersPrefab, rocksPrefab;
+    private GameObject flowersPrefab;
+    [SerializeField]
+    private GameObject rocksPrefab;
+    [SerializeField]
+    private GameObject exitBTN;
 
     // Start is called before the first frame update
 
@@ -54,6 +58,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (tutorialActive)
         {
+            exitBTN.SetActive(false);
 
             GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
             mainTooltip.SetTitle("Welcome to the tutorial!");
@@ -200,6 +205,7 @@ public class TutorialManager : MonoBehaviour
         mainTooltip.SetTitle("You Have Completed The tutorial");
         mainTooltip.SetContent("Well Done, you have connected all the buildings to the goal. You can now play the game.");
         GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
+        exitBTN.SetActive(true);
 
     }
 }
