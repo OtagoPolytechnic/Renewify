@@ -29,8 +29,8 @@ public class TutorialManager : MonoBehaviour
     public Material glowMaterial;
     public bool tutorialActive;
     public TutorialSections currentSection;
-    public int deleteSectionBuildings;
-    public int obstacleSectionBuildingsRemaining = 0;
+    [HideInInspector] public int deleteSectionBuildings;
+    [HideInInspector] public int obstacleSectionBuildingsRemaining = 0;
 
     [SerializeField]
     private GameObject flowersPrefab, rocksPrefab;
@@ -52,21 +52,24 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
-        mainTooltip.SetTitle("Welcome to the tutorial!");
-        currentSection = TutorialSections.Building;
-        for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
+        if (tutorialActive)
         {
-            GridManager.Instance.tileStates[i] = TileTypes.Rocks;
-        }
-        GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(3, 9))] =
-            TileTypes.Goal; //Tutorial goal
-        GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(0, 3))] =
-            TileTypes.None; //Tutorial Building location
 
-        List<Vector2> flowers =
-            new()
+            GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
+            mainTooltip.SetTitle("Welcome to the tutorial!");
+            currentSection = TutorialSections.Building;
+            for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
             {
+                GridManager.Instance.tileStates[i] = TileTypes.Rocks;
+            }
+            GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(3, 9))] =
+                TileTypes.Goal; //Tutorial goal
+            GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(0, 3))] =
+                TileTypes.None; //Tutorial Building location
+
+            List<Vector2> flowers =
+                new()
+                {
                 new Vector2(0, 2),
                 new Vector2(0, 4),
                 new Vector2(0, 5),
@@ -74,18 +77,18 @@ public class TutorialManager : MonoBehaviour
                 new Vector2(1, 2),
                 new Vector2(2, 4),
                 new Vector2(2, 8)
-            };
-        foreach (Vector2 location in flowers)
-        {
-            GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Plants;
-            GameObject temp = Instantiate(
-                flowersPrefab,
-                GridManager.CalculatePos(location.x, location.y),
-                Quaternion.identity
-            );
-        }
+                };
+            foreach (Vector2 location in flowers)
+            {
+                GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Plants;
+                GameObject temp = Instantiate(
+                    flowersPrefab,
+                    GridManager.CalculatePos(location.x, location.y),
+                    Quaternion.identity
+                );
+            }
 
-        List<Vector2> rocks = new()
+            List<Vector2> rocks = new()
         {
             new Vector2(6,8),
             new Vector2(6,9),
@@ -98,13 +101,14 @@ public class TutorialManager : MonoBehaviour
             new Vector2(8,8),
             new Vector2(8,9),
         };
-        foreach (Vector2 location in rocks)
-        {
-            GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Rocks;
-            GameObject temp = Instantiate(rocksPrefab,
-                GridManager.CalculatePos(location.x, location.y),
-                Quaternion.identity
-            );
+            foreach (Vector2 location in rocks)
+            {
+                GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Rocks;
+                GameObject temp = Instantiate(rocksPrefab,
+                    GridManager.CalculatePos(location.x, location.y),
+                    Quaternion.identity
+                );
+            }
         }
     }
 
