@@ -9,8 +9,6 @@ using UnityEngine.UI;
 
 public class PixelatedCamera : MonoBehaviour
 {
-    public enum PixelScreenMode { Resize, Scale }
-
     [System.Serializable]
     public struct ScreenSize
     {
@@ -26,11 +24,8 @@ public class PixelatedCamera : MonoBehaviour
     private int screenWidth, screenHeight;
 
     [Header("Screen scaling settings")]
-    public PixelScreenMode mode;
     public ScreenSize targetScreenSize = new ScreenSize { width = 480, height = 270 };  // Only used with PixelScreenMode.Resize
-    private ScreenSize newScreenSize;
-    public uint screenScaleFactor = 1;  // Only used with PixelScreenMode.Scale
-    //private Vector2 aspectRatio = new Vector2(16,9);
+    public uint screenScaleFactor = 270;  //set to the height of the desired screen size
 
     
     [Header("Display")]
@@ -40,10 +35,6 @@ public class PixelatedCamera : MonoBehaviour
     {
         // Try to set as main pixel camera
         if (main == null) main = this;
-
-        
-
-        
     }
 
     private void Start()
@@ -71,7 +62,6 @@ public class PixelatedCamera : MonoBehaviour
         if (targetScreenSize.height < 1) targetScreenSize.height = 1;
 
 
-        //Debug.Log(renderCamera.aspect);
         float aspectRatio = Camera.main.aspect;
         // Calculate the render texture size
         int width = Mathf.RoundToInt(screenScaleFactor * aspectRatio);
