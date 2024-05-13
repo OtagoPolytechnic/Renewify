@@ -3142,7 +3142,7 @@ PrefabInstance:
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_text
-      value: 'Bonus tiles have  active effects that provide
+      value: 'Bonus tiles have active effects that provide
 
         specific buildings
         with power, for example this tile has wind'
