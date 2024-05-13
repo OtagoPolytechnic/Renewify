@@ -33,7 +33,7 @@ public class TutorialManager : MonoBehaviour
     public int obstacleSectionBuildingsRemaining = 0;
 
     [SerializeField]
-    private GameObject flowersPrefab,rocksPrefab;
+    private GameObject flowersPrefab, rocksPrefab;
 
     // Start is called before the first frame update
 
@@ -85,7 +85,7 @@ public class TutorialManager : MonoBehaviour
             );
         }
 
-        List<Vector2> rocks = new() 
+        List<Vector2> rocks = new()
         {
             new Vector2(6,8),
             new Vector2(6,9),
@@ -189,5 +189,13 @@ public class TutorialManager : MonoBehaviour
         TutorialManager.Instance.mainTooltip.SetContent(
             "Obstacles are rocks and trees that you cannot build on. You must work around them to reach the goal. Try to build around the rocks and trees to reach the goal."
         );
+    }
+
+    public void EndSection()
+    {
+        mainTooltip.SetTitle("You Have Completed The tutorial");
+        mainTooltip.SetContent("Well Done, you have connected all the buildings to the goal. You can now play the game.");
+        GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
+
     }
 }

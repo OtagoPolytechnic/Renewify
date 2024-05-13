@@ -194,12 +194,12 @@ public class BuildingPlacing : MonoBehaviour
                 InventoryManagement.instance.deleteMode.isOn)
         {
             
-            if (TutorialManager.Instance.tutorialActive && (TutorialManager.Instance.currentSection == TutorialSections.Deletion || TutorialManager.Instance.currentSection == TutorialSections.DeletionPart2 || TutorialManager.Instance.currentSection == TutorialSections.Obstacles))
+            if (TutorialManager.Instance.tutorialActive && (TutorialManager.Instance.currentSection == TutorialSections.Deletion || TutorialManager.Instance.currentSection == TutorialSections.DeletionPart2 || TutorialManager.Instance.currentSection == TutorialSections.Obstacles || TutorialManager.Instance.currentSection == TutorialSections.End))
             {
-                if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
+                if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)) || TutorialManager.Instance.currentSection == TutorialSections.End)
                     return;
                 
-                    if (TutorialManager.Instance.currentSection != TutorialSections.Obstacles)
+                    if (TutorialManager.Instance.currentSection != TutorialSections.Obstacles && TutorialManager.Instance.currentSection != TutorialSections.End)
                          Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
                 
                     if(TutorialManager.Instance.deleteSectionBuildings  > 0)

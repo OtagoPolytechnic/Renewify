@@ -10,7 +10,7 @@ public class Tooltip : MonoBehaviour
     [SerializeField] private  GameObject header;
     [SerializeField] private  GameObject content;
     [SerializeField] private Image toggle;
-    private bool isTooltipActive = false;
+    [SerializeField] private bool isTooltipActive = false;
     // Start is called before the first frame update
     void Start()
     {
