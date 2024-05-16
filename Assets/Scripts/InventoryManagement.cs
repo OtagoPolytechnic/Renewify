@@ -28,6 +28,10 @@ public class InventoryManagement : MonoBehaviour
     }
     public void DeleteModeToggle()
     {
+        if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.DeletionPart2)
+        {
+            TutorialManager.Instance.ObstacleSection();
+        }
         //If Delete mode is turned on
         if (deleteMode.isOn)
         {

@@ -11,6 +11,7 @@ public class GridCreator : MonoBehaviour
     public Material highlightedMaterial;
     public Material debugMaterial;
 
+
     public static List<GameObject> tiles = new List<GameObject>();
     public Material Wind1;
     public Material Wind2;
@@ -18,6 +19,7 @@ public class GridCreator : MonoBehaviour
     public Material Sun1;
     public Material Sun2;
     public Material Sun3;
+
     
     void Awake()
     {
