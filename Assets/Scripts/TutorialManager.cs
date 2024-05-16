@@ -71,6 +71,10 @@ public class TutorialManager : MonoBehaviour
                 TileTypes.Goal; //Tutorial goal
             GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(0, 3))] =
                 TileTypes.None; //Tutorial Building location
+            GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(9, 6))] =
+                TileTypes.None; //Tutorial Building location
+           GridManager.Instance.tileStates[GridManager.GetTileIndex(new Vector2(0, 6))] =
+                TileTypes.None; //Tutorial Building location
 
             List<Vector2> flowers =
                 new()

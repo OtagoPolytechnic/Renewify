@@ -2832,6 +2832,12 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 66f8c0684882d5749835daec0d8f2c6e, type: 2}
   highlightedMaterial: {fileID: 2100000, guid: 981ffb4b55d180d4e94f3c80980e730e, type: 2}
   debugMaterial: {fileID: 2100000, guid: 76fb961445ec5e0478cc4d3afdd88ed2, type: 2}
+  Wind1: {fileID: 2100000, guid: 06f738a6bfc02d440a512a691dde644a, type: 2}
+  Wind2: {fileID: 2100000, guid: ad9a0936a5bbdaf458ef801b6412ed60, type: 2}
+  Wind3: {fileID: 2100000, guid: 4d83fe46f1fc2f24185f67df1ad5bbb9, type: 2}
+  Sun1: {fileID: 2100000, guid: fef0c0da9c2af8f4e80763d290196c55, type: 2}
+  Sun2: {fileID: 2100000, guid: dadf05f9b14c3ba44a6027972d7a5189, type: 2}
+  Sun3: {fileID: 2100000, guid: 1edf42598da035c479550d1a9a33de2d, type: 2}
 --- !u!4 &1361812805
 Transform:
   m_ObjectHideFlags: 0
@@ -6195,6 +6201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f27bb119cae1b4894d54d41f3e689a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
 --- !u!222 &5711583427351578384
 CanvasRenderer:
   m_ObjectHideFlags: 0
