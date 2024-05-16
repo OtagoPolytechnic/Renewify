@@ -2067,7 +2067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f89ab22bfb4d74f87fd4a78cf47d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
   targetScreenSize:
     width: 480
     height: 270
@@ -2193,6 +2192,7 @@ MonoBehaviour:
   CornerWire: {fileID: 3674633347040057346, guid: 41739a3491b9311469aa35c1e3eba98a,
     type: 3}
   CompletedConnection: {fileID: 2100000, guid: 4a8ed71d6ce338c4dab4bada65f99399, type: 2}
+  buildingTiles: []
 --- !u!1 &677761160
 GameObject:
   m_ObjectHideFlags: 0
@@ -3318,6 +3318,12 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 66f8c0684882d5749835daec0d8f2c6e, type: 2}
   highlightedMaterial: {fileID: 2100000, guid: 981ffb4b55d180d4e94f3c80980e730e, type: 2}
   debugMaterial: {fileID: 2100000, guid: 76fb961445ec5e0478cc4d3afdd88ed2, type: 2}
+  Wind1: {fileID: 2100000, guid: 06f738a6bfc02d440a512a691dde644a, type: 2}
+  Wind2: {fileID: 2100000, guid: ad9a0936a5bbdaf458ef801b6412ed60, type: 2}
+  Wind3: {fileID: 2100000, guid: 4d83fe46f1fc2f24185f67df1ad5bbb9, type: 2}
+  Sun1: {fileID: 2100000, guid: fef0c0da9c2af8f4e80763d290196c55, type: 2}
+  Sun2: {fileID: 2100000, guid: dadf05f9b14c3ba44a6027972d7a5189, type: 2}
+  Sun3: {fileID: 2100000, guid: 1edf42598da035c479550d1a9a33de2d, type: 2}
 --- !u!4 &1361812805
 Transform:
   m_ObjectHideFlags: 0
@@ -3665,9 +3671,13 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-
-  m_GameObject: {fileID: 1514231812}
-  m_CullTransparentMesh: 1
+  m_GameObject: {fileID: 1479296979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e98ccc9c2245e7419d6e6297482b840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseModal: {fileID: 5652965468009127980}
 --- !u!84 &1603460512
 RenderTexture:
   m_ObjectHideFlags: 0
@@ -3698,7 +3708,7 @@ RenderTexture:
   m_TextureSettings:
     serializedVersion: 2
     m_FilterMode: 0
-    m_Aniso: 1
+    m_Aniso: 0
     m_MipBias: 0
     m_WrapU: 1
     m_WrapV: 1
@@ -3706,7 +3716,6 @@ RenderTexture:
   m_Dimension: 2
   m_VolumeDepth: 1
   m_ShadowSamplingMode: 2
-
 --- !u!1 &1607500045
 GameObject:
   m_ObjectHideFlags: 0
@@ -4855,7 +4864,7 @@ MonoBehaviour:
   gridSize: 10
   tileSize: 10
   tileStates: 
-  tileBonus: 00000000000000000000000000000001000000000000000000010000000000000000000000000000010000000000000000000000000000000000000000000000000000010000000000000000000000000000000100000000000000000000000000000000
+  tileBonus: 00000000000000000000000000000001000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000010000000000000000000000000000000100000000000000000000000000000001
 --- !u!1 &2051673319
 GameObject:
   m_ObjectHideFlags: 0
