@@ -5,36 +5,27 @@ using UnityEngine;
 public class AnimationTrigger : MonoBehaviour
 {
     private Animator windmillAnimator;
-    private Vector2 newVector2;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Get the animator component
         windmillAnimator = gameObject.GetComponent<Animator>();
-
-        //get the parent of gameObject
-        Transform parent = gameObject.transform.parent;
-        if(parent != null)
+        //Getting the name of the parent gameobject
+        string parentName = gameObject.transform.parent.gameObject.name;
+        try
         {
-            char x = parent.gameObject.name[5];
-            char y = parent.gameObject.name[7];
-            
-            int x_ = int.Parse(x.ToString());
-            int y_ = int.Parse(y.ToString());
-            newVector2 = new Vector2(x_,y_);
+            //Get the x and y of the parent tile from the parent's name
+            int x = int.Parse(parentName[5].ToString());
+            int y = int.Parse(parentName[7].ToString());
+            //Check if the tile is connected to the goal
+            bool isTileConnected = GridManager.Instance.tileBonus[GridManager.GetTileIndex(new Vector2(x,y))];
+            //Set the connected parameter in the animator
+            windmillAnimator.SetBool("Connected", isTileConnected);
         }
-        
+        catch
+        {
+            Debug.LogError("Error: Could not parse the parent name of the windmill");
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //check if tile is connected to a building
-        bool isTileConnected = WirePlacement.Instance.isTileConnected(GridManager.GetTileIndex(newVector2));
-        //Debug.Log(GridManager.GetTileIndex(newVector2));
-        
-
-        windmillAnimator.SetBool("Connected", isTileConnected);
-    }
-
 }
