@@ -31,7 +31,13 @@ public class BuildingPlacing : MonoBehaviour
     private GameObject redBuilding = null;
     //Enum building variable
     public static TileTypes selectedBuilding = TileTypes.None;
+    public static BuildingPlacing instance;
     //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
+
+    void Awake()
+    {
+        instance = this;
+    }
     void Update()
     {
         //If the user clicks the mouse
@@ -162,13 +168,55 @@ public class BuildingPlacing : MonoBehaviour
     {
         if (selectedBuilding != TileTypes.None && MouseManager.isHovering && !InventoryManagement.instance.deleteMode.isOn)
         {
-            placeBuilding();
+            if (TutorialManager.Instance.currentSection == TutorialSections.Building && TutorialManager.Instance.tutorialActive)
+            {
+                if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
+                {
+
+                    placeBuilding();
+                    GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(new Vector2(0, 3))];
+                    Destroy(tile.transform.Find("GuideTile").gameObject);
+                    TutorialManager.Instance.mainTooltip.SetTitle("Wiring Buildings");
+                    TutorialManager.Instance.mainTooltip.SetContent("Now that you have placed a building, you need to connect it to the power source. Click on the building and drag to the power source to connect them.");
+                    TutorialManager.Instance.WiringSection();
+                }
+            }
+            else
+            {
+                placeBuilding();
+            }
+
+
         }
         //If No Building is selected and the player clicks the tile then the building returns to the inventory and the game-object is destroyed and the tile-state returns to none
         else if (MouseManager.isHovering &&
                 (GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.Windmills || GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)] == TileTypes.SolarPanels) &&
                 InventoryManagement.instance.deleteMode.isOn)
         {
+            
+            if (TutorialManager.Instance.tutorialActive && (TutorialManager.Instance.currentSection == TutorialSections.Deletion || TutorialManager.Instance.currentSection == TutorialSections.DeletionPart2 || TutorialManager.Instance.currentSection == TutorialSections.Obstacles || TutorialManager.Instance.currentSection == TutorialSections.End))
+            {
+                if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)) || TutorialManager.Instance.currentSection == TutorialSections.End)
+                    return;
+                
+                    if (TutorialManager.Instance.currentSection != TutorialSections.Obstacles && TutorialManager.Instance.currentSection != TutorialSections.End)
+                         Destroy(GetTileObject(GridManager.GetTileIndex(MouseManager.gridPosition)).transform.Find("GuideTile").gameObject);
+                
+                    if(TutorialManager.Instance.deleteSectionBuildings  > 0)
+                    {
+                        TutorialManager.Instance.deleteSectionBuildings--;
+                    }
+                    if(TutorialManager.Instance.deleteSectionBuildings == 0)
+                    {
+                        TutorialManager.Instance.mainTooltip.SetContent("Click on the delete button again to turn off delete mode.");
+                        TutorialManager.Instance.currentSection = TutorialSections.DeletionPart2;
+                    }
+                    if (TutorialManager.Instance.currentSection == TutorialSections.Obstacles)
+                    {
+                        TutorialManager.Instance.obstacleSectionBuildingsRemaining = WirePlacement.Instance.ConnectedBuildings.Count;
+                    }
+                
+            }
             InventoryManagement.instance.ReturnSelectedBuilding(GridManager.Instance.tileStates[GridManager.GetTileIndex(MouseManager.gridPosition)]);
             //GridManager.Instance.tileStates[GetTileIndex(MouseManager.gridPosition)] = TileTypes.None;
             GridManager.SetTileState(MouseManager.gridPosition, TileTypes.None);
@@ -227,6 +275,34 @@ public class BuildingPlacing : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Places a building at the specified tile
+    /// </summary>
+    /// <param name="tile">The Tile the building is spawned to</param>
+    /// <param name="building">The building to be spawned</param>
+    public void placeBuilding(Vector2 tile, TileTypes building)
+    {
+
+        Debug.Log("Placing Building");
+        //Pass through the building I want to be placed
+        GridManager.SetTileState(tile, building);
+        //Remove a building from the inventory
+        //Place the building
+        //Get the prefab with the same name as the building variable
+        switch (building)
+        {
+            case TileTypes.Windmills:
+                spawnBuilding(Windmill, (int)tile.x, (int)tile.y, GetTileObject(GridManager.GetTileIndex(tile)));
+                break;
+            case TileTypes.SolarPanels:
+                spawnBuilding(SolarPanelField, (int)tile.x, (int)tile.y, GetTileObject(GridManager.GetTileIndex(tile)));
+                break;
+            default:
+                break;
+        }
+
+
+    }
     private void spawnBuilding(GameObject building, int playerX, int playerZ, GameObject parent)
     {
         GameObject temp = Instantiate(building, GridManager.CalculatePos(playerX, playerZ), Quaternion.identity);

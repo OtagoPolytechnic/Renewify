@@ -9,8 +9,7 @@ public class PanelSelect : MonoBehaviour
     public TileTypes panelBuilding;
 
     //This is set on spawn to the type of building this panel is for
-    public GameObject WindmillPrefab;
-    public GameObject SolarPanelPrefab;
+
     public Sprite selectedSprite;
     public Sprite normalSprite;
 
@@ -30,7 +29,14 @@ public class PanelSelect : MonoBehaviour
             gameObject.GetComponent<Image>().sprite = normalSprite;
         }
         //The button will be clickable as long as the available buildings is more than 0
-        gameObject.GetComponent<Button>().interactable = availableBuildings > 0;
+        if(TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Deletion || TutorialManager.Instance.currentSection == TutorialSections.DeletionPart2)
+        {
+            gameObject.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            gameObject.GetComponent<Button>().interactable = availableBuildings > 0;
+        }
 
     }
 
@@ -81,6 +87,21 @@ public class PanelSelect : MonoBehaviour
             }
             else
             {
+                if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Building)
+                {
+                    GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(new Vector2 (0, 3))];
+                    Debug.Log(GridManager.GetTileIndex(new Vector2 (0, 3)));
+                    GameObject guide = Instantiate(
+                        GridCreator.Instance.tilePrefab,
+                        new Vector3(tile.transform.position.x,1.1f,tile.transform.position.z),
+                        Quaternion.identity
+                    );
+                    guide.GetComponent<Renderer>().material = TutorialManager.Instance.glowMaterial;
+                    guide.GetComponent<MeshCollider>().enabled = false;
+                    guide.name = "GuideTile";
+                    guide.tag = "Untagged";
+                    guide.transform.parent = tile.transform;
+                }
                 BuildingPlacing.selectedBuilding = panelBuilding;
                 //Sets the inventory managers current selection
                 InventoryManagement.instance.currentSelectionPanel = this;

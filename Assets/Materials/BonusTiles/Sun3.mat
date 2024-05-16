@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GridBonus
+  m_Name: Sun3
   m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -62,6 +62,6 @@ Material:
     - _Surface: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.6053485, b: 0, a: 1}
-    - _Color: {r: 1, g: 0.6053485, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0.82229996, b: 0.5518868, a: 1}
+    - _Color: {r: 1, g: 0.82229996, b: 0.5518868, a: 1}
   m_BuildTextureStacks: []
