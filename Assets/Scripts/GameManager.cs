@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int totalScore = 0; //DEBUG: this can be removed later, it's just here to see the score in the editor.
+    public const int DIAGSCORE = 1; //This is the score for a diagonal connection
+    public const int ADJSCORE = 2; //This is the score for an adjacent connection
+    public const int BONUSSCORE = 3; //This is the score for a bonus tile
     void Awake()
     {
         if (Instance == null)

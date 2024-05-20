@@ -16,17 +16,53 @@ public class GridManager : MonoBehaviour
         public int x;
         [Range(0, 10)]
         public int y;
-
+        public TileInfo[] adjacent;
+        public TileInfo[] diagonals;
 
 
         [HideInInspector] public Vector2 position;
 
-        public TileInfo(TileTypes building, int x, int y)
+        public TileInfo(TileTypes building, int x, int y,bool central = false)
         {
             this.building = building;
             this.x = x;
             this.y = y;
             position = new Vector2(x, y);
+                if(central)
+                {
+
+                adjacent = new TileInfo[4] {
+                    new TileInfo(this.building,x+1,y), 
+                    new TileInfo(this.building,x-1,y), 
+                    new TileInfo(this.building,x,y+1), 
+                    new TileInfo(this.building,x,y-1)
+                    
+                    };
+                diagonals = new TileInfo[4] {
+
+                    new TileInfo(this.building,x+1,y+1), 
+                    new TileInfo(this.building,x-1,y+1), 
+                    new TileInfo(this.building,x+1,y-1), 
+                    new TileInfo(this.building,x-1,y-1)
+                    
+                }; 
+            }
+            else
+            {
+                adjacent = null;
+                diagonals = null;
+            }
+
+        }
+            public TileInfo(TileTypes building, int x, int y)
+        {
+            this.building = building;
+            this.x = x;
+            this.y = y;
+            position = new Vector2(x, y);
+            adjacent = null;
+            diagonals = null;
+
         }
         
     }
@@ -69,10 +105,14 @@ public class GridManager : MonoBehaviour
         tileStates[54] = TileTypes.Goal;
         tileStates[55] = TileTypes.Goal;
         }
-        for (int index = 0; index < test.Count; index++)	
+        for (int index = 0; index < test.Count; index++) //Iterate through the list of the struct tileInfo and initialize each
         {
             TileInfo tile = test[index];
-            tile = new TileInfo(tile.building,tile.x, tile.y);
+            if(tile.building != TileTypes.Windmills || tile.building != TileTypes.SolarPanels)
+            {
+               tile.building = TileTypes.Windmills; //The Default building type will override invalid types
+            }
+            tile = new TileInfo(tile.building,tile.x, tile.y,true); //initialize the struct with the info
             test[index] = tile;
             Debug.Log(test[index].position);
             tileBonus[GetTileIndex(test[index].position)] = true;
