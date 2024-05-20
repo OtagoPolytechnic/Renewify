@@ -73,19 +73,19 @@ public class MouseManager : MonoBehaviour
 
     void CheckKeyHover()
     {
-        if (Input.GetKeyDown(KeyCode.W))// 
+        if (Input.GetKeyDown(KeyCode.W) && playerX > 0) 
         {
             playerX--;
         }
-        else if (Input.GetKeyDown(KeyCode.S))// && playerX < GridManager.Instance.gridSize - 1
+        else if (Input.GetKeyDown(KeyCode.S) && playerX < GridManager.Instance.gridSize - 1)
         {
             playerX++;
         }
-        else if (Input.GetKeyDown(KeyCode.A))// && playerZ > 0
+        else if (Input.GetKeyDown(KeyCode.A) && playerZ > 0)
         {
             playerZ--;
         }
-        else if (Input.GetKeyDown(KeyCode.D))// && playerZ < GridManager.Instance.gridSize - 1
+        else if (Input.GetKeyDown(KeyCode.D) && playerZ < GridManager.Instance.gridSize - 1) 
         {
             playerZ++;
         }
