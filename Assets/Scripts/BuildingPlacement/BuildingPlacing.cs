@@ -41,7 +41,7 @@ public class BuildingPlacing : MonoBehaviour
     void Update()
     {
         //If the user clicks the mouse
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.X))
         {
             OnMouseDown();
             if (ghostBuilding != null)

@@ -33,6 +33,7 @@ public class MouseManager : MonoBehaviour
                 CheckMouseHover();
             }else
             {
+                isHovering = true; //ishovering checks if the mouse is on the grid. This doesn't apply to the keyboard
                 CheckKeyHover();
             }
         }
