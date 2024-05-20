@@ -22,6 +22,7 @@ public class GridManager : MonoBehaviour
 
         [HideInInspector] public Vector2 position;
 
+        //Constructor will be used for the central bonus tiles
         public TileInfo(TileTypes building, int x, int y,bool central = false)
         {
             this.building = building;
@@ -54,7 +55,7 @@ public class GridManager : MonoBehaviour
             }
 
         }
-            public TileInfo(TileTypes building, int x, int y)
+            public TileInfo(TileTypes building, int x, int y) //Constructor for the adjacent and diagonal tiles
         {
             this.building = building;
             this.x = x;
@@ -108,7 +109,7 @@ public class GridManager : MonoBehaviour
         for (int index = 0; index < test.Count; index++) //Iterate through the list of the struct tileInfo and initialize each
         {
             TileInfo tile = test[index];
-            if(tile.building != TileTypes.Windmills || tile.building != TileTypes.SolarPanels)
+            if(tile.building != TileTypes.Windmills && tile.building != TileTypes.SolarPanels)
             {
                tile.building = TileTypes.Windmills; //The Default building type will override invalid types
             }
