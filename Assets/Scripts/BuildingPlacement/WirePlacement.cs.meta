@@ -3,7 +3,10 @@ guid: ce1ec02c8568b0b48adb38555ffdde2d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - StraightWire: {instanceID: 0}
+  - CornerWire: {instanceID: 0}
+  - CompletedConnection: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

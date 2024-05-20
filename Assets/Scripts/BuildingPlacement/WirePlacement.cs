@@ -11,6 +11,7 @@ public class WirePlacement : MonoBehaviour
 {
     public GameObject StraightWire;
     public GameObject CornerWire;
+    public GameObject  PowerParticle;
     private GameObject lastWire;
     public Material CompletedConnection; //Just using one material for now. Can change to different ones based on the building
     private Material selectedMaterial;
@@ -130,6 +131,8 @@ public class WirePlacement : MonoBehaviour
             {
                 //Checks if the last wire needs to become a corner wire
                 PlacingCornerWire(MouseManager.gridPosition);
+
+
                 //Can swap out the material based on the building when we add the materials
                 switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)])
                 {
