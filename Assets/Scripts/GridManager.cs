@@ -1,9 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
+
+    [Serializable]
+    public struct TileInfo
+    {
+        public TileTypes building;
+        [Range(0, 10)]
+        public int x;
+        [Range(0, 10)]
+        public int y;
+
+
+
+        [HideInInspector] public Vector2 position;
+
+        public TileInfo(TileTypes building, int x, int y)
+        {
+            this.building = building;
+            this.x = x;
+            this.y = y;
+            position = new Vector2(x, y);
+        }
+        
+    }
+    public List<TileInfo> test;
     public static GridManager Instance;
     public int gridSize = 5; //width and height of grid (5x5, 9x9, etc)
     public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
@@ -42,9 +69,22 @@ public class GridManager : MonoBehaviour
         tileStates[54] = TileTypes.Goal;
         tileStates[55] = TileTypes.Goal;
         }
+        for (int index = 0; index < test.Count; index++)	
+        {
+            TileInfo tile = test[index];
+            tile = new TileInfo(tile.building,tile.x, tile.y);
+            test[index] = tile;
+            Debug.Log(test[index].position);
+            tileBonus[GetTileIndex(test[index].position)] = true;
+        }
 
     }
     
+    void Start()
+    {
+
+
+    }
     // Start is called before the first frame update
     private Vector3 onCalculatePos(float x, float z)
     {
