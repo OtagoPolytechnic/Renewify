@@ -39,9 +39,35 @@ public class GameManager : MonoBehaviour
         {
             //TODO: allow this function to specify which type of bonus tile this is (wind, solar, water)
             //Note from Palin: Added a check if the tile is connected to the goal
-            if (tileStates[i] == TileTypes.Windmills && tileBonus[i] && WirePlacement.Instance.isTileConnected(i)) //This checks if the player has a windmill on a bonus tile. 
+            // if (tileStates[i] == TileTypes.Windmills && tileBonus[i] && WirePlacement.Instance.isTileConnected(i)) //This checks if the player has a windmill on a bonus tile. 
+            // {
+            //     totalScore++; //increments score by 1
+            // }
+            
+        }
+        foreach (var tile in GridManager.Instance.test)
+        {
+            int currentTile = GridManager.GetTileIndex(tile.position);
+            if (tileStates[currentTile] == tile.building && WirePlacement.Instance.isTileConnected(currentTile))
             {
-                totalScore++; //increments score by 1
+                totalScore += BONUSSCORE;
+            }
+            foreach (var adj in tile.adjacent)
+            {
+                int adjTile = GridManager.GetTileIndex(adj.position);
+                if (tileStates[adjTile] == tile.building && WirePlacement.Instance.isTileConnected(adjTile))
+                {
+                    totalScore += ADJSCORE;
+                }
+
+            }
+            foreach (var diag in tile.diagonals)
+            {
+                int diagTile = GridManager.GetTileIndex(diag.position);
+                if (tileStates[diagTile] == tile.building && WirePlacement.Instance.isTileConnected(diagTile))
+                {
+                    totalScore += DIAGSCORE;
+                }
             }
         }
 
