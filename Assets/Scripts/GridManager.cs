@@ -23,30 +23,30 @@ public class GridManager : MonoBehaviour
         [HideInInspector] public Vector2 position;
 
         //Constructor will be used for the central bonus tiles
-        public TileInfo(TileTypes building, int x, int y,bool central = false)
+        public TileInfo(TileTypes building, int x, int y, bool central = false)
         {
             this.building = building;
             this.x = x;
             this.y = y;
             position = new Vector2(x, y);
-                if(central)
-                {
+            if (central)
+            {
 
                 adjacent = new TileInfo[4] {
-                    new TileInfo(this.building,x+1,y), 
-                    new TileInfo(this.building,x-1,y), 
-                    new TileInfo(this.building,x,y+1), 
+                    new TileInfo(this.building,x+1,y),
+                    new TileInfo(this.building,x-1,y),
+                    new TileInfo(this.building,x,y+1),
                     new TileInfo(this.building,x,y-1)
-                    
+
                     };
                 diagonals = new TileInfo[4] {
 
-                    new TileInfo(this.building,x+1,y+1), 
-                    new TileInfo(this.building,x-1,y+1), 
-                    new TileInfo(this.building,x+1,y-1), 
+                    new TileInfo(this.building,x+1,y+1),
+                    new TileInfo(this.building,x-1,y+1),
+                    new TileInfo(this.building,x+1,y-1),
                     new TileInfo(this.building,x-1,y-1)
-                    
-                }; 
+
+                };
             }
             else
             {
@@ -55,7 +55,7 @@ public class GridManager : MonoBehaviour
             }
 
         }
-            public TileInfo(TileTypes building, int x, int y) //Constructor for the adjacent and diagonal tiles
+        public TileInfo(TileTypes building, int x, int y) //Constructor for the adjacent and diagonal tiles
         {
             this.building = building;
             this.x = x;
@@ -65,32 +65,33 @@ public class GridManager : MonoBehaviour
             diagonals = null;
 
         }
-        
+
     }
     public List<TileInfo> test;
     public static GridManager Instance;
     public int gridSize = 5; //width and height of grid (5x5, 9x9, etc)
     public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
 
-    public List<TileTypes> tileStates = new List<TileTypes>(); 
-    public List<bool> tileBonus = new List<bool>(); 
+    public List<TileTypes> tileStates = new List<TileTypes>();
+    public List<bool> tileBonus = new List<bool>();
     //public Dictionary<TilePoints, int> tileBonus = new Dictionary<TilePoints, int>();
 
-    
+
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
         tileStates.Clear();
-        for (int i = 0; i < gridSize * gridSize; i++) {
+        for (int i = 0; i < gridSize * gridSize; i++)
+        {
             // Add default value to the list
             tileStates.Add(TileTypes.None);
         }
 
         //TODO: load new tileStates preset
-        
+
         //THIS IS TEMPORARY CODE TO HARDCODE GOALS AND OBSTACLES FOR A DEMONSTRATION.
         tileStates[2] = TileTypes.Plants;
         tileStates[12] = TileTypes.Plants;
@@ -98,29 +99,29 @@ public class GridManager : MonoBehaviour
         tileStates[70] = TileTypes.Rocks;
         tileStates[93] = TileTypes.Rocks;
         tileStates[86] = TileTypes.Trees;
-        if(!TutorialManager.Instance.tutorialActive)
+        if (!TutorialManager.Instance.tutorialActive)
         {
 
-        tileStates[44] = TileTypes.Goal;
-        tileStates[45] = TileTypes.Goal;
-        tileStates[54] = TileTypes.Goal;
-        tileStates[55] = TileTypes.Goal;
+            tileStates[44] = TileTypes.Goal;
+            tileStates[45] = TileTypes.Goal;
+            tileStates[54] = TileTypes.Goal;
+            tileStates[55] = TileTypes.Goal;
         }
         for (int index = 0; index < test.Count; index++) //Iterate through the list of the struct tileInfo and initialize each
         {
             TileInfo tile = test[index];
-            if(tile.building != TileTypes.Windmills && tile.building != TileTypes.SolarPanels)
+            if (tile.building != TileTypes.Windmills && tile.building != TileTypes.SolarPanels)
             {
-               tile.building = TileTypes.Windmills; //The Default building type will override invalid types
+                tile.building = TileTypes.Windmills; //The Default building type will override invalid types
             }
-            tile = new TileInfo(tile.building,tile.x, tile.y,true); //initialize the struct with the info
+            tile = new TileInfo(tile.building, tile.x, tile.y, true); //initialize the struct with the info
             test[index] = tile;
             Debug.Log(test[index].position);
             tileBonus[GetTileIndex(test[index].position)] = true;
         }
 
     }
-    
+
     void Start()
     {
 
@@ -141,7 +142,7 @@ public class GridManager : MonoBehaviour
         return Instance.onCalculatePos(x, z);
     }
 
-    
+
 
     private bool OnIsTileEmpty(int index)
     {
@@ -163,7 +164,7 @@ public class GridManager : MonoBehaviour
     {
         return new Vector2(index / GridManager.Instance.gridSize, index % GridManager.Instance.gridSize);
 
-}
+    }
     public static void SetTileState(Vector2 tilePos, TileTypes tileType)
     {
         Instance.tileStates[GetTileIndex(tilePos)] = tileType;
