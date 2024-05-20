@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GridManager : MonoBehaviour
 {
@@ -28,19 +29,35 @@ public class GridManager : MonoBehaviour
         //TODO: load new tileStates preset
         
         //THIS IS TEMPORARY CODE TO HARDCODE GOALS AND OBSTACLES FOR A DEMONSTRATION.
-        tileStates[2] = TileTypes.Plants;
-        tileStates[12] = TileTypes.Plants;
-        tileStates[69] = TileTypes.Rocks;
-        tileStates[70] = TileTypes.Rocks;
-        tileStates[93] = TileTypes.Rocks;
-        tileStates[86] = TileTypes.Trees;
-        if(!TutorialManager.Instance.tutorialActive)
-        {
 
-        tileStates[44] = TileTypes.Goal;
-        tileStates[45] = TileTypes.Goal;
-        tileStates[54] = TileTypes.Goal;
-        tileStates[55] = TileTypes.Goal;
+        switch(SceneManager.GetActiveScene().name)
+        {
+            case "Level1":
+                tileStates[37] = TileTypes.Goal;
+                tileStates[38] = TileTypes.Goal;
+                break;
+            case "Level2":
+                break;
+            case "Main Scene":
+                tileStates[2] = TileTypes.Plants;
+                tileStates[12] = TileTypes.Plants;
+                tileStates[69] = TileTypes.Rocks;
+                tileStates[70] = TileTypes.Rocks;
+                tileStates[93] = TileTypes.Rocks;
+                tileStates[86] = TileTypes.Trees;
+                tileStates[44] = TileTypes.Goal;
+                tileStates[45] = TileTypes.Goal;
+                tileStates[54] = TileTypes.Goal;
+                tileStates[55] = TileTypes.Goal;
+                break;
+            case "Tutorial":
+                tileStates[2] = TileTypes.Plants;
+                tileStates[12] = TileTypes.Plants;
+                tileStates[69] = TileTypes.Rocks;
+                tileStates[70] = TileTypes.Rocks;
+                tileStates[93] = TileTypes.Rocks;
+                tileStates[86] = TileTypes.Trees;
+                break;
         }
 
     }
