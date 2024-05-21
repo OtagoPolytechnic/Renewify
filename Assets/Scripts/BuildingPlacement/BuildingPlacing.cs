@@ -32,6 +32,8 @@ public class BuildingPlacing : MonoBehaviour
     //Enum building variable
     public static TileTypes selectedBuilding = TileTypes.None;
     public static BuildingPlacing instance;
+
+    [SerializeField] private GameObject scoreText;
     //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
 
     void Awake()
@@ -228,6 +230,8 @@ public class BuildingPlacing : MonoBehaviour
                 Destroy(redBuilding);
             }
             InventoryManagement.instance.deleteBuildingHover(false);
+            scoreText.GetComponent<ScoreText>().setScoreText(GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates));
+
         }
 
     }
@@ -249,6 +253,7 @@ public class BuildingPlacing : MonoBehaviour
     {
         int playerX = (int)MouseManager.gridPosition.x;
         int playerZ = (int)MouseManager.gridPosition.y;
+
         if (GridManager.IsTileEmpty(GridManager.GetTileIndex(MouseManager.gridPosition)) && InventoryManagement.instance.BuildingsLeft())
         {
             //Pass through the building I want to be placed

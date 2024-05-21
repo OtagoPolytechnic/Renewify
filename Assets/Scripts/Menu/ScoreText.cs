@@ -23,14 +23,14 @@ public class ScoreText : MonoBehaviour
     {
         //This doesn't need to be called every frame, setScoreText should ideally only be called when the score changes
         //TODO: call setScoreText when placing building, instead of calling it here
-        setScoreText(GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates));
+       // setScoreText(GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates));
     }
 
     /// <summary>
     /// Updates the score textmeshpro text to the int being passed.
     /// </summary>
     /// <param name="score"></param>
-    void setScoreText(int score)
+    public void setScoreText(int score)
     {
         if (textMeshProText == null)
         {
