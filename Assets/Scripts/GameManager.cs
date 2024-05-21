@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public int goalSlots = 0; //This is the number of slots that need to be powered to win
     public int totalScore = 0; //DEBUG: this can be removed later, it's just here to see the score in the editor.
     public const int DIAGSCORE = 1; //This is the score for a diagonal connection
     public const int ADJSCORE = 2; //This is the score for an adjacent connection this will be the default for calclating the min score
@@ -72,5 +73,46 @@ public class GameManager : MonoBehaviour
         }
 
         return totalScore; //This function will return the score as an int
+    }
+
+
+//If the player is allowed to score more than this, how should we handle testing for a win condition?
+    public int CalculateScoreRequired()
+    {
+        return GridManager.Instance.test.Count * ADJSCORE;
+    }
+
+    //Win Condition Requirements (Both or Either?)
+        //The player must have a score equal to or greater than the score required to win
+        //The player must have powered all slots connected to the goal
+    // public bool CheckWinCondition()
+    // {
+    //     return totalScore >= CalculateScoreRequired() && WirePlacement.Instance.ConnectedBuildings.Count >= slots;
+    // }
+
+
+//This is assuming that the all goal tiles adjacent to eachother
+    public int CalculateOpenSlots(List<Vector2> goalTiles)
+    {
+        int openSlots = 0;
+        foreach (Vector2 tile in goalTiles)
+        {
+            List<Vector2> adjTiles = new List<Vector2>()
+            {
+                new Vector2(tile.x + 1, tile.y),
+                new Vector2(tile.x - 1, tile.y),
+                new Vector2(tile.x, tile.y + 1),
+                new Vector2(tile.x, tile.y - 1)
+            };
+            foreach (Vector2 adjTile in adjTiles)
+            {
+                if (!goalTiles.Contains(adjTile))
+                {
+                    openSlots++;
+                }
+            }
+        }
+        goalSlots = openSlots;
+        return openSlots;
     }
 }

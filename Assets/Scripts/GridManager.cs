@@ -104,8 +104,16 @@ public class GridManager : MonoBehaviour
             tileStates[44] = TileTypes.Goal;
             tileStates[45] = TileTypes.Goal;
             tileStates[54] = TileTypes.Goal;
-            tileStates[55] = TileTypes.Goal;
+            tileStates[55] = TileTypes.Goal; 
         }
+        List<Vector2> goalTiles = new List<Vector2>();
+        goalTiles.Add(GetTilePosition(44));
+        goalTiles.Add(GetTilePosition(45));
+        goalTiles.Add(GetTilePosition(54));
+        goalTiles.Add(GetTilePosition(55));
+        Debug.Log("Expected Slots: " + GameManager.Instance.CalculateOpenSlots(goalTiles));
+
+
         for (int index = 0; index < test.Count; index++) //Iterate through the list of the struct tileInfo and initialize each
         {
             TileInfo tile = test[index];
