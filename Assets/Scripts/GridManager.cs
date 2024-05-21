@@ -23,7 +23,7 @@ public class GridManager : MonoBehaviour
         [HideInInspector] public Vector2 position;
 
         //Constructor will be used for the central bonus tiles
-        public TileInfo(TileTypes building, int x, int y, bool central = false)
+        public TileInfo(TileTypes building, int x, int y, bool central)
         {
             this.building = building;
             this.x = x;
@@ -33,18 +33,18 @@ public class GridManager : MonoBehaviour
             {
 
                 adjacent = new TileInfo[4] {
-                    new TileInfo(this.building,x+1,y),
-                    new TileInfo(this.building,x-1,y),
-                    new TileInfo(this.building,x,y+1),
-                    new TileInfo(this.building,x,y-1)
+                    new (this.building,x+1,y),
+                    new (this.building,x-1,y),
+                    new (this.building,x,y+1),
+                    new (this.building,x,y-1)
 
                     };
                 diagonals = new TileInfo[4] {
 
-                    new TileInfo(this.building,x+1,y+1),
-                    new TileInfo(this.building,x-1,y+1),
-                    new TileInfo(this.building,x+1,y-1),
-                    new TileInfo(this.building,x-1,y-1)
+                    new (this.building,x+1,y+1),
+                    new (this.building,x-1,y+1),
+                    new (this.building,x+1,y-1),
+                    new (this.building,x-1,y-1)
 
                 };
             }
@@ -73,7 +73,6 @@ public class GridManager : MonoBehaviour
     public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
 
     public List<TileTypes> tileStates = new List<TileTypes>();
-    public List<bool> tileBonus = new List<bool>();
     //public Dictionary<TilePoints, int> tileBonus = new Dictionary<TilePoints, int>();
 
 
@@ -117,7 +116,6 @@ public class GridManager : MonoBehaviour
             tile = new TileInfo(tile.building, tile.x, tile.y, true); //initialize the struct with the info
             test[index] = tile;
             Debug.Log(test[index].position);
-            tileBonus[GetTileIndex(test[index].position)] = true;
         }
 
     }

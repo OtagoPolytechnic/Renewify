@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //TODO: This function doesn't need to be called every frame. It could be called when placing a building potentially?
-        CalculateTotalScore(GridManager.Instance.tileStates, GridManager.Instance.tileBonus);
+        CalculateTotalScore(GridManager.Instance.tileStates);
     }
     /// <summary>
     /// This function will calculate the score based on how many correct buildings the player has placed
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     /// <param name="tileStates"></param>
     /// <param name="tileBonus"></param>
     /// <returns></returns>
-    public int CalculateTotalScore(List<TileTypes> tileStates, List<bool> tileBonus)
+    public int CalculateTotalScore(List<TileTypes> tileStates)
     {
         /// Generated with help from ChatGPT using following prompt:
         /// I want to constantly calculate total score of a grid. I have a list of grid states, and a list of bools, these lists map to the grid.
