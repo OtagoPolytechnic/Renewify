@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             // }
             
         }
-        foreach (var tile in GridManager.Instance.test)
+        foreach (var tile in GridManager.Instance.scoreTiles)
         {
             int currentTile = GridManager.GetTileIndex(tile.position);
             if (tileStates[currentTile] == tile.building && WirePlacement.Instance.isTileConnected(currentTile))
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
 //If the player is allowed to score more than this, how should we handle testing for a win condition?
     public int CalculateScoreRequired()
     {
-        return GridManager.Instance.test.Count * ADJSCORE;
+        return GridManager.Instance.scoreTiles.Count * ADJSCORE;
     }
 
     //Win Condition Requirements (Both or Either?)

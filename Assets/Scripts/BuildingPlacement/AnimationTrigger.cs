@@ -21,7 +21,7 @@ public class AnimationTrigger : MonoBehaviour
             int y = int.Parse(parentName[7].ToString());
             //Make sure the bonus tile is for a windmill
             bool isTileBonus = false;
-            foreach (var tile in GridManager.Instance.test)
+            foreach (var tile in GridManager.Instance.scoreTiles)
             {
                 if (tile.position == new Vector2(x, y))
                 {

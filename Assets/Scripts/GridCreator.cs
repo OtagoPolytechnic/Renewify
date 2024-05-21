@@ -33,7 +33,7 @@ public class GridCreator : MonoBehaviour
     void Start()
     {
         GenerateGrid();
-        foreach(var tile in GridManager.Instance.test)
+        foreach(var tile in GridManager.Instance.scoreTiles)
         {
             if(tile.building == TileTypes.Windmills)
             {
