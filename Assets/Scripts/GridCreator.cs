@@ -157,7 +157,7 @@ public class GridCreator : MonoBehaviour
         tile.GetComponent<Renderer>().material = material;
     }
 
-    private bool ValidCheck(Vector2 v)
+    public bool ValidCheck(Vector2 v)
     {
         if(v.x < 0 || v.x >= GridManager.Instance.gridSize || v.y < 0 || v.y >= GridManager.Instance.gridSize || !GridManager.IsTileEmpty(GridManager.GetTileIndex(v)))
         {

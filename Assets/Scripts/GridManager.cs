@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,42 +12,73 @@ public class GridManager : MonoBehaviour
     [Serializable]
     public struct TileInfo
     {
-        public TileTypes building;
+       [HideInInspector] public TileTypes building;
+        public TilePoints type;
         [Range(0, 10)]
         public int x;
         [Range(0, 10)]
         public int y;
-        public TileInfo[] adjacent;
-        public TileInfo[] diagonals;
+        public List<TileInfo> adjacent;
+        public List<TileInfo> diagonals;
 
 
         [HideInInspector] public Vector2 position;
 
         //Constructor will be used for the central bonus tiles
-        public TileInfo(TileTypes building, int x, int y, bool central)
+        public TileInfo(TilePoints type, int x, int y, bool central)
         {
-            this.building = building;
+            this.type = type;
+            switch (type)
+            {
+                case TilePoints.Solar:
+                    building = TileTypes.SolarPanels;
+                    break;
+                case TilePoints.Wind:
+                    building = TileTypes.Windmills;
+                    break;
+                default:
+                    building = TileTypes.None;
+                    break;
+            }
             this.x = x;
             this.y = y;
             position = new Vector2(x, y);
             if (central)
             {
 
-                adjacent = new TileInfo[4] {
-                    new (this.building,x+1,y),
-                    new (this.building,x-1,y),
-                    new (this.building,x,y+1),
-                    new (this.building,x,y-1)
+                List<TileInfo> tempAdjacent = new List<TileInfo> {
+                    new (this.type,this.building,x+1,y),
+                    new (this.type,this.building,x-1,y),
+                    new (this.type,this.building,x,y+1),
+                    new (this.type,this.building,x,y-1)
 
                     };
-                diagonals = new TileInfo[4] {
+                adjacent = new List<TileInfo>();
+                foreach (var adj in tempAdjacent)
+                {
+                    if (GridCreator.Instance.ValidCheck(adj.position))
+                    {
+                        adjacent.Add(adj);
+                    }
+                }
 
-                    new (this.building,x+1,y+1),
-                    new (this.building,x-1,y+1),
-                    new (this.building,x+1,y-1),
-                    new (this.building,x-1,y-1)
+                List<TileInfo> tempDiagonals = new List<TileInfo> {
+
+                    new (this.type,this.building,x+1,y+1),
+                    new (this.type,this.building,x-1,y+1),
+                    new (this.type,this.building,x+1,y-1),
+                    new (this.type,this.building,x-1,y-1)
 
                 };
+                diagonals = new List<TileInfo>();
+                foreach (var diag in tempDiagonals)
+                {
+                    if (GridCreator.Instance.ValidCheck(diag.position))
+                    {
+                        diagonals.Add(diag);
+                    }
+                }
+
             }
             else
             {
@@ -55,8 +87,9 @@ public class GridManager : MonoBehaviour
             }
 
         }
-        public TileInfo(TileTypes building, int x, int y) //Constructor for the adjacent and diagonal tiles
+        public TileInfo(TilePoints type, TileTypes building, int x, int y) //Constructor for the adjacent and diagonal tiles
         {
+            this.type = type;
             this.building = building;
             this.x = x;
             this.y = y;
@@ -64,10 +97,11 @@ public class GridManager : MonoBehaviour
             adjacent = null;
             diagonals = null;
 
+
         }
 
     }
-    public List<TileInfo> test;
+    public List<TileInfo> scoreTiles;
     public static GridManager Instance;
     public int gridSize = 5; //width and height of grid (5x5, 9x9, etc)
     public float tileSize = 10.0f; //size each tile, shouldn't have a reason not to be 10
@@ -104,7 +138,7 @@ public class GridManager : MonoBehaviour
             tileStates[44] = TileTypes.Goal;
             tileStates[45] = TileTypes.Goal;
             tileStates[54] = TileTypes.Goal;
-            tileStates[55] = TileTypes.Goal; 
+            tileStates[55] = TileTypes.Goal;
         }
         List<Vector2> goalTiles = new List<Vector2>();
         goalTiles.Add(GetTilePosition(44));
@@ -114,16 +148,16 @@ public class GridManager : MonoBehaviour
         Debug.Log("Expected Slots: " + GameManager.Instance.CalculateOpenSlots(goalTiles));
 
 
-        for (int index = 0; index < test.Count; index++) //Iterate through the list of the struct tileInfo and initialize each
+        for (int index = 0; index < scoreTiles.Count; index++) //Iterate through the list of the struct tileInfo and initialize each
         {
-            TileInfo tile = test[index];
+            TileInfo tile = scoreTiles[index];
             if (tile.building != TileTypes.Windmills && tile.building != TileTypes.SolarPanels)
             {
                 tile.building = TileTypes.Windmills; //The Default building type will override invalid types
             }
-            tile = new TileInfo(tile.building, tile.x, tile.y, true); //initialize the struct with the info
-            test[index] = tile;
-            Debug.Log(test[index].position);
+            tile = new TileInfo(tile.type, tile.x, tile.y, true); //initialize the struct with the info
+            scoreTiles[index] = tile;
+            Debug.Log(scoreTiles[index].position);
         }
 
     }
