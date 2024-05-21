@@ -9,6 +9,7 @@ using TMPro;
 /// <remarks>
 /// This script should be added to a game object with a textmeshpro component
 /// </remarks>
+[RequireComponent(typeof(TextMeshProUGUI))] //This will add the TextMeshPro component to the game object if it doesn't already have one
 public class ScoreText : MonoBehaviour
 {
     private TextMeshProUGUI textMeshProText; //Text component
@@ -22,7 +23,7 @@ public class ScoreText : MonoBehaviour
     {
         //This doesn't need to be called every frame, setScoreText should ideally only be called when the score changes
         //TODO: call setScoreText when placing building, instead of calling it here
-        setScoreText(GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates, GridManager.Instance.tileBonus));
+        setScoreText(GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates));
     }
 
     /// <summary>
