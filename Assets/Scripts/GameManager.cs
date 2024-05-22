@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int goalSlots = 0; //This is the number of slots that need to be powered to win
-    public int totalScore = 0; //DEBUG: this can be removed later, it's just here to see the score in the editor.
     public const int DIAGSCORE = 1; //This is the score for a diagonal connection
     public const int ADJSCORE = 2; //This is the score for an adjacent connection this will be the default for calclating the min score
     public const int BONUSSCORE = 3; //This is the score for a bonus tile
@@ -45,7 +44,7 @@ public class GameManager : MonoBehaviour
         /// so I want to check if the gridstates[i] has a building and if boolList[i] is true 
         /// unity c#
 
-        totalScore = 0; //reset score before changing it in loop below
+       int totalScore = 0; //reset score before changing it in loop below
 
         foreach (var tile in GridManager.Instance.scoreTiles)
         {
