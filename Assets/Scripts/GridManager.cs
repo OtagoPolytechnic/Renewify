@@ -168,12 +168,6 @@ public class GridManager : MonoBehaviour
 
     }
 
-    void Start()
-    {
-
-
-    }
-    // Start is called before the first frame update
     private Vector3 onCalculatePos(float x, float z)
     {
         Vector3 position;

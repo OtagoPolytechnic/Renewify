@@ -31,11 +31,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
-    void Update()
-    {
-        //TODO: This function doesn't need to be called every frame. It could be called when placing a building potentially?
-        CalculateTotalScore(GridManager.Instance.tileStates);
-    }
+  
     /// <summary>
     /// This function will calculate the score based on how many correct buildings the player has placed
     /// </summary>
@@ -50,16 +46,7 @@ public class GameManager : MonoBehaviour
         /// unity c#
 
         totalScore = 0; //reset score before changing it in loop below
-        for (int i = 0; i < tileStates.Count; i++)
-        {
-            //TODO: allow this function to specify which type of bonus tile this is (wind, solar, water)
-            //Note from Palin: Added a check if the tile is connected to the goal
-            // if (tileStates[i] == TileTypes.Windmills && tileBonus[i] && WirePlacement.Instance.isTileConnected(i)) //This checks if the player has a windmill on a bonus tile. 
-            // {
-            //     totalScore++; //increments score by 1
-            // }
-            
-        }
+
         foreach (var tile in GridManager.Instance.scoreTiles)
         {
             int currentTile = GridManager.GetTileIndex(tile.position);
@@ -88,23 +75,27 @@ public class GameManager : MonoBehaviour
         return totalScore; //This function will return the score as an int
     }
 
-
-//If the player is allowed to score more than this, how should we handle testing for a win condition?
+/// <summary>
+/// This function will calculate the optimal score required to win
+/// </summary>
     public int CalculateScoreRequired()
+    
     {
-        return CalculateOpenSlots(GridManager.Instance.GetGoalTiles()) * ADJSCORE;
+        //The Optimal Score is the number of open slots multiplied by the score for an adjacent connection
+        return CalculateOpenSlots(GridManager.Instance.GetGoalTiles()) * ADJSCORE; 
     }
 
     //Win Condition Requirements (Both or Either?)
         //The player must have a score equal to or greater than the score required to win
         //The player must have powered all slots connected to the goal
-    // public bool CheckWinCondition()
-    // {
-    //     return totalScore >= CalculateScoreRequired() && WirePlacement.Instance.ConnectedBuildings.Count >= slots;
-    // }
 
 
-//This is assuming that the all goal tiles adjacent to eachother
+
+/// <summary>
+/// This function will calculate the number of open slots that need to be powered to win
+/// </summary>
+/// <param name="goalTiles">This is the list of Goal tiles, assuming they are all adjacent to eachother</param>
+/// <returns></returns>
     public int CalculateOpenSlots(List<Vector2> goalTiles)
     {
         int openSlots = 0;
@@ -129,6 +120,10 @@ public class GameManager : MonoBehaviour
         return openSlots;
     }
 
+    /// <summary>
+    /// This function will check if the player has met the win condition
+    /// </summary>
+    /// <param name="score">The Score to check against the optimal</param>
     public void CheckWinCondition(int score)
     {
         if (score >= CalculateScoreRequired() && WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
