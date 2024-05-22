@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 //If the player is allowed to score more than this, how should we handle testing for a win condition?
     public int CalculateScoreRequired()
     {
-        return GridManager.Instance.scoreTiles.Count * ADJSCORE;
+        return CalculateOpenSlots(GridManager.Instance.GetGoalTiles()) * ADJSCORE;
     }
 
     //Win Condition Requirements (Both or Either?)
