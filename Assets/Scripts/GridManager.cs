@@ -109,7 +109,18 @@ public class GridManager : MonoBehaviour
     public List<TileTypes> tileStates = new List<TileTypes>();
     //public Dictionary<TilePoints, int> tileBonus = new Dictionary<TilePoints, int>();
 
-
+    public List<Vector2> GetGoalTiles()
+    {
+        List<Vector2> goalTiles = new List<Vector2>();
+        for (int i = 0; i < tileStates.Count; i++)
+        {
+            if (tileStates[i] == TileTypes.Goal)
+            {
+                goalTiles.Add(GetTilePosition(i));
+            }
+        }
+        return goalTiles;
+    }
     void Awake()
     {
         if (Instance == null)
@@ -140,11 +151,7 @@ public class GridManager : MonoBehaviour
             tileStates[54] = TileTypes.Goal;
             tileStates[55] = TileTypes.Goal;
         }
-        List<Vector2> goalTiles = new List<Vector2>();
-        goalTiles.Add(GetTilePosition(44));
-        goalTiles.Add(GetTilePosition(45));
-        goalTiles.Add(GetTilePosition(54));
-        goalTiles.Add(GetTilePosition(55));
+        List<Vector2> goalTiles = GetGoalTiles();
         Debug.Log("Expected Slots: " + GameManager.Instance.CalculateOpenSlots(goalTiles));
 
 
@@ -157,7 +164,6 @@ public class GridManager : MonoBehaviour
             }
             tile = new TileInfo(tile.type, tile.x, tile.y, true); //initialize the struct with the info
             scoreTiles[index] = tile;
-            Debug.Log(scoreTiles[index].position);
         }
 
     }
