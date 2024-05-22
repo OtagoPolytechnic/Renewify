@@ -10,6 +10,18 @@ public class GameManager : MonoBehaviour
     public const int DIAGSCORE = 1; //This is the score for a diagonal connection
     public const int ADJSCORE = 2; //This is the score for an adjacent connection this will be the default for calclating the min score
     public const int BONUSSCORE = 3; //This is the score for a bonus tile
+    public GameObject scoreText;
+    public GameObject winOverlay;
+    private int currentScore = 0;
+    public int CurrentScore
+    {
+        get { return currentScore; }
+        set
+        {
+            currentScore = value;
+            scoreText.GetComponent<ScoreText>().setScoreText(currentScore);
+        }
+    }
     void Awake()
     {
         if (Instance == null)
@@ -71,7 +83,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
         return totalScore; //This function will return the score as an int
     }
 

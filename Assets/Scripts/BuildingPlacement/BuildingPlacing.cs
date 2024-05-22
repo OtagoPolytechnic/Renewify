@@ -33,7 +33,6 @@ public class BuildingPlacing : MonoBehaviour
     public static TileTypes selectedBuilding = TileTypes.None;
     public static BuildingPlacing instance;
 
-    [SerializeField] private GameObject scoreText;
     //Note: This is just to get it working as I don't have anywhere to attach the event trigger to yet. Will be changed out of update
 
     void Awake()
@@ -230,7 +229,7 @@ public class BuildingPlacing : MonoBehaviour
                 Destroy(redBuilding);
             }
             InventoryManagement.instance.deleteBuildingHover(false);
-            scoreText.GetComponent<ScoreText>().setScoreText(GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates));
+        GameManager.Instance.CurrentScore = GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates);
 
         }
 
