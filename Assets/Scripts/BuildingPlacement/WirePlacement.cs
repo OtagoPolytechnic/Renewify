@@ -382,7 +382,9 @@ public class WirePlacement : MonoBehaviour
         //set the parent of the wire to the tile
         temp.transform.SetParent(GridCreator.tiles[position].transform);
         // Instantiate the PowerParticle at the position of the wire
-        GameObject particle = Instantiate(PowerParticle, temp.transform.position, Quaternion.identity);
+        GameObject particle = Instantiate(PowerParticle, temp.transform.position, Quaternion.identity).GetComponent<MeshRenderer>();
+        // GameObject particle = Instantiate(PowerParticle, temp.transform.position, Quaternion.identity);
+        // particle = gameObject.GetComponent<MeshRenderer>().material;
          // Set the particle's parent to the wire's transform
         particle.transform.SetParent(temp.transform);
         GridManager.Instance.tileStates[position] = TileTypes.Wires;
@@ -414,7 +416,15 @@ public class WirePlacement : MonoBehaviour
         //change material of the all components in the wire to the target material
         foreach (Transform child in wire.transform)
         {
-            child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
+            try
+            {
+                child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
+            }
+             catch (System.exception)
+             {
+            //     child.gameObject.GetComponent<MeshRenderer>().material = PowerParticle;
+             }
+
         }
     }
 
