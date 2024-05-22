@@ -3611,7 +3611,7 @@ MonoBehaviour:
   goalSlots: 0
   totalScore: 0
   scoreText: {fileID: 1463265635}
-  winOverlay: {fileID: 0}
+  winOverlay: {fileID: 1179998926}
 --- !u!1 &1264105945 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6588900286929491040, guid: 15dd4e23d19e8f3499ec295199dcbb89,
@@ -5472,16 +5472,121 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreTiles:
-  - building: 0
+  - building: 1
     type: 1
     x: 0
     y: 0
-    adjacent: []
-    diagonals: []
+    adjacent:
+    - building: 1
+      type: 1
+      x: 1
+      y: 0
+      adjacent: []
+      diagonals: []
+      position: {x: 1, y: 0}
+    - building: 1
+      type: 1
+      x: 0
+      y: 1
+      adjacent: []
+      diagonals: []
+      position: {x: 0, y: 1}
+    diagonals:
+    - building: 1
+      type: 1
+      x: 1
+      y: 1
+      adjacent: []
+      diagonals: []
+      position: {x: 1, y: 1}
+    position: {x: 0, y: 0}
+  - building: 1
+    type: 1
+    x: 5
+    y: 2
+    adjacent:
+    - building: 1
+      type: 1
+      x: 1
+      y: 0
+      adjacent: []
+      diagonals: []
+      position: {x: 1, y: 0}
+    - building: 1
+      type: 1
+      x: 0
+      y: 1
+      adjacent: []
+      diagonals: []
+      position: {x: 0, y: 1}
+    diagonals:
+    - building: 1
+      type: 1
+      x: 1
+      y: 1
+      adjacent: []
+      diagonals: []
+      position: {x: 1, y: 1}
+    position: {x: 0, y: 0}
+  - building: 1
+    type: 2
+    x: 2
+    y: 5
+    adjacent:
+    - building: 1
+      type: 1
+      x: 1
+      y: 0
+      adjacent: []
+      diagonals: []
+      position: {x: 1, y: 0}
+    - building: 1
+      type: 1
+      x: 0
+      y: 1
+      adjacent: []
+      diagonals: []
+      position: {x: 0, y: 1}
+    diagonals:
+    - building: 1
+      type: 1
+      x: 1
+      y: 1
+      adjacent: []
+      diagonals: []
+      position: {x: 1, y: 1}
+    position: {x: 0, y: 0}
+  - building: 1
+    type: 2
+    x: 8
+    y: 8
+    adjacent:
+    - building: 1
+      type: 1
+      x: 1
+      y: 0
+      adjacent: []
+      diagonals: []
+      position: {x: 1, y: 0}
+    - building: 1
+      type: 1
+      x: 0
+      y: 1
+      adjacent: []
+      diagonals: []
+      position: {x: 0, y: 1}
+    diagonals:
+    - building: 1
+      type: 1
+      x: 1
+      y: 1
+      adjacent: []
+      diagonals: []
+      position: {x: 1, y: 1}
     position: {x: 0, y: 0}
   gridSize: 10
   tileSize: 10
-  tileStates: 
+  tileStates: 00000000000000000500000000000000000000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000700000007000000000000000000000000000000000000000000000000000000000000000000000007000000070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000
 --- !u!1 &2051673319
 GameObject:
   m_ObjectHideFlags: 0
