@@ -128,7 +128,13 @@ public class GameManager : MonoBehaviour
         if (score >= CalculateScoreRequired() && WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
         {
             winOverlay.SetActive(true);
+            Debug.Log("You Win!");
         }
+        else if (WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
+        {
+            Debug.Log("You have powered all the goal slots, but you need a higher score to win");
+        }
+
         Debug.Log("OPTIMAL SCORE:" + CalculateScoreRequired());
         Debug.Log("CURRENT SCORE:" + score);
         Debug.Log("CONNECTED BUILDINGS:" + WirePlacement.Instance.ConnectedBuildings.Count);
