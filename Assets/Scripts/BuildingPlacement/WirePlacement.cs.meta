@@ -6,6 +6,8 @@ MonoImporter:
   defaultReferences:
   - StraightWire: {instanceID: 0}
   - CornerWire: {instanceID: 0}
+  - PowerParticle: {fileID: 2730022644511576269, guid: 13258579183ea494b8701965e8875c2d,
+      type: 3}
   - CompletedConnection: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}

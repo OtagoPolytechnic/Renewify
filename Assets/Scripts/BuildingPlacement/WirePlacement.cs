@@ -132,6 +132,10 @@ public class WirePlacement : MonoBehaviour
                 //Checks if the last wire needs to become a corner wire
                 PlacingCornerWire(MouseManager.gridPosition);
 
+                // //Instantiate the PowerParticle
+                // gameObject.particle = Instantiate(PowerParticle, particle.transform.position, Quaternion.identity);
+                // // Set the particle's parent to the wire's transform
+                // particle.transform.SetParent(particle.transform);
 
                 //Can swap out the material based on the building when we add the materials
                 switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)])
@@ -377,6 +381,10 @@ public class WirePlacement : MonoBehaviour
         GameObject temp = Instantiate(wireType, GridManager.CalculatePos(wireX, wireZ), Quaternion.Euler(0, rotation, 0));
         //set the parent of the wire to the tile
         temp.transform.SetParent(GridCreator.tiles[position].transform);
+        // Instantiate the PowerParticle at the position of the wire
+        GameObject particle = Instantiate(PowerParticle, temp.transform.position, Quaternion.identity);
+         // Set the particle's parent to the wire's transform
+        particle.transform.SetParent(temp.transform);
         GridManager.Instance.tileStates[position] = TileTypes.Wires;
         GridManager.SetTileState(GridManager.GetTilePosition(position), TileTypes.Wires);
     }
