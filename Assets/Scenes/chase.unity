@@ -2373,7 +2373,6 @@ MonoBehaviour:
     type: 3}
   redWindmill: {fileID: 6822399163656563674, guid: 0ed78b593027bc049ae8ab07574e1889,
     type: 3}
-  scoreText: {fileID: 1463265635}
 --- !u!114 &604267219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2386,7 +2385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1ec02c8568b0b48adb38555ffdde2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1463265635}
   StraightWire: {fileID: 3674633347040057346, guid: 79afe8d7373f00948aba8410045bc09d,
     type: 3}
   CornerWire: {fileID: 3674633347040057346, guid: 41739a3491b9311469aa35c1e3eba98a,
@@ -3612,6 +3610,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalSlots: 0
   totalScore: 0
+  scoreText: {fileID: 1463265635}
+  winOverlay: {fileID: 0}
 --- !u!1 &1264105945 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6588900286929491040, guid: 15dd4e23d19e8f3499ec295199dcbb89,

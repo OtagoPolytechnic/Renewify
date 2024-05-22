@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
         {
             currentScore = value;
             scoreText.GetComponent<ScoreText>().setScoreText(currentScore);
+            CheckWinCondition(currentScore);
+
         }
     }
     void Awake()
@@ -126,4 +128,16 @@ public class GameManager : MonoBehaviour
         goalSlots = openSlots;
         return openSlots;
     }
+
+    public void CheckWinCondition(int score)
+    {
+        if (score >= CalculateScoreRequired() && WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
+        {
+            winOverlay.SetActive(true);
+        }
+        Debug.Log("OPTIMAL SCORE:" + CalculateScoreRequired());
+        Debug.Log("CURRENT SCORE:" + score);
+        Debug.Log("CONNECTED BUILDINGS:" + WirePlacement.Instance.ConnectedBuildings.Count);
+        Debug.Log("GOAL SLOTS:" + goalSlots);
+    }	
 }
