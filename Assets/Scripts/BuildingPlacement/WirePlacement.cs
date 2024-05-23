@@ -134,6 +134,7 @@ public class WirePlacement : MonoBehaviour
 
                 // //Instantiate the PowerParticle
                 // gameObject.particle = Instantiate(PowerParticle, particle.transform.position, Quaternion.identity);
+                // GameObject particle = Instantiate(PowerParticle, GridManager.CalculatePos(wireX, wireZ), Quaternion.Euler(0, rotation, 0));
                 // // Set the particle's parent to the wire's transform
                 // particle.transform.SetParent(particle.transform);
 
@@ -373,6 +374,7 @@ public class WirePlacement : MonoBehaviour
     /// <param name="wireZ"> Z position of the wire </param>
     /// <param name="rotation"> Rotation of the wire </param>
     /// <param name="wireType"> Type of wire to place </param>
+    /// <param name="powerParticle"> Type of particle to place </param>
     private void PlaceWire(int position, int wireX, int wireZ, int rotation, GameObject wireType)
     {
         //Clear any wire that already exists on the tile
@@ -381,12 +383,6 @@ public class WirePlacement : MonoBehaviour
         GameObject temp = Instantiate(wireType, GridManager.CalculatePos(wireX, wireZ), Quaternion.Euler(0, rotation, 0));
         //set the parent of the wire to the tile
         temp.transform.SetParent(GridCreator.tiles[position].transform);
-        // Instantiate the PowerParticle at the position of the wire
-        GameObject particle = Instantiate(PowerParticle, temp.transform.position, Quaternion.identity).GetComponent<MeshRenderer>();
-        // GameObject particle = Instantiate(PowerParticle, temp.transform.position, Quaternion.identity);
-        // particle = gameObject.GetComponent<MeshRenderer>().material;
-         // Set the particle's parent to the wire's transform
-        particle.transform.SetParent(temp.transform);
         GridManager.Instance.tileStates[position] = TileTypes.Wires;
         GridManager.SetTileState(GridManager.GetTilePosition(position), TileTypes.Wires);
     }
@@ -420,10 +416,10 @@ public class WirePlacement : MonoBehaviour
             {
                 child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
             }
-             catch (System.exception)
-             {
-            //     child.gameObject.GetComponent<MeshRenderer>().material = PowerParticle;
-             }
+            catch (System.Exception)
+            {
+                child.gameObject.SetActive(true);
+            }
 
         }
     }
