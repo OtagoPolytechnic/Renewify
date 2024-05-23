@@ -1651,7 +1651,7 @@ GameObject:
   - component: {fileID: 453697754}
   - component: {fileID: 453697753}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1785,7 +1785,7 @@ GameObject:
   - component: {fileID: 504464286}
   - component: {fileID: 504464285}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2729,7 +2729,7 @@ GameObject:
   - component: {fileID: 793745517}
   - component: {fileID: 793745516}
   m_Layer: 5
-  m_Name: Text (TMP) (5)
+  m_Name: stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2867,7 +2867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 823256424}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: StatsParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3442,7 +3442,7 @@ GameObject:
   - component: {fileID: 1213578626}
   - component: {fileID: 1213578625}
   m_Layer: 5
-  m_Name: Text (TMP) (4)
+  m_Name: line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3609,7 +3609,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalSlots: 0
-  totalScore: 0
   scoreText: {fileID: 1463265635}
   winOverlay: {fileID: 1179998926}
 --- !u!1 &1264105945 stripped
@@ -4125,7 +4124,7 @@ GameObject:
   - component: {fileID: 1510868969}
   - component: {fileID: 1510868968}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: Rating
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

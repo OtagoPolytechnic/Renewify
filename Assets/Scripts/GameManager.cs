@@ -128,10 +128,13 @@ public class GameManager : MonoBehaviour
         if (score >= CalculateScoreRequired() && WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
         {
             winOverlay.SetActive(true);
+            winOverlay.transform.Find("StatsParent").Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
             Debug.Log("You Win!");
         }
         else if (WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
         {
+            winOverlay.SetActive(true);
+            winOverlay.transform.Find("StatsParent").Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
             Debug.Log("You have powered all the goal slots, but you need a higher score to win");
         }
 
