@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
-  
+
     /// <summary>
     /// This function will calculate the score based on how many correct buildings the player has placed
     /// </summary>
@@ -44,7 +46,7 @@ public class GameManager : MonoBehaviour
         /// so I want to check if the gridstates[i] has a building and if boolList[i] is true 
         /// unity c#
 
-       int totalScore = 0; //reset score before changing it in loop below
+        int totalScore = 0; //reset score before changing it in loop below
 
         foreach (var tile in GridManager.Instance.scoreTiles)
         {
@@ -74,27 +76,27 @@ public class GameManager : MonoBehaviour
         return totalScore; //This function will return the score as an int
     }
 
-/// <summary>
-/// This function will calculate the optimal score required to win
-/// </summary>
+    /// <summary>
+    /// This function will calculate the optimal score required to win
+    /// </summary>
     public int CalculateScoreRequired()
-    
+
     {
         //The Optimal Score is the number of open slots multiplied by the score for an adjacent connection
-        return CalculateOpenSlots(GridManager.Instance.GetGoalTiles()) * ADJSCORE; 
+        return CalculateOpenSlots(GridManager.Instance.GetGoalTiles()) * ADJSCORE;
     }
 
     //Win Condition Requirements (Both or Either?)
-        //The player must have a score equal to or greater than the score required to win
-        //The player must have powered all slots connected to the goal
+    //The player must have a score equal to or greater than the score required to win
+    //The player must have powered all slots connected to the goal
 
 
 
-/// <summary>
-/// This function will calculate the number of open slots that need to be powered to win
-/// </summary>
-/// <param name="goalTiles">This is the list of Goal tiles, assuming they are all adjacent to eachother</param>
-/// <returns></returns>
+    /// <summary>
+    /// This function will calculate the number of open slots that need to be powered to win
+    /// </summary>
+    /// <param name="goalTiles">This is the list of Goal tiles, assuming they are all adjacent to eachother</param>
+    /// <returns></returns>
     public int CalculateOpenSlots(List<Vector2> goalTiles)
     {
         int openSlots = 0;
@@ -125,22 +127,32 @@ public class GameManager : MonoBehaviour
     /// <param name="score">The Score to check against the optimal</param>
     public void CheckWinCondition(int score)
     {
-        if (score >= CalculateScoreRequired() && WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
+        float percentageScore = (float)score / CalculateScoreRequired();
+        percentageScore *= 100;
+        percentageScore = UnityEngine.Mathf.Round(percentageScore);
+        percentageScore /= 100.0f;
+        Debug.Log("PERCENTAGE SCORE:" + percentageScore);
+        if (WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
         {
             winOverlay.SetActive(true);
             winOverlay.transform.GetChild(1).GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "Score: " + score;
-            Debug.Log("You Win!");
+            winOverlay.transform.GetChild(1).GetChild(3).GetChild(0).GetComponent<UnityEngine.UI.Image>().fillAmount = percentageScore;
+            if (score >= CalculateScoreRequired())
+            {
+
+                Debug.Log("You Win!");
+            }
+            else
+            {
+                Debug.Log("You have powered all the goal slots, but you need a higher score to win");
+
+            }
         }
-        else if (WirePlacement.Instance.ConnectedBuildings.Count >= goalSlots)
-        {
-            winOverlay.SetActive(true);
-            winOverlay.transform.GetChild(1).GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "Score: " + score;
-            Debug.Log("You have powered all the goal slots, but you need a higher score to win");
-        }
+
 
         Debug.Log("OPTIMAL SCORE:" + CalculateScoreRequired());
         Debug.Log("CURRENT SCORE:" + score);
         Debug.Log("CONNECTED BUILDINGS:" + WirePlacement.Instance.ConnectedBuildings.Count);
         Debug.Log("GOAL SLOTS:" + goalSlots);
-    }	
+    }
 }
