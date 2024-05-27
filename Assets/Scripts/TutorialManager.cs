@@ -39,6 +39,17 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private GameObject exitBTN;
 
+
+    private Dictionary<TutorialSections, string> narrativeTexts = new Dictionary<TutorialSections, string>()
+    {
+        { TutorialSections.Building, "Let's start by learning how to build. Place buildings on the empty tiles." },
+        { TutorialSections.Wiring, "Now, let's connect the buildings to the power source using wiring." },
+        { TutorialSections.Deletion, "Next, we'll learn how to delete buildings. Try deleting the windmill and solar panel." },
+        { TutorialSections.DeletionPart2, "Good job! Let's practice deletion once more with some additional buildings." },
+        { TutorialSections.Obstacles, "In this section, you'll encounter obstacles. Navigate around them to reach your goal." },
+        { TutorialSections.End, "Congratulations! You've completed the tutorial. You are now ready to play the game." }
+    };
+
     // Start is called before the first frame update
 
 
@@ -118,6 +129,19 @@ public class TutorialManager : MonoBehaviour
                     Quaternion.identity
                 );
             }
+
+            DisplayNarrativeText(TutorialSections.Building);
+        }
+    }
+
+    /// <summary>
+    /// Displays the narrative text for a given tutorial section
+    /// </summary>
+    private void DisplayNarrativeText(TutorialSections section)
+    {
+        if (narrativeTexts.TryGetValue(section, out string narrative))
+        {
+            mainTooltip.SetContent(narrative);
         }
     }
 
@@ -127,6 +151,7 @@ public class TutorialManager : MonoBehaviour
     public void WiringSection()
     {
         currentSection = TutorialSections.Wiring;
+        DisplayNarrativeText(currentSection);
         List<Vector2> locations =
             new()
             {
@@ -159,6 +184,7 @@ public class TutorialManager : MonoBehaviour
     public void DeletionSection()
     {
         currentSection = TutorialSections.Deletion;
+        DisplayNarrativeText(currentSection);
         GameObject[] guides = GameObject.FindGameObjectsWithTag("GuideTile");
         foreach (GameObject guide in guides)
         {
@@ -202,6 +228,7 @@ public class TutorialManager : MonoBehaviour
     public void ObstacleSection()
     {
         currentSection = TutorialSections.Obstacles;
+        DisplayNarrativeText(currentSection);
         TutorialManager.Instance.mainTooltip.SetTitle("Obstacles");
         TutorialManager.Instance.mainTooltip.SetContent(
             "Obstacles are rocks, plants and trees that you cannot build on. You must work around them to reach the goal. Try to build around the rocks and trees to reach the goal. You now have 1 windmill and 1 solar panel to use."
@@ -210,6 +237,7 @@ public class TutorialManager : MonoBehaviour
 
     public void EndSection()
     {
+        currentSection = TutorialSections.End;
         mainTooltip.SetTitle("You Have Completed The tutorial");
         mainTooltip.SetContent("Well Done, you have connected all the buildings to the goal. You can now play the game.");
         GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
