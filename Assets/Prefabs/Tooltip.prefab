@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 4625241086161813469}
   - component: {fileID: 6095846063209470199}
   - component: {fileID: 2182955561096417629}
+  - component: {fileID: 7111644857066601372}
   m_Layer: 5
   m_Name: Tooltip
   m_TagString: Untagged
@@ -328,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9716981, g: 0.94532293, b: 0.8937789, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -422,6 +423,21 @@ MonoBehaviour:
   content: {fileID: 1384489690630441579}
   toggle: {fileID: 6134063951751467267}
   isTooltipActive: 0
+--- !u!114 &7111644857066601372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3253513433416766805}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.9748427, g: 0, b: 0.054590955, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 0
 --- !u!1 &4765664815197998312
 GameObject:
   m_ObjectHideFlags: 0

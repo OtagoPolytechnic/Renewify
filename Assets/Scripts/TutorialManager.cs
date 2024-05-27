@@ -28,6 +28,7 @@ public class TutorialManager : MonoBehaviour
     public Tooltip mainTooltip;
     public Material glowMaterial;
     public bool tutorialActive;
+    public Outline outline;
     public TutorialSections currentSection;
     [HideInInspector] public int deleteSectionBuildings;
     [HideInInspector] public int obstacleSectionBuildingsRemaining = 0;
@@ -38,7 +39,8 @@ public class TutorialManager : MonoBehaviour
     private GameObject rocksPrefab;
     [SerializeField]
     private GameObject exitBTN;
-
+    [SerializeField]
+    
 
     private Dictionary<TutorialSections, string> narrativeTexts = new Dictionary<TutorialSections, string>()
     {
@@ -70,6 +72,7 @@ public class TutorialManager : MonoBehaviour
         if (tutorialActive)
         {
             exitBTN.SetActive(false);
+            outline = mainTooltip.GetComponent<Outline>();
 
             GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
             mainTooltip.SetTitle("Welcome to the tutorial!");
@@ -129,10 +132,25 @@ public class TutorialManager : MonoBehaviour
                     Quaternion.identity
                 );
             }
-
+            
             DisplayNarrativeText(TutorialSections.Building);
+            ToggleOutlineOn();
         }
     }
+
+    /// <summary>
+    /// Toggles the outline visibility
+    /// </summary>
+    private void ToggleOutlineOn()
+    {
+        outline.enabled = true;
+    }
+
+    private void ToggleOutlineOff()
+    {
+        outline.enabled = false;
+    }
+
 
     /// <summary>
     /// Displays the narrative text for a given tutorial section
@@ -142,8 +160,10 @@ public class TutorialManager : MonoBehaviour
         if (narrativeTexts.TryGetValue(section, out string narrative))
         {
             mainTooltip.SetContent(narrative);
+            
         }
     }
+
 
     /// <summary>
     /// Starts the Wiring Section of the Tutorial, highlighting the path to the power source
@@ -152,6 +172,7 @@ public class TutorialManager : MonoBehaviour
     {
         currentSection = TutorialSections.Wiring;
         DisplayNarrativeText(currentSection);
+        ToggleOutlineOff();
         List<Vector2> locations =
             new()
             {
@@ -192,6 +213,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         Debug.Log("Deletion Section");
+        ToggleOutlineOn();
         mainTooltip.SetTitle("Deleting Buildings");
         mainTooltip.SetContent(
             "To delete a building, click the delete button in the bottom right corner of the screen. Then click on the building you want to delete. Try deleting the windmill and solar panel that were placed for you."
