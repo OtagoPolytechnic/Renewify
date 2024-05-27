@@ -18,8 +18,8 @@ public class GridManager : MonoBehaviour
         public int x;
         [Range(0, 9)]
         public int y;
-        public List<TileInfo> adjacent;
-        public List<TileInfo> diagonals;
+        [HideInInspector] public List<TileInfo> adjacent;
+        [HideInInspector] public List<TileInfo> diagonals;
 
 
         [HideInInspector] public Vector2 position;
