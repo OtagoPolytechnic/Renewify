@@ -141,10 +141,15 @@ public class GameManager : MonoBehaviour
             {
 
                 Debug.Log("You Win!");
+                winOverlay.transform.GetChild(2).gameObject.SetActive(false);
+                winOverlay.transform.GetChild(3).gameObject.SetActive(true);
+
             }
             else
             {
                 Debug.Log("You have powered all the goal slots, but you need a higher score to win");
+                winOverlay.transform.GetChild(2).gameObject.SetActive(true);
+                winOverlay.transform.GetChild(3).gameObject.SetActive(false);
 
             }
             PauseGame.Instance.Pause();
