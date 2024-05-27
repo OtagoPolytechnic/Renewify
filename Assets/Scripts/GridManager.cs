@@ -39,10 +39,14 @@ public class GridManager : MonoBehaviour
                 tileStates[37] = TileTypes.Goal;
                 tileStates[38] = TileTypes.Goal;
                 tileStates[42] = TileTypes.Rocks;
+                tileStates[44] = TileTypes.Trees;
+                tileStates[54] = TileTypes.Trees;
                 tileStates[52] = TileTypes.Rocks;
                 tileStates[55] = TileTypes.Trees;
                 tileStates[69] = TileTypes.Rocks;
+                tileStates[72] = TileTypes.Rocks;
                 tileStates[80] = TileTypes.Rocks;
+                tileStates[82] = TileTypes.Rocks;
                 tileStates[86] = TileTypes.Trees;
                 tileStates[93] = TileTypes.Rocks;
                 break;
