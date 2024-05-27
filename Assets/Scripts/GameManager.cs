@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("You have powered all the goal slots, but you need a higher score to win");
 
             }
+            PauseGame.Instance.Pause();
         }
 
 
