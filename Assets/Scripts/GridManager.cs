@@ -33,8 +33,18 @@ public class GridManager : MonoBehaviour
         switch(SceneManager.GetActiveScene().name)
         {
             case "Level1":
+                tileStates[11] = TileTypes.Plants;
+                tileStates[13] = TileTypes.Plants;
+                tileStates[32] = TileTypes.Rocks;
                 tileStates[37] = TileTypes.Goal;
                 tileStates[38] = TileTypes.Goal;
+                tileStates[42] = TileTypes.Rocks;
+                tileStates[52] = TileTypes.Rocks;
+                tileStates[55] = TileTypes.Trees;
+                tileStates[69] = TileTypes.Rocks;
+                tileStates[80] = TileTypes.Rocks;
+                tileStates[86] = TileTypes.Trees;
+                tileStates[93] = TileTypes.Rocks;
                 break;
             case "Level2":
                 break;
