@@ -14,9 +14,9 @@ public class GridManager : MonoBehaviour
     {
        [HideInInspector] public TileTypes building;
         public TilePoints type;
-        [Range(0, 10)]
+        [Range(0, 9)]
         public int x;
-        [Range(0, 10)]
+        [Range(0, 9)]
         public int y;
         public List<TileInfo> adjacent;
         public List<TileInfo> diagonals;
