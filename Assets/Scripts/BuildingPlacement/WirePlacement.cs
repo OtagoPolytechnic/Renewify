@@ -207,6 +207,7 @@ public class WirePlacement : MonoBehaviour
             Debug.Log("Tutorial Active from WirePlacement");
             if (isTileConnected(GridManager.GetTileIndex(new Vector2(0, 3))))
             {
+                TutorialManager.Instance.scoreDisplaying();
                 Debug.Log("Tutorial Active from WirePlacement and connected");
                 TutorialManager.Instance.DeletionSection();
                 TutorialManager.Instance.obstacleSectionBuildingsRemaining = 1;
@@ -219,7 +220,6 @@ public class WirePlacement : MonoBehaviour
         else if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Obstacles)
         {
             TutorialManager.Instance.obstacleSectionBuildingsRemaining = connectedBuildings.Count;
-            TutorialManager.Instance.scoreDisplaying();
             Debug.Log("Buildings connected: " + TutorialManager.Instance.obstacleSectionBuildingsRemaining);
             if (TutorialManager.Instance.obstacleSectionBuildingsRemaining == 3)
             {

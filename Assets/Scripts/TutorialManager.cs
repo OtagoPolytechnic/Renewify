@@ -204,7 +204,6 @@ public class TutorialManager : MonoBehaviour
             guide.name = "GuideTile";
             guide.tag = "GuideTile";
         }
-        
     }
 
     public void scoreDisplaying()
@@ -220,6 +219,8 @@ public class TutorialManager : MonoBehaviour
         currentSection = TutorialSections.Deletion;
         DisplayNarrativeText(currentSection);
         deleteButton.SetActive(true);
+        deleteButton.GetComponent<Outline>().enabled = true;
+        mainTooltip.SetTitle("Scored !!");
         GameObject[] guides = GameObject.FindGameObjectsWithTag("GuideTile");
         foreach (GameObject guide in guides)
         {
@@ -227,7 +228,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         Debug.Log("Deletion Section");
-        mainTooltip.SetTitle("Deleting Buildings");
+        mainTooltip.SetTitle("Delete buildings");
         mainTooltip.SetContent(
             "To delete a building, click the delete button in the bottom right corner of the screen. Then click on the building you want to delete. Try deleting the windmill and solar panel that were placed for you."
         );
@@ -258,8 +259,8 @@ public class TutorialManager : MonoBehaviour
             guide.tag = "GuideTile";
             guide.transform.parent = tile.transform;
         }
-        bonusTiles.SetActive(true);
-        bonusTiles.GetComponent<Outline>().enabled = true;
+        // bonusTiles.SetActive(true);
+        // bonusTiles.GetComponent<Outline>().enabled = true;
         
         
     }
@@ -270,7 +271,7 @@ public class TutorialManager : MonoBehaviour
         DisplayNarrativeText(currentSection);
         TutorialManager.Instance.mainTooltip.SetTitle("Obstacles");
         TutorialManager.Instance.mainTooltip.SetContent(
-            "Obstacles are rocks, plants and trees that you cannot build on. You must work around them to reach the goal. Try to build around the rocks and trees to reach the goal. You now have 1 windmill and 1 solar panel to use."
+            "Tree rocks and flowers are obstacles, you must go around them."
         );
     }
 
