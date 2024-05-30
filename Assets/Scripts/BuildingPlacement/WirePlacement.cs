@@ -209,7 +209,9 @@ public class WirePlacement : MonoBehaviour
             {
                 TutorialManager.Instance.scoreDisplaying();
                 Debug.Log("Tutorial Active from WirePlacement and connected");
-                TutorialManager.Instance.DeletionSection();
+                StartCoroutine(TutorialManager.Instance.WaitForMouseClicked());
+                // TutorialManager.Instance.DeletionSection();
+                // TutorialManager.Instance.deleteDisplaying();
                 TutorialManager.Instance.obstacleSectionBuildingsRemaining = 1;
             }
             else

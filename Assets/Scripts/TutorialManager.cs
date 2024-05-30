@@ -208,19 +208,23 @@ public class TutorialManager : MonoBehaviour
 
     public void scoreDisplaying()
     {
+        mainTooltip.SetTitle("Scored!!");
         currentSection = TutorialSections.Scoreboard;
         DisplayNarrativeText(currentSection);
         scoreDisplay.SetActive(true);
         scoreDisplay.GetComponent<Outline>().enabled = true;
     }
 
+    public void deleteDisplaying()
+    {  
+        deleteButton.SetActive(true);
+        deleteButton.GetComponent<Outline>().enabled = true;
+    }
+
     public void DeletionSection()
     {
         currentSection = TutorialSections.Deletion;
         DisplayNarrativeText(currentSection);
-        deleteButton.SetActive(true);
-        deleteButton.GetComponent<Outline>().enabled = true;
-        mainTooltip.SetTitle("Scored !!");
         GameObject[] guides = GameObject.FindGameObjectsWithTag("GuideTile");
         foreach (GameObject guide in guides)
         {
@@ -229,9 +233,9 @@ public class TutorialManager : MonoBehaviour
 
         Debug.Log("Deletion Section");
         mainTooltip.SetTitle("Delete buildings");
-        mainTooltip.SetContent(
-            "To delete a building, click the delete button in the bottom right corner of the screen. Then click on the building you want to delete. Try deleting the windmill and solar panel that were placed for you."
-        );
+        // mainTooltip.SetContent(
+        //      "To delete a building, click the delete button in the bottom right corner of the screen. Then click on the building you want to delete. Try deleting the windmill and solar panel that were placed for you."
+        //  );
         //Highlight the tiles two tiles that need to be deleted
         GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = true;
         for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
@@ -284,4 +288,15 @@ public class TutorialManager : MonoBehaviour
         exitBTN.SetActive(true);
 
     }
+
+    public IEnumerator WaitForMouseClicked()
+    {
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        Debug.Log("Mouse was clicked!");
+        scoreDisplay.SetActive(false);
+        deleteDisplaying();
+        DeletionSection();
+    }
+
+        
 }
