@@ -474,6 +474,7 @@ public class WirePlacement : MonoBehaviour
                     RemoveWire(GridManager.GetTileIndex(tile));
                 }
                 wiresPlaced.Remove(wire);
+                return;
             }
         }
     }
