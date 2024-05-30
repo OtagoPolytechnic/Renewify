@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuNavigation : MonoBehaviour
 {
+    /*
     private GameObject mainMenuParent;
     private GameObject levelSelectParent;
 
@@ -26,7 +27,7 @@ public class MenuNavigation : MonoBehaviour
     {
         mainMenuParent.SetActive(true);
         levelSelectParent.SetActive(false);
-    }
+    }*/
 
     public void QuitGame() //This function will be called when the quit button is clicked and quit the game
     {

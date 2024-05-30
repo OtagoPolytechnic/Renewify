@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class GridCreator : MonoBehaviour
@@ -32,14 +33,28 @@ public class GridCreator : MonoBehaviour
     void Start()
     {
         GenerateGrid();
-        for(int i = 0; i < GridManager.Instance.tileBonus.Count; i++)
+        foreach(var tile in GridManager.Instance.scoreTiles)
         {
-            
-            if(GridManager.Instance.tileBonus[i] == true)
+            if(tile.building == TileTypes.Windmills)
             {
-                AddBonusTile(GridManager.GetTilePosition(i), false);
+                AddBonusTile(tile.position, true);
             }
+            else if(tile.building == TileTypes.SolarPanels)
+            {
+                AddBonusTile(tile.position, false);
+            }
+            else {Debug.LogError("Tile type not recognized");}
+
+
         }
+        // for(int i = 0; i < GridManager.Instance.tileBonus.Count; i++)
+        // {
+            
+        //     if(GridManager.Instance.tileBonus[i] == true)
+        //     {
+        //         AddBonusTile(GridManager.GetTilePosition(i), false);
+        //     }
+        // }
     }
 
     void GenerateGrid()
@@ -74,14 +89,14 @@ public class GridCreator : MonoBehaviour
     private void AddBonusTile(Vector2 centerTile, bool wind)
     {
         int index = GridManager.GetTileIndex(centerTile);
-        List<Vector2> tiles2 = new List<Vector2>()
+        List<Vector2> adjTiles = new List<Vector2>()
         {
             new Vector2(centerTile.x + 1, centerTile.y),
             new Vector2(centerTile.x - 1, centerTile.y),
             new Vector2(centerTile.x, centerTile.y + 1),
             new Vector2(centerTile.x, centerTile.y - 1)
         };
-        List<Vector2> tiles3 = new List<Vector2>()
+        List<Vector2> diagTiles = new List<Vector2>()
         {
             new Vector2(centerTile.x + 1, centerTile.y + 1),
             new Vector2(centerTile.x - 1, centerTile.y - 1),
@@ -94,14 +109,14 @@ public class GridCreator : MonoBehaviour
             {
                 BonusTileCreate(index, Wind1);
             }
-            foreach(Vector2 v in tiles2)
+            foreach(Vector2 v in adjTiles)
             {
                 if(ValidCheck(v))
                 {
                     BonusTileCreate(GridManager.GetTileIndex(v), Wind2);
                 }
             }
-            foreach(Vector2 v in tiles3)
+            foreach(Vector2 v in diagTiles)
             {
                 if(ValidCheck(v))
                 {
@@ -115,14 +130,14 @@ public class GridCreator : MonoBehaviour
             {
                 BonusTileCreate(index, Sun1);
             }
-            foreach(Vector2 v in tiles2)
+            foreach(Vector2 v in adjTiles)
             {
                 if(ValidCheck(v))
                 {
                     BonusTileCreate(GridManager.GetTileIndex(v), Sun2);
                 }
             }
-            foreach(Vector2 v in tiles3)
+            foreach(Vector2 v in diagTiles)
             {
                 if(ValidCheck(v))
                 {
@@ -142,7 +157,7 @@ public class GridCreator : MonoBehaviour
         tile.GetComponent<Renderer>().material = material;
     }
 
-    private bool ValidCheck(Vector2 v)
+    public bool ValidCheck(Vector2 v)
     {
         if(v.x < 0 || v.x >= GridManager.Instance.gridSize || v.y < 0 || v.y >= GridManager.Instance.gridSize || !GridManager.IsTileEmpty(GridManager.GetTileIndex(v)))
         {

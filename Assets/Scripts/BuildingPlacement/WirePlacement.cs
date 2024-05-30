@@ -11,6 +11,7 @@ public class WirePlacement : MonoBehaviour
 {
     public GameObject StraightWire;
     public GameObject CornerWire;
+    public GameObject  PowerParticle;
     private GameObject lastWire;
     public Material CompletedConnection; //Just using one material for now. Can change to different ones based on the building
     private Material selectedMaterial;
@@ -133,6 +134,13 @@ public class WirePlacement : MonoBehaviour
             {
                 //Checks if the last wire needs to become a corner wire
                 PlacingCornerWire(MouseManager.gridPosition);
+
+                // //Instantiate the PowerParticle
+                // gameObject.particle = Instantiate(PowerParticle, particle.transform.position, Quaternion.identity);
+                // GameObject particle = Instantiate(PowerParticle, GridManager.CalculatePos(wireX, wireZ), Quaternion.Euler(0, rotation, 0));
+                // // Set the particle's parent to the wire's transform
+                // particle.transform.SetParent(particle.transform);
+
                 //Can swap out the material based on the building when we add the materials
                 switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)])
                 {
@@ -196,6 +204,7 @@ public class WirePlacement : MonoBehaviour
         tilesPlaced.Insert(0, startingTile);
         //Add the starting tile to the list of connected buildings
         connectedBuildings.Add(startingTile);
+        GameManager.Instance.CurrentScore = GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates);
         wiresPlaced.Add(new List<Vector2>(tilesPlaced)); //Add the list of placed wires to the list of all placed wires
         buildingTiles.Remove(startingTile); //Remove the starting tile from the list of building tiles wihtout wires
         resetTileList();
@@ -398,6 +407,7 @@ public class WirePlacement : MonoBehaviour
     /// <param name="wireZ"> Z position of the wire </param>
     /// <param name="rotation"> Rotation of the wire </param>
     /// <param name="wireType"> Type of wire to place </param>
+    /// <param name="powerParticle"> Type of particle to place </param>
     private void PlaceWire(int position, int wireX, int wireZ, int rotation, GameObject wireType)
     {
         //Clear any wire that already exists on the tile
@@ -435,7 +445,15 @@ public class WirePlacement : MonoBehaviour
         //change material of the all components in the wire to the target material
         foreach (Transform child in wire.transform)
         {
-            child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
+            try
+            {
+                child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
+            }
+            catch (System.Exception)
+            {
+                child.gameObject.SetActive(true);
+            }
+
         }
     }
 
