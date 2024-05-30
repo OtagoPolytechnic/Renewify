@@ -204,6 +204,7 @@ public class WirePlacement : MonoBehaviour
         tilesPlaced.Insert(0, startingTile);
         //Add the starting tile to the list of connected buildings
         connectedBuildings.Add(startingTile);
+        GameManager.Instance.CurrentScore = GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates);
         wiresPlaced.Add(new List<Vector2>(tilesPlaced)); //Add the list of placed wires to the list of all placed wires
         buildingTiles.Remove(startingTile); //Remove the starting tile from the list of building tiles wihtout wires
         resetTileList();
