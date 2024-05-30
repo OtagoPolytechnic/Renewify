@@ -2952,7 +2952,7 @@ MonoBehaviour:
   mainTooltip: {fileID: 8640983944108428467}
   glowMaterial: {fileID: 2100000, guid: 981ffb4b55d180d4e94f3c80980e730e, type: 2}
   tutorialActive: 1
-  bonusTiles: {fileID: 0}
+  bonusTiles: {fileID: 1854231996}
   centralBuilding: {fileID: 1659203545}
   buildings: {fileID: 1018665800}
   deleteButton: {fileID: 456766548}
@@ -4959,6 +4959,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: text
       objectReference: {fileID: 0}
+    - target: {fileID: 7111644857066601372, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_EffectDistance.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111644857066601372, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_EffectDistance.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8599307286911839564, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -6279,6 +6289,12 @@ MonoBehaviour:
     type: 3}
   positionOffset: 0
   oddOffset: 0
+--- !u!1 &1854231996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3253513433416766805, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1549135566}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1907546220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7344,6 +7360,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: text
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111644857066601372, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8599307286911839564, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}

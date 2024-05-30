@@ -17,6 +17,7 @@ public enum TutorialSections
     Building,
     Wiring,
     Deletion,
+    Scoreboard,
     DeletionPart2,
     Obstacles,
     End
@@ -28,7 +29,6 @@ public class TutorialManager : MonoBehaviour
     public Tooltip mainTooltip;
     public Material glowMaterial;
     public bool tutorialActive;
-
     public GameObject bonusTiles;
     public GameObject centralBuilding;
     public GameObject buildings;
@@ -52,6 +52,7 @@ public class TutorialManager : MonoBehaviour
     {
         { TutorialSections.Building, "Let's start by learning how to build. Place buildings on the empty tiles." },
         { TutorialSections.Wiring, "Now, let's connect the buildings to the power source using wiring." },
+        { TutorialSections.Scoreboard, "Congratulation you have score a point." },
         { TutorialSections.Deletion, "Next, we'll learn how to delete buildings. Try deleting the windmill and solar panel." },
         { TutorialSections.DeletionPart2, "Good job! Let's practice deletion once more with some additional buildings." },
         { TutorialSections.Obstacles, "In this section, you'll encounter obstacles. Navigate around them to reach your goal." },
@@ -59,8 +60,6 @@ public class TutorialManager : MonoBehaviour
     };
 
     // Start is called before the first frame update
-
-
     void Awake()
     {
         if (Instance == null)
@@ -140,9 +139,9 @@ public class TutorialManager : MonoBehaviour
             }
             
             DisplayNarrativeText(TutorialSections.Building);
-            ToggleOutlineOn();
         }
     }
+
 
     /// <summary>
     /// Toggles the outline visibility
@@ -178,7 +177,6 @@ public class TutorialManager : MonoBehaviour
     {
         currentSection = TutorialSections.Wiring;
         DisplayNarrativeText(currentSection);
-        ToggleOutlineOff();
         List<Vector2> locations =
             new()
             {
@@ -206,7 +204,15 @@ public class TutorialManager : MonoBehaviour
             guide.name = "GuideTile";
             guide.tag = "GuideTile";
         }
+        
+    }
+
+    public void scoreDisplaying()
+    {
+        currentSection = TutorialSections.Scoreboard;
+        DisplayNarrativeText(currentSection);
         scoreDisplay.SetActive(true);
+        scoreDisplay.GetComponent<Outline>().enabled = true;
     }
 
     public void DeletionSection()
@@ -221,7 +227,6 @@ public class TutorialManager : MonoBehaviour
         }
 
         Debug.Log("Deletion Section");
-        ToggleOutlineOn();
         mainTooltip.SetTitle("Deleting Buildings");
         mainTooltip.SetContent(
             "To delete a building, click the delete button in the bottom right corner of the screen. Then click on the building you want to delete. Try deleting the windmill and solar panel that were placed for you."
@@ -254,6 +259,9 @@ public class TutorialManager : MonoBehaviour
             guide.transform.parent = tile.transform;
         }
         bonusTiles.SetActive(true);
+        bonusTiles.GetComponent<Outline>().enabled = true;
+        
+        
     }
 
     public void ObstacleSection()

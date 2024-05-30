@@ -219,6 +219,7 @@ public class WirePlacement : MonoBehaviour
         else if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Obstacles)
         {
             TutorialManager.Instance.obstacleSectionBuildingsRemaining = connectedBuildings.Count;
+            TutorialManager.Instance.scoreDisplaying();
             Debug.Log("Buildings connected: " + TutorialManager.Instance.obstacleSectionBuildingsRemaining);
             if (TutorialManager.Instance.obstacleSectionBuildingsRemaining == 3)
             {
