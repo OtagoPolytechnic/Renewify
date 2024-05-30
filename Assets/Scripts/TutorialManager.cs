@@ -53,10 +53,10 @@ public class TutorialManager : MonoBehaviour
     {
         { TutorialSections.Building, "Let's start by learning how to build. Place buildings on the empty tiles." },
         { TutorialSections.Wiring, "Now, let's connect the buildings to the power source using wiring." },
-        { TutorialSections.Scoreboard, "Congratulation you have score a point." },
+        { TutorialSections.Scoreboard, "Congratulation you have score a point. - Mouse Click" },
         { TutorialSections.Deletion, "Next, we'll learn how to delete buildings. Try deleting the windmill and solar panel." },
         { TutorialSections.DeletionPart2, "Good job! Now you can click the delete button again to TOGGLE delete off." },
-        { TutorialSections.Obstacles, "In this section, you'll encounter obstacles. Navigate around them to reach your goal." },
+        { TutorialSections.Obstacles, "In this section, you'll encounter obstacles. Navigate around them to reach your goal. - Mouse Click" },
         { TutorialSections.End, "Congratulations! You've completed the tutorial. You are now ready to play the game." }
     };
 
