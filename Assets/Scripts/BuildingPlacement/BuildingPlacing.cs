@@ -208,7 +208,7 @@ public class BuildingPlacing : MonoBehaviour
                     }
                     if(TutorialManager.Instance.deleteSectionBuildings == 0)
                     {
-                        TutorialManager.Instance.mainTooltip.SetContent("Click on the delete button again to turn off delete mode.");
+                        TutorialManager.Instance.toggleDeleteOff();
                         TutorialManager.Instance.currentSection = TutorialSections.DeletionPart2;
                     }
                     if (TutorialManager.Instance.currentSection == TutorialSections.Obstacles)

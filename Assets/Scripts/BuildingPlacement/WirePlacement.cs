@@ -199,9 +199,6 @@ public class WirePlacement : MonoBehaviour
         wiresPlaced.Add(new List<Vector2>(tilesPlaced)); //Add the list of placed wires to the list of all placed wires
         buildingTiles.Remove(startingTile); //Remove the starting tile from the list of building tiles wihtout wires
         resetTileList();
-
-
-
         if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Wiring )
         {
             Debug.Log("Tutorial Active from WirePlacement");
@@ -209,9 +206,7 @@ public class WirePlacement : MonoBehaviour
             {
                 TutorialManager.Instance.scoreDisplaying();
                 Debug.Log("Tutorial Active from WirePlacement and connected");
-                StartCoroutine(TutorialManager.Instance.WaitForMouseClicked());
-                // TutorialManager.Instance.DeletionSection();
-                // TutorialManager.Instance.deleteDisplaying();
+                StartCoroutine(TutorialManager.Instance.WaitForMouseClicked("Deletion"));
                 TutorialManager.Instance.obstacleSectionBuildingsRemaining = 1;
             }
             else

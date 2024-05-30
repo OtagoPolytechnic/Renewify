@@ -32,6 +32,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject bonusTiles;
     public GameObject centralBuilding;
     public GameObject buildings;
+    public GameObject obstacles;
     public GameObject deleteButton;
     public GameObject scoreDisplay;
     public Outline outline;
@@ -54,7 +55,7 @@ public class TutorialManager : MonoBehaviour
         { TutorialSections.Wiring, "Now, let's connect the buildings to the power source using wiring." },
         { TutorialSections.Scoreboard, "Congratulation you have score a point." },
         { TutorialSections.Deletion, "Next, we'll learn how to delete buildings. Try deleting the windmill and solar panel." },
-        { TutorialSections.DeletionPart2, "Good job! Let's practice deletion once more with some additional buildings." },
+        { TutorialSections.DeletionPart2, "Good job! Now you can click the delete button again to TOGGLE delete off." },
         { TutorialSections.Obstacles, "In this section, you'll encounter obstacles. Navigate around them to reach your goal." },
         { TutorialSections.End, "Congratulations! You've completed the tutorial. You are now ready to play the game." }
     };
@@ -78,7 +79,6 @@ public class TutorialManager : MonoBehaviour
         {
             exitBTN.SetActive(false);
             outline = mainTooltip.GetComponent<Outline>();
-
             GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
             mainTooltip.SetTitle("Welcome to the tutorial!");
             currentSection = TutorialSections.Building;
@@ -206,6 +206,10 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method containing the score display.
+    /// </summary>
+
     public void scoreDisplaying()
     {
         mainTooltip.SetTitle("Scored!!");
@@ -215,6 +219,9 @@ public class TutorialManager : MonoBehaviour
         scoreDisplay.GetComponent<Outline>().enabled = true;
     }
 
+    /// <summary>
+    /// Method containing the delete display.
+    /// </summary>
     public void deleteDisplaying()
     {  
         deleteButton.SetActive(true);
@@ -232,10 +239,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         Debug.Log("Deletion Section");
-        mainTooltip.SetTitle("Delete buildings");
-        // mainTooltip.SetContent(
-        //      "To delete a building, click the delete button in the bottom right corner of the screen. Then click on the building you want to delete. Try deleting the windmill and solar panel that were placed for you."
-        //  );
+        mainTooltip.SetTitle("Toggle Delete button On");
         //Highlight the tiles two tiles that need to be deleted
         GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = true;
         for (int i = 0; i < GridManager.Instance.tileStates.Count; i++)
@@ -263,20 +267,22 @@ public class TutorialManager : MonoBehaviour
             guide.tag = "GuideTile";
             guide.transform.parent = tile.transform;
         }
-        // bonusTiles.SetActive(true);
-        // bonusTiles.GetComponent<Outline>().enabled = true;
-        
-        
+    }
+    
+    public void toggleDeleteOff()
+    {
+        mainTooltip.SetTitle("Toggle delete OFF");
+        currentSection = TutorialSections.DeletionPart2;
+        DisplayNarrativeText(currentSection);
     }
 
     public void ObstacleSection()
     {
+        StartCoroutine(WaitForMouseClicked("obstacles"));
+        obstacles.SetActive(true);
+        TutorialManager.Instance.mainTooltip.SetTitle("Obstacles");
         currentSection = TutorialSections.Obstacles;
         DisplayNarrativeText(currentSection);
-        TutorialManager.Instance.mainTooltip.SetTitle("Obstacles");
-        TutorialManager.Instance.mainTooltip.SetContent(
-            "Tree rocks and flowers are obstacles, you must go around them."
-        );
     }
 
     public void EndSection()
@@ -285,17 +291,27 @@ public class TutorialManager : MonoBehaviour
         mainTooltip.SetTitle("You Have Completed The tutorial");
         mainTooltip.SetContent("Well Done, you have connected all the buildings to the goal. You can now play the game.");
         GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
+        mainTooltip.gameObject.SetActive(true);
         exitBTN.SetActive(true);
 
     }
 
-    public IEnumerator WaitForMouseClicked()
+    public IEnumerator WaitForMouseClicked(string section)
     {
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-        Debug.Log("Mouse was clicked!");
-        scoreDisplay.SetActive(false);
-        deleteDisplaying();
-        DeletionSection();
+        if(section == "Deletion")
+        {
+            mainTooltip.enabled = true;
+            Debug.Log("Mouse was clicked!");
+            scoreDisplay.SetActive(false);
+            deleteDisplaying();
+            DeletionSection();
+        }
+        else if(section == "obstacles")
+        {   
+            mainTooltip.gameObject.SetActive(false);
+        }
+        
     }
 
         
