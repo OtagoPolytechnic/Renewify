@@ -29,9 +29,11 @@ public class TutorialManager : MonoBehaviour
     public Material glowMaterial;
     public bool tutorialActive;
 
-    public GameObject bonustiles;
+    public GameObject bonusTiles;
     public GameObject centralBuilding;
     public GameObject buildings;
+    public GameObject deleteButton;
+    public GameObject scoreDisplay;
     public Outline outline;
     public TutorialSections currentSection;
     [HideInInspector] public int deleteSectionBuildings;
@@ -204,12 +206,14 @@ public class TutorialManager : MonoBehaviour
             guide.name = "GuideTile";
             guide.tag = "GuideTile";
         }
+        scoreDisplay.SetActive(true);
     }
 
     public void DeletionSection()
     {
         currentSection = TutorialSections.Deletion;
         DisplayNarrativeText(currentSection);
+        deleteButton.SetActive(true);
         GameObject[] guides = GameObject.FindGameObjectsWithTag("GuideTile");
         foreach (GameObject guide in guides)
         {
@@ -249,15 +253,8 @@ public class TutorialManager : MonoBehaviour
             guide.tag = "GuideTile";
             guide.transform.parent = tile.transform;
         }
-        bonustiles.SetActive(true);
+        bonusTiles.SetActive(true);
     }
-
-    // public void BonusTilePrompt()
-    // {
-    //     GameObject.Find("bonustiles").SetActive(true);
-    //     // GameObject.Find("centralBuilding").SetActive(true);
-    //     // GameObject.Find("buildings").SetActive(true);
-    // }
 
     public void ObstacleSection()
     {
