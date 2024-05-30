@@ -28,6 +28,10 @@ public class TutorialManager : MonoBehaviour
     public Tooltip mainTooltip;
     public Material glowMaterial;
     public bool tutorialActive;
+
+    public GameObject bonustiles;
+    public GameObject centralBuilding;
+    public GameObject buildings;
     public Outline outline;
     public TutorialSections currentSection;
     [HideInInspector] public int deleteSectionBuildings;
@@ -245,7 +249,15 @@ public class TutorialManager : MonoBehaviour
             guide.tag = "GuideTile";
             guide.transform.parent = tile.transform;
         }
+        bonustiles.SetActive(true);
     }
+
+    // public void BonusTilePrompt()
+    // {
+    //     GameObject.Find("bonustiles").SetActive(true);
+    //     // GameObject.Find("centralBuilding").SetActive(true);
+    //     // GameObject.Find("buildings").SetActive(true);
+    // }
 
     public void ObstacleSection()
     {
