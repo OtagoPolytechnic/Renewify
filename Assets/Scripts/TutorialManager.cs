@@ -52,10 +52,10 @@ public class TutorialManager : MonoBehaviour
 
     private Dictionary<TutorialSections, string> narrativeTexts = new Dictionary<TutorialSections, string>()
     {
-        { TutorialSections.Building, "Let's start by learning how to build. Place buildings on the highlighted tiles." },
-        { TutorialSections.BonusTiles, "The coloured space on the tiles you see, they are bonus tiles, place an building on it for extra scores." },
+        { TutorialSections.Building, "Let's start by learning how to place buildings. Place a building on the highlighted tile." },
+        { TutorialSections.BonusTiles, "The coloured space on the tiles you see, they are bonus tiles, place a building on it for bonus scores." },
         { TutorialSections.Wiring, "Now, let's connect the building to the central building using wiring." },
-        { TutorialSections.Scoreboard, "Congratulation you have score a point. - Click to Advance" },
+        { TutorialSections.Scoreboard, "Congratulations you have scored a point. - Click to Advance" },
         { TutorialSections.Deletion, "Next, we'll learn how to delete buildings. Try deleting the windmill and solar panel." },
         { TutorialSections.DeletionPart2, "Good job! Now you can click the delete button again to TOGGLE delete off." },
         { TutorialSections.Obstacles, "In this section, you'll encounter obstacles. Navigate around them to reach your goal. - Click to advance" },
