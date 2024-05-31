@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5721402090045829376}
   m_Layer: 0
-  m_Name: OutterGridEnvironment
+  m_Name: OuterGridEnvironment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
