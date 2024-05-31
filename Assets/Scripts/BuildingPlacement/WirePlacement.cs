@@ -196,10 +196,16 @@ public class WirePlacement : MonoBehaviour
 
     private void EndWirePlace()
     {
-        foreach (Vector2 tile in tilesPlaced)
+        //Change wire texture and power particle.
+        //NOTE: This will need to be refactored when we merge chases score system.
+        if(GridManager.Instance.tileBonus[GridManager.GetTileIndex(startingTile)])
         {
-            changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+            foreach (Vector2 tile in tilesPlaced)
+            {
+                changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+            }
         }
+        
         //Add the starting spot to the start of the list of placed wires
         tilesPlaced.Insert(0, startingTile);
         //Add the starting tile to the list of connected buildings
@@ -445,11 +451,17 @@ public class WirePlacement : MonoBehaviour
         //change material of the all components in the wire to the target material
         foreach (Transform child in wire.transform)
         {
+            /*
             try
             {
                 child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
             }
             catch (System.Exception)
+            {
+                child.gameObject.SetActive(true);
+            }*/
+
+            if(child.gameObject.activeSelf == false)
             {
                 child.gameObject.SetActive(true);
             }
@@ -474,6 +486,8 @@ public class WirePlacement : MonoBehaviour
                 {
                     RemoveWire(GridManager.GetTileIndex(tile));
                 }
+                wiresPlaced.Remove(wire);
+                return;
             }
         }
     }
