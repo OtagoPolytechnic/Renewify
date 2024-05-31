@@ -15,6 +15,7 @@ using UnityEngine.UI;
 public enum TutorialSections
 {
     Building,
+    BonusTiles,
     Wiring,
     Deletion,
     Scoreboard,
@@ -52,11 +53,12 @@ public class TutorialManager : MonoBehaviour
     private Dictionary<TutorialSections, string> narrativeTexts = new Dictionary<TutorialSections, string>()
     {
         { TutorialSections.Building, "Let's start by learning how to build. Place buildings on the empty tiles." },
+        { TutorialSections.BonusTiles, "The coloured space on the tiles you see, they are bonus tiles, place an building on it for extra scores." },
         { TutorialSections.Wiring, "Now, let's connect the buildings to the power source using wiring." },
-        { TutorialSections.Scoreboard, "Congratulation you have score a point. - Mouse Click" },
+        { TutorialSections.Scoreboard, "Congratulation you have score a point. - Click to Advance" },
         { TutorialSections.Deletion, "Next, we'll learn how to delete buildings. Try deleting the windmill and solar panel." },
         { TutorialSections.DeletionPart2, "Good job! Now you can click the delete button again to TOGGLE delete off." },
-        { TutorialSections.Obstacles, "In this section, you'll encounter obstacles. Navigate around them to reach your goal. - Mouse Click" },
+        { TutorialSections.Obstacles, "In this section, you'll encounter obstacles. Navigate around them to reach your goal. - Click to advance" },
         { TutorialSections.End, "Congratulations! You've completed the tutorial. You are now ready to play the game." }
     };
 
@@ -78,7 +80,6 @@ public class TutorialManager : MonoBehaviour
         if (tutorialActive)
         {
             exitBTN.SetActive(false);
-            outline = mainTooltip.GetComponent<Outline>();
             GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
             mainTooltip.SetTitle("Welcome to the tutorial!");
             currentSection = TutorialSections.Building;
@@ -204,14 +205,18 @@ public class TutorialManager : MonoBehaviour
             guide.name = "GuideTile";
             guide.tag = "GuideTile";
         }
+        
     }
 
-    /// <summary>
-    /// Method containing the score display.
-    /// </summary>
+    public void bonusTilesDisplay()
+    {
+        bonusTiles.SetActive(true);
+        bonusTiles.GetComponent<Outline>().enabled = true;
+    }
 
     public void scoreDisplaying()
     {
+        bonusTiles.SetActive(false);
         mainTooltip.SetTitle("Scored!!");
         currentSection = TutorialSections.Scoreboard;
         DisplayNarrativeText(currentSection);
@@ -296,6 +301,7 @@ public class TutorialManager : MonoBehaviour
 
     }
 
+    //Mouse click to hide main tool tips and trigger main and delete tooltips
     public IEnumerator WaitForMouseClicked(string section)
     {
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));

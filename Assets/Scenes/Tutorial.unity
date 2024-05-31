@@ -1287,15 +1287,15 @@ RectTransform:
   m_GameObject: {fileID: 439663176}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2144863140}
   m_Father: {fileID: 1974136315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -701, y: -489}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1069, y: -487}
   m_SizeDelta: {x: 175, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &439663178
@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.972549, g: 0.94509804, b: 0.89411765, a: 0.7372549}
+  m_Color: {r: 0.14052035, g: 0.91194963, b: 0.2062815, a: 0.8235294}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5308,22 +5308,22 @@ PrefabInstance:
     - target: {fileID: 4159512973229661519, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 650.66
+      value: 310
       objectReference: {fileID: 0}
     - target: {fileID: 4159512973229661519, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 56.68
+      value: 104.28077
       objectReference: {fileID: 0}
     - target: {fileID: 4159512973229661519, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 355.33
+      value: 185
       objectReference: {fileID: 0}
     - target: {fileID: 4159512973229661519, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -67.45
+      value: -87.859604
       objectReference: {fileID: 0}
     - target: {fileID: 4290222256323735891, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -5388,22 +5388,22 @@ PrefabInstance:
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 690.66
+      value: -340.6599
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 105.79
+      value: 44.20999
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -5458,12 +5458,12 @@ PrefabInstance:
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -345.33008
+      value: -396
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -52.89502
+      value: -44
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -5498,7 +5498,7 @@ PrefabInstance:
     - target: {fileID: 5630583170835806044, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 39.11
+      value: 35.719223
       objectReference: {fileID: 0}
     - target: {fileID: 5630583170835806044, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -5513,12 +5513,12 @@ PrefabInstance:
     - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_PreferredWidth
-      value: 690.66
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 6095846063209470199, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_PreferredHeight
-      value: 105.79
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 6661214979974321385, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -5564,6 +5564,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: text
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111644857066601372, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7111644857066601372, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -5618,10 +5623,8 @@ PrefabInstance:
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_text
-      value: 'Bonus tiles have active effects that provide
-
-        specific buildings
-        with power, for example this tile has wind'
+      value: Bonus tiles provide extra scores when a building is placed on it, orange
+        represents wind power.
       objectReference: {fileID: 0}
     - target: {fileID: 8635790025029752596, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
@@ -7875,12 +7878,12 @@ PrefabInstance:
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 655
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -696
+      value: -740
       objectReference: {fileID: 0}
     - target: {fileID: 4774425591983177064, guid: 2b29610b482792b4dbb6cb6cf18aa6f5,
         type: 3}
