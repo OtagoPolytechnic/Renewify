@@ -52,9 +52,9 @@ public class TutorialManager : MonoBehaviour
 
     private Dictionary<TutorialSections, string> narrativeTexts = new Dictionary<TutorialSections, string>()
     {
-        { TutorialSections.Building, "Let's start by learning how to build. Place buildings on the empty tiles." },
+        { TutorialSections.Building, "Let's start by learning how to build. Place buildings on the highlighted tiles." },
         { TutorialSections.BonusTiles, "The coloured space on the tiles you see, they are bonus tiles, place an building on it for extra scores." },
-        { TutorialSections.Wiring, "Now, let's connect the buildings to the power source using wiring." },
+        { TutorialSections.Wiring, "Now, let's connect the building to the central building using wiring." },
         { TutorialSections.Scoreboard, "Congratulation you have score a point. - Click to Advance" },
         { TutorialSections.Deletion, "Next, we'll learn how to delete buildings. Try deleting the windmill and solar panel." },
         { TutorialSections.DeletionPart2, "Good job! Now you can click the delete button again to TOGGLE delete off." },
@@ -208,30 +208,6 @@ public class TutorialManager : MonoBehaviour
         
     }
 
-    public void bonusTilesDisplay()
-    {
-        bonusTiles.SetActive(true);
-        bonusTiles.GetComponent<Outline>().enabled = true;
-    }
-
-    public void scoreDisplaying()
-    {
-        bonusTiles.SetActive(false);
-        mainTooltip.SetTitle("Scored!!");
-        currentSection = TutorialSections.Scoreboard;
-        DisplayNarrativeText(currentSection);
-        scoreDisplay.SetActive(true);
-        scoreDisplay.GetComponent<Outline>().enabled = true;
-    }
-
-    /// <summary>
-    /// Method containing the delete display.
-    /// </summary>
-    public void deleteDisplaying()
-    {  
-        deleteButton.SetActive(true);
-        deleteButton.GetComponent<Outline>().enabled = true;
-    }
 
     public void DeletionSection()
     {
@@ -273,6 +249,38 @@ public class TutorialManager : MonoBehaviour
             guide.transform.parent = tile.transform;
         }
     }
+
+    /// <summary>
+    /// contains various methods for controlling the display and interaction elements 
+    /// within a tutorial section of the application. These methods manage the visibility, 
+    /// content, and interactive states of different UI components such as tooltips, buttons, 
+    /// and sections. The methods handle different tutorial phases, such as scoring, deleting, 
+    /// building, obstacle handling, and completing the tutorial.
+    /// </summary>
+    public void scoreDisplaying()
+    {
+        bonusTiles.SetActive(false);
+        mainTooltip.SetTitle("Scored!!");
+        currentSection = TutorialSections.Scoreboard;
+        DisplayNarrativeText(currentSection);
+        scoreDisplay.SetActive(true);
+        scoreDisplay.GetComponent<Outline>().enabled = true;
+    }
+
+
+    public void deleteDisplaying()
+    {  
+        deleteButton.SetActive(true);
+        deleteButton.GetComponent<Outline>().enabled = true;
+    }
+
+    public void builingDisplaying()
+    {
+        centralBuilding.SetActive(true);
+        centralBuilding.GetComponent<Outline>().enabled = true;
+        buildings.SetActive(true);
+        buildings.GetComponent<Outline>().enabled = true;
+    }
     
     public void toggleDeleteOff()
     {
@@ -293,11 +301,13 @@ public class TutorialManager : MonoBehaviour
     public void EndSection()
     {
         currentSection = TutorialSections.End;
-        mainTooltip.SetTitle("You Have Completed The tutorial");
-        mainTooltip.SetContent("Well Done, you have connected all the buildings to the goal. You can now play the game.");
+        mainTooltip.SetTitle("Tutorial Completed");
+        mainTooltip.SetContent("You are ready for the challenges ahead.");
         GameObject.Find("DeleteMode").GetComponent<Toggle>().interactable = false;
         mainTooltip.gameObject.SetActive(true);
         exitBTN.SetActive(true);
+        obstacles.SetActive(false);
+        
 
     }
 
@@ -309,6 +319,8 @@ public class TutorialManager : MonoBehaviour
         {
             mainTooltip.enabled = true;
             Debug.Log("Mouse was clicked!");
+            buildings.SetActive(false);
+            centralBuilding.SetActive(false);
             scoreDisplay.SetActive(false);
             deleteDisplaying();
             DeletionSection();
@@ -316,6 +328,7 @@ public class TutorialManager : MonoBehaviour
         else if(section == "obstacles")
         {   
             mainTooltip.gameObject.SetActive(false);
+            deleteButton.SetActive(false);
         }
         
     }

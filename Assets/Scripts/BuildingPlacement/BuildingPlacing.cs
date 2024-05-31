@@ -175,6 +175,7 @@ public class BuildingPlacing : MonoBehaviour
                     
                     TutorialManager.Instance.bonusTiles.SetActive(true);
                     placeBuilding();
+                    TutorialManager.Instance.builingDisplaying();
                     GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(new Vector2(0, 3))];
                     Destroy(tile.transform.Find("GuideTile").gameObject);
                     TutorialManager.Instance.mainTooltip.SetTitle("Wiring Buildings");
