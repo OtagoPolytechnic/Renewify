@@ -216,6 +216,30 @@ public class WirePlacement : MonoBehaviour
                 }
                 Debug.Log(startingTile);
             }
+
+            // foreach (var adj in tile.adjacent)
+            // {
+            //     if(GridManager.Instance.scoreTiles[i].position == startingTile)
+            //     {
+            //         foreach (Vector2 tile in tilesPlaced)
+            //         {
+            //             changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+            //         }
+            //         Debug.Log(startingTile);
+            //     }
+
+            // }
+            // foreach (var diag in tile.diagonals)
+            // {
+            //     if(GridManager.Instance.scoreTiles[i].position == startingTile)
+            //     {
+            //         foreach (Vector2 tile in tilesPlaced)
+            //         {
+            //             changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+            //         }
+            //         Debug.Log(startingTile);
+            //     }
+            // }
         }
         
         //Add the starting spot to the start of the list of placed wires
