@@ -198,11 +198,23 @@ public class WirePlacement : MonoBehaviour
     {
         //Change wire texture and power particle.
         //NOTE: This will need to be refactored when we merge chases score system.
-        if(GridManager.Instance.tileBonus[GridManager.GetTileIndex(startingTile)])
+        // if(GridManager.Instance.tileBonus[GridManager.GetTileIndex(startingTile)])
+        // {
+        //     foreach (Vector2 tile in tilesPlaced)
+        //     {
+        //         changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+        //     }
+        // }
+
+        for (int i = 0; i < GridManager.Instance.scoreTiles.Count; i++)
         {
-            foreach (Vector2 tile in tilesPlaced)
+            if(GridManager.Instance.scoreTiles[i].position == startingTile)
             {
-                changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+                foreach (Vector2 tile in tilesPlaced)
+                {
+                    changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+                }
+                Debug.Log(startingTile);
             }
         }
         

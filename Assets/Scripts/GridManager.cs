@@ -97,8 +97,6 @@ public class GridManager : MonoBehaviour
             position = new Vector2(x, y);
             adjacent = null;
             diagonals = null;
-
-
         }
 
     }
@@ -180,6 +178,7 @@ public class GridManager : MonoBehaviour
                 tileStates[93] = TileTypes.Rocks;
                 tileStates[86] = TileTypes.Trees;
                 break;
+        }
                 
         List<Vector2> goalTiles = GetGoalTiles();
         Debug.Log("Expected Slots: " + GameManager.Instance.CalculateOpenSlots(goalTiles));
