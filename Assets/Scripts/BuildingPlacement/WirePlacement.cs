@@ -11,7 +11,6 @@ public class WirePlacement : MonoBehaviour
 {
     public GameObject StraightWire;
     public GameObject CornerWire;
-    public GameObject  PowerParticle;
     private GameObject lastWire;
     public Material CompletedConnection; //Just using one material for now. Can change to different ones based on the building
     private Material selectedMaterial;
@@ -135,12 +134,6 @@ public class WirePlacement : MonoBehaviour
                 //Checks if the last wire needs to become a corner wire
                 PlacingCornerWire(MouseManager.gridPosition);
 
-                // //Instantiate the PowerParticle
-                // gameObject.particle = Instantiate(PowerParticle, particle.transform.position, Quaternion.identity);
-                // GameObject particle = Instantiate(PowerParticle, GridManager.CalculatePos(wireX, wireZ), Quaternion.Euler(0, rotation, 0));
-                // // Set the particle's parent to the wire's transform
-                // particle.transform.SetParent(particle.transform);
-
                 //Can swap out the material based on the building when we add the materials
                 switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)])
                 {
@@ -216,30 +209,6 @@ public class WirePlacement : MonoBehaviour
                 }
                 Debug.Log(startingTile);
             }
-
-            // foreach (var adj in tile.adjacent)
-            // {
-            //     if(GridManager.Instance.scoreTiles[i].position == startingTile)
-            //     {
-            //         foreach (Vector2 tile in tilesPlaced)
-            //         {
-            //             changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
-            //         }
-            //         Debug.Log(startingTile);
-            //     }
-
-            // }
-            // foreach (var diag in tile.diagonals)
-            // {
-            //     if(GridManager.Instance.scoreTiles[i].position == startingTile)
-            //     {
-            //         foreach (Vector2 tile in tilesPlaced)
-            //         {
-            //             changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
-            //         }
-            //         Debug.Log(startingTile);
-            //     }
-            // }
         }
         
         //Add the starting spot to the start of the list of placed wires
@@ -449,7 +418,6 @@ public class WirePlacement : MonoBehaviour
     /// <param name="wireZ"> Z position of the wire </param>
     /// <param name="rotation"> Rotation of the wire </param>
     /// <param name="wireType"> Type of wire to place </param>
-    /// <param name="powerParticle"> Type of particle to place </param>
     private void PlaceWire(int position, int wireX, int wireZ, int rotation, GameObject wireType)
     {
         //Clear any wire that already exists on the tile

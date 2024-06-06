@@ -368,6 +368,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Endscreen
       objectReference: {fileID: 0}
+    - target: {fileID: 6593523641355948861, guid: db4bd991ac4a9cc46a5e148af0228b3b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2660,11 +2665,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1ec02c8568b0b48adb38555ffdde2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StraightWire: {fileID: 3674633347040057346, guid: 79afe8d7373f00948aba8410045bc09d,
+  StraightWire: {fileID: 3674633347040057346, guid: f23bb5ca814aab246837fdc759b7ca1a,
     type: 3}
-  CornerWire: {fileID: 3674633347040057346, guid: 41739a3491b9311469aa35c1e3eba98a,
+  CornerWire: {fileID: 3674633347040057346, guid: 114f0564b35bee3478396c1e4ef0c29a,
     type: 3}
-  PowerParticle: {fileID: 0}
   CompletedConnection: {fileID: 2100000, guid: 4a8ed71d6ce338c4dab4bada65f99399, type: 2}
   buildingTiles: []
 --- !u!1 &677761160
