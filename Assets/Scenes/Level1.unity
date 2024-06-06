@@ -371,6 +371,28 @@ PrefabInstance:
     - target: {fileID: 6593523641355948861, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6642713247646307303, guid: db4bd991ac4a9cc46a5e148af0228b3b,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: dcb984e00c2a3564cbbb1118bc8f9498,
+        type: 2}
+    - target: {fileID: 6642713247646307303, guid: db4bd991ac4a9cc46a5e148af0228b3b,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6642713247646307303, guid: db4bd991ac4a9cc46a5e148af0228b3b,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2207908048366514759, guid: dcb984e00c2a3564cbbb1118bc8f9498,
+        type: 2}
+    - target: {fileID: 6642713247646307303, guid: db4bd991ac4a9cc46a5e148af0228b3b,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
@@ -406,27 +428,27 @@ PrefabInstance:
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -2720.1064
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -1479.9401
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.9181885
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9181885
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.9181885
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
@@ -466,12 +488,12 @@ PrefabInstance:
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -960.05334
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -348.15118
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
         type: 3}
@@ -487,6 +509,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539789724126747566, guid: db4bd991ac4a9cc46a5e148af0228b3b,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
