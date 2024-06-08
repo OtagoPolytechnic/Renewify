@@ -199,16 +199,52 @@ public class WirePlacement : MonoBehaviour
         //     }
         // }
 
+        //I hate this code so much - Liam
+        //This code is trying to check if the building is placed on a score tile
+
+        //Loops through all score tiles
         for (int i = 0; i < GridManager.Instance.scoreTiles.Count; i++)
         {
+            //checks if the score tile is the starting tile
             if(GridManager.Instance.scoreTiles[i].position == startingTile)
             {
+                //Goes through all wires and changes their color and spawns the particle effect
+                //NOTE: these next few lines are repeated 3 times, could probably be moved to a seperate function.
                 foreach (Vector2 tile in tilesPlaced)
                 {
                     changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
                 }
-                Debug.Log(startingTile);
+                break; //if we've gotten here that means its found the starting tile, and doesn't need to check the adjacent or diagonal tiles
             }
+
+            //Loops through all adjacent tiles
+            for (int j = 0; j < GridManager.Instance.scoreTiles[i].adjacent.Count; j++)
+            {
+                //checks if the adjacent tile is the starting tile
+                if(GridManager.Instance.scoreTiles[i].adjacent[j].position == startingTile)
+                {
+                    foreach (Vector2 tile in tilesPlaced)
+                    {
+                        changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+                    }
+                    break;
+                }
+            }
+
+            //Loops through all diagonal tiles
+            for (int k = 0; k < GridManager.Instance.scoreTiles[i].diagonals.Count; k++)
+            {
+                //Checks if the diagonal tile is the starting tile
+                if(GridManager.Instance.scoreTiles[i].diagonals[k].position == startingTile)
+                {
+                    foreach (Vector2 tile in tilesPlaced)
+                    {
+                        changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+                    }
+                    break;
+                }
+            }
+
         }
         
         //Add the starting spot to the start of the list of placed wires
