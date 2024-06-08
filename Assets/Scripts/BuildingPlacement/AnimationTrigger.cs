@@ -21,18 +21,68 @@ public class AnimationTrigger : MonoBehaviour
             int y = int.Parse(parentName[7].ToString());
             //Make sure the bonus tile is for a windmill
             bool isTileBonus = false;
-            foreach (var tile in GridManager.Instance.scoreTiles)
+            Vector2 buildingPosition = new Vector2(x, y);
+            // foreach (var tile in GridManager.Instance.scoreTiles)
+            // {
+            //     if (tile.position == buildingPosition)
+            //     {
+            //         if (tile.building != TileTypes.Windmills)
+            //         {
+            //             return;
+            //         } 
+            //         isTileBonus = true;
+            //         break;  
+            //     }
+            // }
+
+            for (int i = 0; i < GridManager.Instance.scoreTiles.Count; i++)
             {
-                if (tile.position == new Vector2(x, y))
+                //checks if the score tile is a windmill
+                if(GridManager.Instance.scoreTiles[i].position == buildingPosition)
                 {
-                    if (tile.building != TileTypes.Windmills)
+                    if (GridManager.Instance.scoreTiles[i].building != TileTypes.Windmills)
                     {
+                        Debug.Log("Building not windmill");
+                        Debug.Log(GridManager.Instance.scoreTiles[i].building);
                         return;
                     } 
+                    Debug.Log("Building is windmill");
                     isTileBonus = true;
                     break;  
                 }
+
+                //Loops through all adjacent tiles
+                for (int j = 0; j < GridManager.Instance.scoreTiles[i].adjacent.Count; j++)
+                {
+                    //checks if the adjacent tile is a windmill
+                    if(GridManager.Instance.scoreTiles[i].adjacent[j].position == buildingPosition)
+                    {
+                        if (GridManager.Instance.scoreTiles[i].adjacent[j].building != TileTypes.Windmills)
+                        {
+                            return;
+                        } 
+                        isTileBonus = true;
+                        break;  
+                    }
+                }
+
+                //Loops through all diagonal tiles
+                for (int k = 0; k < GridManager.Instance.scoreTiles[i].diagonals.Count; k++)
+                {
+                    //Checks if the diagonal tile is a windmill
+                    if(GridManager.Instance.scoreTiles[i].diagonals[k].position == buildingPosition)
+                    {
+                        if (GridManager.Instance.scoreTiles[i].diagonals[k].building != TileTypes.Windmills)
+                        {
+                            return;
+                        } 
+                        isTileBonus = true;
+                        break;  
+                    }
+                }
+
             }
+
             //Check if the tile is connected to the goal
             // bool isTileConnected = GridManager.Instance.tileBonus[GridManager.GetTileIndex(new Vector2(x,y))];
             //Set the connected parameter in the animator
@@ -43,4 +93,5 @@ public class AnimationTrigger : MonoBehaviour
             Debug.LogError("Error: Could not parse the parent name of the windmill");
         }
     }
+    
 }
