@@ -117,23 +117,25 @@ public class TutorialManager : MonoBehaviour
                 );
             }
 
-            List<Vector2> rocks = new()
-        {
-            new Vector2(6,8),
-            new Vector2(6,9),
-            new Vector2(7,0),
-            new Vector2(7,1),
-            new Vector2(7,8),
-            new Vector2(7,9),
-            new Vector2(8,0),
-            new Vector2(8,1),
-            new Vector2(8,8),
-            new Vector2(8,9),
-        };
+            List<Vector2> rocks = 
+                new()
+                {
+                new Vector2(6,8),
+                new Vector2(6,9),
+                new Vector2(7,0),
+                new Vector2(7,1),
+                new Vector2(7,8),
+                new Vector2(7,9),
+                new Vector2(8,0),
+                new Vector2(8,1),
+                new Vector2(8,8),
+                new Vector2(8,9),
+                };
             foreach (Vector2 location in rocks)
             {
                 GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Rocks;
-                GameObject temp = Instantiate(rocksPrefab,
+                GameObject temp = Instantiate(
+                    rocksPrefab,
                     GridManager.CalculatePos(location.x, location.y),
                     Quaternion.identity
                 );
@@ -291,11 +293,46 @@ public class TutorialManager : MonoBehaviour
 
     public void ObstacleSection()
     {
+        List<Vector2> flowers =
+            new()
+            {
+            new Vector2(0, 2),
+            new Vector2(0, 4),
+            new Vector2(0, 5),
+            new Vector2(0, 7),
+            new Vector2(1, 2),
+            new Vector2(2, 4),
+            new Vector2(2, 8)
+            };
+            foreach (Vector2 location in flowers)
+            {
+                GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Plants;
+            }
+
+        List<Vector2> rocks = 
+            new()
+            {
+            new Vector2(6,8),
+            new Vector2(6,9),
+            new Vector2(7,0),
+            new Vector2(7,1),
+            new Vector2(7,8),
+            new Vector2(7,9),
+            new Vector2(8,0),
+            new Vector2(8,1),
+            new Vector2(8,8),
+            new Vector2(8,9),
+            };
+            foreach (Vector2 location in rocks)
+            {
+                GridManager.Instance.tileStates[GridManager.GetTileIndex(location)] = TileTypes.Rocks;
+            }
         StartCoroutine(WaitForMouseClicked("obstacles"));
         obstacles.SetActive(true);
         TutorialManager.Instance.mainTooltip.SetTitle("Obstacles");
         currentSection = TutorialSections.Obstacles;
         DisplayNarrativeText(currentSection);
+        
     }
 
     public void EndSection()
