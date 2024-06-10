@@ -8085,7 +8085,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155f1925f9f92aa4983aeb0763a4c348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreTiles: []
+  scoreTiles:
+  - building: 0
+    type: 1
+    x: 5
+    y: 5
+    adjacent: []
+    diagonals: []
+    position: {x: 0, y: 0}
   gridSize: 10
   tileSize: 10
   tileStates: 
