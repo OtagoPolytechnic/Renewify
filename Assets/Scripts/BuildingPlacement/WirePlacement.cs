@@ -206,7 +206,7 @@ public class WirePlacement : MonoBehaviour
         for (int i = 0; i < GridManager.Instance.scoreTiles.Count; i++)
         {
             //checks if the score tile is the starting tile
-            if(GridManager.Instance.scoreTiles[i].position == startingTile)
+            if(GridManager.Instance.scoreTiles[i].position == startingTile && GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)] == GridManager.Instance.scoreTiles[i].building)
             {
                 //Goes through all wires and changes their color and spawns the particle effect
                 //NOTE: these next few lines are repeated 3 times, could probably be moved to a seperate function.
@@ -221,7 +221,7 @@ public class WirePlacement : MonoBehaviour
             for (int j = 0; j < GridManager.Instance.scoreTiles[i].adjacent.Count; j++)
             {
                 //checks if the adjacent tile is the starting tile
-                if(GridManager.Instance.scoreTiles[i].adjacent[j].position == startingTile)
+                if(GridManager.Instance.scoreTiles[i].adjacent[j].position == startingTile && GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)] == GridManager.Instance.scoreTiles[i].adjacent[j].building)
                 {
                     foreach (Vector2 tile in tilesPlaced)
                     {
@@ -235,7 +235,7 @@ public class WirePlacement : MonoBehaviour
             for (int k = 0; k < GridManager.Instance.scoreTiles[i].diagonals.Count; k++)
             {
                 //Checks if the diagonal tile is the starting tile
-                if(GridManager.Instance.scoreTiles[i].diagonals[k].position == startingTile)
+                if(GridManager.Instance.scoreTiles[i].diagonals[k].position == startingTile && GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)] == GridManager.Instance.scoreTiles[i].diagonals[k].building)
                 {
                     foreach (Vector2 tile in tilesPlaced)
                     {
@@ -255,16 +255,14 @@ public class WirePlacement : MonoBehaviour
         wiresPlaced.Add(new List<Vector2>(tilesPlaced)); //Add the list of placed wires to the list of all placed wires
         buildingTiles.Remove(startingTile); //Remove the starting tile from the list of building tiles wihtout wires
         resetTileList();
-
-
-
         if (TutorialManager.Instance.tutorialActive && TutorialManager.Instance.currentSection == TutorialSections.Wiring )
         {
             Debug.Log("Tutorial Active from WirePlacement");
             if (isTileConnected(GridManager.GetTileIndex(new Vector2(0, 3))))
             {
+                TutorialManager.Instance.scoreDisplaying();
                 Debug.Log("Tutorial Active from WirePlacement and connected");
-                TutorialManager.Instance.DeletionSection();
+                StartCoroutine(TutorialManager.Instance.WaitForMouseClicked("Deletion"));
                 TutorialManager.Instance.obstacleSectionBuildingsRemaining = 1;
             }
             else

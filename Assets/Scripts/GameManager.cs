@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         int openSlots = 0;
         foreach (Vector2 tile in goalTiles)
         {
-            List<Vector2> adjTiles = new List<Vector2>()
+            List<Vector2> adjTiles = new List<Vector2>()  //List of tiles directly next to the goal tile
             {
                 new Vector2(tile.x + 1, tile.y),
                 new Vector2(tile.x - 1, tile.y),
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
             };
             foreach (Vector2 adjTile in adjTiles)
             {
-                if (!goalTiles.Contains(adjTile))
+                if (!goalTiles.Contains(adjTile)) //ignore if the tile is also a goal tile
                 {
                     openSlots++;
                 }
