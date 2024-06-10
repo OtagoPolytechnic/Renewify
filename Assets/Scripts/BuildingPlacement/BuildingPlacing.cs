@@ -173,13 +173,15 @@ public class BuildingPlacing : MonoBehaviour
             {
                 if (GridManager.GetTileIndex(MouseManager.gridPosition) == GridManager.GetTileIndex(new Vector2(0, 3)))
                 {
-
+                    
+                    TutorialManager.Instance.bonusTiles.SetActive(true);
                     placeBuilding();
+                    TutorialManager.Instance.builingDisplaying();
                     GameObject tile = GridCreator.tiles[GridManager.GetTileIndex(new Vector2(0, 3))];
                     Destroy(tile.transform.Find("GuideTile").gameObject);
                     TutorialManager.Instance.mainTooltip.SetTitle("Wiring Buildings");
-                    TutorialManager.Instance.mainTooltip.SetContent("Now that you have placed a building, you need to connect it to the power source. Click on the building and drag to the power source to connect them.");
                     TutorialManager.Instance.WiringSection();
+                    
                 }
             }
             else
@@ -209,7 +211,7 @@ public class BuildingPlacing : MonoBehaviour
                     }
                     if(TutorialManager.Instance.deleteSectionBuildings == 0)
                     {
-                        TutorialManager.Instance.mainTooltip.SetContent("Click on the delete button again to turn off delete mode.");
+                        TutorialManager.Instance.toggleDeleteOff();
                         TutorialManager.Instance.currentSection = TutorialSections.DeletionPart2;
                     }
                     if (TutorialManager.Instance.currentSection == TutorialSections.Obstacles)
