@@ -14,6 +14,8 @@ public class MouseManager : MonoBehaviour
 
     public static bool isHovering = false; 
 
+    public bool isUsingMouse = true;
+
     void Awake()
     {
         if(Instance == null)
@@ -26,7 +28,14 @@ public class MouseManager : MonoBehaviour
     {
         if(Time.timeScale == 1) //Checks if the game is unpaused. Otherwise the player can still place down buildings while the pause menu is active.
         {
-            CheckMouseHover();
+            if(isUsingMouse)
+            {
+                CheckMouseHover();
+            }else
+            {
+                isHovering = true; //ishovering checks if the mouse is on the grid. This doesn't apply to the keyboard
+                CheckKeyHover();
+            }
         }
     }
 
@@ -60,6 +69,28 @@ public class MouseManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    void CheckKeyHover()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && playerX > 0) 
+        {
+            playerX--;
+        }
+        else if (Input.GetKeyDown(KeyCode.S) && playerX < GridManager.Instance.gridSize - 1)
+        {
+            playerX++;
+        }
+        else if (Input.GetKeyDown(KeyCode.A) && playerZ > 0)
+        {
+            playerZ--;
+        }
+        else if (Input.GetKeyDown(KeyCode.D) && playerZ < GridManager.Instance.gridSize - 1) 
+        {
+            playerZ++;
+        }
+        gridPosition = new Vector2(playerX, playerZ);  
+        SetTileAtPlayerPosition();
     }
 
     void SetTileAtPlayerPosition()
