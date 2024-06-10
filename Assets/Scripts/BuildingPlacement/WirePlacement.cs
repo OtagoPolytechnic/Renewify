@@ -133,6 +133,7 @@ public class WirePlacement : MonoBehaviour
             {
                 //Checks if the last wire needs to become a corner wire
                 PlacingCornerWire(MouseManager.gridPosition);
+
                 //Can swap out the material based on the building when we add the materials
                 switch (GridManager.Instance.tileStates[GridManager.GetTileIndex(startingTile)])
                 {
@@ -188,14 +189,69 @@ public class WirePlacement : MonoBehaviour
 
     private void EndWirePlace()
     {
-        foreach (Vector2 tile in tilesPlaced)
+        //Change wire texture and power particle.
+        //NOTE: This will need to be refactored when we merge chases score system.
+        // if(GridManager.Instance.tileBonus[GridManager.GetTileIndex(startingTile)])
+        // {
+        //     foreach (Vector2 tile in tilesPlaced)
+        //     {
+        //         changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+        //     }
+        // }
+
+        //I hate this code so much - Liam
+        //This code is trying to check if the building is placed on a score tile
+
+        //Loops through all score tiles
+        for (int i = 0; i < GridManager.Instance.scoreTiles.Count; i++)
         {
-            changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+            //checks if the score tile is the starting tile
+            if(GridManager.Instance.scoreTiles[i].position == startingTile)
+            {
+                //Goes through all wires and changes their color and spawns the particle effect
+                //NOTE: these next few lines are repeated 3 times, could probably be moved to a seperate function.
+                foreach (Vector2 tile in tilesPlaced)
+                {
+                    changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+                }
+                break; //if we've gotten here that means its found the starting tile, and doesn't need to check the adjacent or diagonal tiles
+            }
+
+            //Loops through all adjacent tiles
+            for (int j = 0; j < GridManager.Instance.scoreTiles[i].adjacent.Count; j++)
+            {
+                //checks if the adjacent tile is the starting tile
+                if(GridManager.Instance.scoreTiles[i].adjacent[j].position == startingTile)
+                {
+                    foreach (Vector2 tile in tilesPlaced)
+                    {
+                        changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+                    }
+                    break;
+                }
+            }
+
+            //Loops through all diagonal tiles
+            for (int k = 0; k < GridManager.Instance.scoreTiles[i].diagonals.Count; k++)
+            {
+                //Checks if the diagonal tile is the starting tile
+                if(GridManager.Instance.scoreTiles[i].diagonals[k].position == startingTile)
+                {
+                    foreach (Vector2 tile in tilesPlaced)
+                    {
+                        changeColour(GridCreator.tiles[GridManager.GetTileIndex(tile)].transform.GetChild(0).gameObject, CompletedConnection);
+                    }
+                    break;
+                }
+            }
+
         }
+        
         //Add the starting spot to the start of the list of placed wires
         tilesPlaced.Insert(0, startingTile);
         //Add the starting tile to the list of connected buildings
         connectedBuildings.Add(startingTile);
+        GameManager.Instance.CurrentScore = GameManager.Instance.CalculateTotalScore(GridManager.Instance.tileStates);
         wiresPlaced.Add(new List<Vector2>(tilesPlaced)); //Add the list of placed wires to the list of all placed wires
         buildingTiles.Remove(startingTile); //Remove the starting tile from the list of building tiles wihtout wires
         resetTileList();
@@ -433,7 +489,21 @@ public class WirePlacement : MonoBehaviour
         //change material of the all components in the wire to the target material
         foreach (Transform child in wire.transform)
         {
-            child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
+            /*
+            try
+            {
+                child.gameObject.GetComponent<MeshRenderer>().material = targetMaterial;
+            }
+            catch (System.Exception)
+            {
+                child.gameObject.SetActive(true);
+            }*/
+
+            if(child.gameObject.activeSelf == false)
+            {
+                child.gameObject.SetActive(true);
+            }
+
         }
     }
 
@@ -454,6 +524,8 @@ public class WirePlacement : MonoBehaviour
                 {
                     RemoveWire(GridManager.GetTileIndex(tile));
                 }
+                wiresPlaced.Remove(wire);
+                return;
             }
         }
     }

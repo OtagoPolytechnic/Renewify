@@ -2190,9 +2190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1ec02c8568b0b48adb38555ffdde2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StraightWire: {fileID: 3674633347040057346, guid: 79afe8d7373f00948aba8410045bc09d,
+  StraightWire: {fileID: 3674633347040057346, guid: f23bb5ca814aab246837fdc759b7ca1a,
     type: 3}
-  CornerWire: {fileID: 3674633347040057346, guid: 41739a3491b9311469aa35c1e3eba98a,
+  CornerWire: {fileID: 3674633347040057346, guid: 114f0564b35bee3478396c1e4ef0c29a,
     type: 3}
   CompletedConnection: {fileID: 2100000, guid: 4a8ed71d6ce338c4dab4bada65f99399, type: 2}
   buildingTiles: []
@@ -4663,7 +4663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72aedd73d1b61e64788789c0143d6110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalScore: 0
+  goalSlots: 0
+  scoreText: {fileID: 1463265635}
+  winOverlay: {fileID: 0}
 --- !u!1 &1361812803
 GameObject:
   m_ObjectHideFlags: 0
@@ -7996,10 +7998,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155f1925f9f92aa4983aeb0763a4c348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreTiles: []
   gridSize: 10
   tileSize: 10
   tileStates: 
-  tileBonus: 00000001000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000
 --- !u!1 &2051673319
 GameObject:
   m_ObjectHideFlags: 0
